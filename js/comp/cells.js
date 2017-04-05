@@ -19,7 +19,7 @@ exports.init = () => {
     for (let i = 0; i < MAX_COL; i++) {
         cells[i] = [];
         for (let j = 0; j < MAX_ROW; j++) {
-            cells[i][j] = new Cell();
+            cells[i][j] = new Cell(j, i);
         }
     }
 };

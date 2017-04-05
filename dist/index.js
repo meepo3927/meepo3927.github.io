@@ -649,28 +649,19 @@ module.exports = Component.exports
 var config = __webpack_require__(9);
 var Resource = __webpack_require__(33);
 
-function Cell() {
-    var _this = this;
-
-    var type = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : Resource.randtype();
+function Cell(row, col) {
+    var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Resource.randtype();
 
     // 类型
     this.type = type;
-    if (type) {
-        this.img = new Image();
-        this.img.src = Resource.getItemSrc(type);
-        this.img.onload = function () {
-            _this.loaded = true;
-        };
-    }
 }
 var proto = Cell.prototype;
 proto.draw = function (context, x, y, w, h) {
-    if (!this.loaded) {
-        LOG(this.type + ' not loaded');
-        return false;
+    var img = Resource.imgs[this.type];
+    if (!img) {
+        LOG('[cell]draw: img null');
     }
-    context.drawImage(this.img, x, y, w, h);
+    context.drawImage(img, x, y, w, h);
 };
 
 module.exports = Cell;
@@ -5048,14 +5039,16 @@ if (typeof Array.prototype.indexOf != "function") {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_cell__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_cell___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_comp_cell__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cells__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cells___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_cells__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_global_config__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_global_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_global_config__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_resource__ = __webpack_require__(33);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_resource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_global_resource__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_comp_canvas__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_cell__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_comp_cells__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_global_config__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_global_resource__);
 //
 //
 //
@@ -5067,18 +5060,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var COL = __WEBPACK_IMPORTED_MODULE_2_global_config___default.a.MAX_COL;
-var ROW = __WEBPACK_IMPORTED_MODULE_2_global_config___default.a.MAX_ROW;
-var headHeight = 100;
-var canvasWidthRate = 6;
-var canvasHeightRate = 6;
+
+
+var COL = __WEBPACK_IMPORTED_MODULE_3_global_config___default.a.MAX_COL;
+var ROW = __WEBPACK_IMPORTED_MODULE_3_global_config___default.a.MAX_ROW;
+
 var noop = function noop() {};
 var docElem = document.documentElement;
 var methods = {};
 methods.start = function () {
     var _this = this;
 
-    __WEBPACK_IMPORTED_MODULE_3_global_resource___default.a.load(function () {
+    __WEBPACK_IMPORTED_MODULE_4_global_resource___default.a.load(function () {
         _this.draw();
     });
 };
@@ -5086,10 +5079,10 @@ methods.draw = function () {
     var _this2 = this;
 
     var cxt = this.mainContext;
-    __WEBPACK_IMPORTED_MODULE_1_comp_cells___default.a.each(function (cell, row, col) {
-        var _getCellSize = _this2.getCellSize(),
-            w = _getCellSize.w,
-            h = _getCellSize.h;
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
+        var _Canvas$getCellSize = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.getCellSize(),
+            w = _Canvas$getCellSize.w,
+            h = _Canvas$getCellSize.h;
 
         var _calCellPosition = _this2.calCellPosition(row, col, w, h),
             x = _calCellPosition.x,
@@ -5098,87 +5091,31 @@ methods.draw = function () {
         cell.draw(cxt, x, y, w, h);
     });
 };
-methods.getCellSize = function () {
-    return {
-        w: this.cellWidth,
-        h: this.cellHeight
-    };
-};
 methods.calCellPosition = function (row, col, w, h) {
     return {
         x: w * row,
         y: h * col
     };
 };
-methods.calSize = function () {
-    var docWidth = docElem.clientWidth;
-    var docHeight = docElem.clientHeight - headHeight;
-    if (docWidth * canvasHeightRate > docHeight * canvasWidthRate) {
-        var cheight = Math.max(320, docHeight);
-        var cwidth = Math.ceil(cheight * canvasWidthRate / canvasHeightRate);
-    } else {
-        cwidth = docWidth;
-        cheight = Math.ceil(cwidth * canvasHeightRate / canvasWidthRate);
-    }
 
-    return {
-        h: cheight,
-        w: cwidth
-    };
-};
-methods.renderSize = function () {
-    var _calSize = this.calSize(),
-        h = _calSize.h,
-        w = _calSize.w;
-
-    this.canvas.h = h;
-    this.canvas.w = w;
+methods.initSize = function () {
+    var _Canvas$calSize = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.calSize(),
+        h = _Canvas$calSize.h,
+        w = _Canvas$calSize.w;
 
     this.$refs.mainCanvas.height = h;
     this.$refs.mainCanvas.width = w;
 };
-methods.handleResize = function () {
-    this.renderSize();
-    this.draw();
-};
 var computed = {};
-computed.cellWidth = function () {
-    return Math.floor(this.canvasWidth / COL);
-};
-computed.cellHeight = function () {
-    return Math.floor(this.canvasHeight / ROW);
-};
-computed.canvasWidth = function () {
-    return this.canvas.w;
-};
-computed.canvasHeight = function () {
-    return this.canvas.h;
-};
-computed.canvasHolderStyle = function () {
-    return {
-        height: this.canvasHeight + 'px',
-        width: this.canvasWidth + 'px',
-        marginLeft: -(this.canvasWidth / 2) + 'px'
-    };
-};
 var mounted = function mounted() {
+    this.initSize();
     this.mainContext = this.$refs.mainCanvas.getContext('2d');
-    __WEBPACK_IMPORTED_MODULE_1_comp_cells___default.a.init();
-    this.renderSize();
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.init();
     this.start();
-    window.addEventListener('resize', this);
 };
-var destroyed = function destroyed() {
-    window.removeEventListener('resize', this);
-};
+var destroyed = function destroyed() {};
 var dataFunc = function dataFunc() {
-    var canvas = {
-        h: 0,
-        w: 0
-    };
-    var o = {
-        canvas: canvas
-    };
+    var o = {};
     return o;
 };
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -5400,8 +5337,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "canvas-holder",
-    style: (_vm.canvasHolderStyle)
+    staticClass: "canvas-holder"
   }, [_c('canvas', {
     ref: "mainCanvas"
   })])
@@ -5657,7 +5593,7 @@ exports.init = function () {
     for (var i = 0; i < MAX_COL; i++) {
         cells[i] = [];
         for (var j = 0; j < MAX_ROW; j++) {
-            cells[i][j] = new Cell();
+            cells[i][j] = new Cell(j, i);
         }
     }
 };
@@ -5669,12 +5605,14 @@ exports.init = function () {
 var config = __webpack_require__(9);
 
 var TYPES = ['icon'];
+var imgs = {};
 var randtype = function randtype() {
     return TYPES[0];
 };
 var getItemSrc = function getItemSrc(type) {
     return config.imgPath + '/items/' + type + '.png';
 };
+exports.imgs = imgs;
 exports.getItemSrc = getItemSrc;
 exports.randtype = randtype;
 exports.load = function (callback) {
@@ -5691,6 +5629,7 @@ exports.load = function (callback) {
     };
     TYPES.forEach(function (type) {
         var img = new Image();
+        imgs[type] = img;
         img.src = getItemSrc(type);
         img.onload = function () {
             count++;
@@ -6198,6 +6137,43 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     return exports;
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var config = __webpack_require__(9);
+var COL = config.MAX_COL;
+var ROW = config.MAX_ROW;
+var canvasWidthRate = 6;
+var canvasHeightRate = 6;
+var headHeight = 100;
+var docElem = document.documentElement;
+
+exports.calSize = function () {
+    var docWidth = docElem.clientWidth;
+    var docHeight = docElem.clientHeight - headHeight;
+    if (docWidth * canvasHeightRate > docHeight * canvasWidthRate) {
+        var cheight = Math.max(320, docHeight);
+        var cwidth = Math.ceil(cheight * canvasWidthRate / canvasHeightRate);
+    } else {
+        cwidth = docWidth;
+        cheight = Math.ceil(cwidth * canvasHeightRate / canvasWidthRate);
+    }
+
+    return {
+        h: cheight,
+        w: cwidth
+    };
+};
+exports.getCellSize = function () {
+    var w = Math.floor(exports.w / COL);
+    var h = Math.floor(exports.h / ROW);
+    return { w: w, h: h };
+};
+var size = exports.calSize();
+exports.w = size.w;
+exports.h = size.h;
 
 /***/ })
 ],[31]);
