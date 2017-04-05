@@ -12,13 +12,8 @@
 </head>
 <body>
 <div class="page-index" id="main" v-cloak :class="className">
-    <div class="stage-1">
-        stage-1
-        <input type="text" v-model="name">
-        <span>{{name}}</span>
-    </div>
-    <div class="stage-2">
-    </div>
+    <div is="stage-1" v-if="stage === 1" @start="start"></div>
+    <div is="stage-2" v-if="stage === 2" ></div>
 </div><!-- page-index -->
 </body>
 </html>

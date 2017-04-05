@@ -1,7 +1,11 @@
 import {Vue} from 'common';
 import detect from 'util/detect';
 let methods = {};
-methods.alert = function () {
+methods.init = function () {
+    this.stage = 2;
+};
+methods.start = function () {
+    this.stage = 2;
 };
 let computed = {};
 computed.className = function () {
@@ -10,6 +14,7 @@ computed.className = function () {
     return [os];
 };
 let mounted = function () {
+    this.$nextTick(this.init);
 };
 window.Index = new Vue({
     el: '#main',
@@ -17,7 +22,11 @@ window.Index = new Vue({
     computed,
     methods,
     data: {
-        name: 'index-123',
-        env: detect()
+        env: detect(),
+        stage: 0
+    },
+    components: {
+        'stage-1': require('global/stage-1.vue'),
+        'stage-2': require('global/stage-2.vue')
     }
 });
