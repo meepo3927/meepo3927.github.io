@@ -1,39 +1,52 @@
 <template>
 <div class="canvas-holder" :style="canvasHolderStyle">
-    <canvas ref="cvs"></canvas>
+    <canvas ref="mainCanvas"></canvas>
 </div>
 </template>
 
 <script>
+import Cell from 'comp/cell';
+import Cells from 'comp/cells';
+import config from 'global/config';
+import Resource from 'global/resource';
+const COL = config.MAX_COL;
+const ROW = config.MAX_ROW;
 const headHeight = 100;
-const canvasWidthRate = 4;
-const canvasHeightRate = 4;
-const imgPath = './images';
+const canvasWidthRate = 6;
+const canvasHeightRate = 6;
 const noop = function () {};
 var docElem = document.documentElement;
 var methods = {};
-let loadImg = (url, callback = noop) => {
-    var img = new Image();
-    img.src = imgPath + '/' + url;
-    if (img.complete) {
-        return setTimeout(() => {
-            callback(img);
-        }, 1);
-    }
-    img.onload = () => {
-        callback(img);
-    };
+methods.start = function () {
+    Resource.load(() => {
+        this.draw();
+    });
 };
 methods.draw = function () {
-    loadImg('1.png', (img) => {
-        this.context.drawImage(img, 10, 10);
+    var cxt = this.mainContext;
+    Cells.each((cell, row, col) => {
+        let {w, h} = this.getCellSize();
+        let {x, y} = this.calCellPosition(row, col, w, h);
+        cell.draw(cxt, x, y, w, h);
     });
+};
+methods.getCellSize = function () {
+    return {
+        w: this.cellWidth,
+        h: this.cellHeight
+    };
+};
+methods.calCellPosition = function (row, col, w, h) {
+    return {
+        x: w * row,
+        y: h * col
+    };
 };
 methods.calSize = function () {
     var docWidth = docElem.clientWidth;
     var docHeight = docElem.clientHeight - headHeight;
     if (docWidth * canvasHeightRate > docHeight * canvasWidthRate) {
-        var cheight = docHeight;
+        var cheight = Math.max(320, docHeight);
         var cwidth = Math.ceil(cheight * canvasWidthRate / canvasHeightRate);
     } else {
         cwidth = docWidth;
@@ -50,14 +63,20 @@ methods.renderSize = function () {
     this.canvas.h = h;
     this.canvas.w = w;
 
-    this.$refs.cvs.height = h;
-    this.$refs.cvs.width = w;
+    this.$refs.mainCanvas.height = h;
+    this.$refs.mainCanvas.width = w;
 };
 methods.handleResize = function () {
     this.renderSize();
     this.draw();
 };
 var computed = {};
+computed.cellWidth = function () {
+    return Math.floor(this.canvasWidth / COL);
+};
+computed.cellHeight = function () {
+    return Math.floor(this.canvasHeight / ROW);
+};
 computed.canvasWidth = function () {
     return this.canvas.w;
 };
@@ -72,11 +91,10 @@ computed.canvasHolderStyle = function () {
     };
 };
 var mounted = function () {
-    this.context = this.$refs.cvs.getContext('2d');
+    this.mainContext = this.$refs.mainCanvas.getContext('2d');
+    Cells.init();
     this.renderSize();
-    setTimeout(() => {
-        this.draw();
-    }, 400);
+    this.start();
     window.addEventListener('resize', this);
 };
 let destroyed = function () {
@@ -104,7 +122,4 @@ export default {
 </script>
 
 <style scoped lang="less">
-.comp-xxx {
-    
-}
 </style>

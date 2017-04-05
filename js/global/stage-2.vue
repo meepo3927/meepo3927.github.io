@@ -6,6 +6,20 @@
 </template>
 
 <script>
+window.li = function (url) {
+    var img = new Image();
+    var t1 = Date.now();
+    img.onload = function () {
+        LOG('onload', Date.now() - t1);
+    };
+    img.onerror = function () {
+        LOG('onerror', Date.now() - t1);
+    };
+    img.onabort = function () {
+        LOG('onabort');
+    };
+    img.src = url;
+};
 var docElem = document.documentElement;
 var methods = {};
 var computed = {};

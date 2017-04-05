@@ -85,7 +85,7 @@ var func = function (env) {
 		Promise$: 'lib/promise.js',
 		mlayer$: 'lib/mlayer.js',
 		// 通用
-		polyfill$: JS_DIR + '/common/polyfill',
+		polyfill$: JS_DIR + '/global/polyfill',
 		common$: JS_DIR + '/common.js'
 	};
 
