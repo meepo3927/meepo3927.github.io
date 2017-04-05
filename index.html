@@ -6,9 +6,12 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
     <link rel="stylesheet" href="css/less.min.css?">
+    <!--[if lte IE 8]>
+    <script src="js/common/ie8overlay.js"></script>
+    <![endif]-->
 </head>
 <body>
-<div class="page-index" id="main">
+<div class="page-index" id="main" v-cloak>
     <div class="stage-1">
         stage-1
         <input type="text" v-model="name">

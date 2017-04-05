@@ -4425,9 +4425,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var methods = {};
 methods.alert = function () {};
-
+var mounted = function mounted() {};
 window.Index = new __WEBPACK_IMPORTED_MODULE_0_common__["a" /* Vue */]({
     el: '#main',
+    mounted: mounted,
     methods: methods,
     data: {
         name: 'index-123'
