@@ -5,16 +5,18 @@ webpackJsonp([0,1],[
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_polyfill__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_jquery__);
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_1_vue___default.a; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue__);
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2_vue___default.a; });
 /* unused harmony reexport $ */
-
 
 // 基础库
 
+
+// Vue扩展
+__WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__webpack_require__(23));
 
 window.LOG = function () {
     if (window.console && window.console.log) {
@@ -5118,13 +5120,81 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
+var docElem = document.documentElement;
+var headHeight = 100;
+var bottomGap = 10;
+var canvasWidthRate = 4;
+var canvasHeightRate = 6;
 var methods = {};
+methods.draw = function () {
+	var context = this.$refs.cvs.getContext('2d');
+	var img = new Image();
+	img.src = './images/1.png';
+	context.drawImage(img, 10, 10);
+};
+methods.calCanvasSize = function () {
+	var docWidth = docElem.clientWidth;
+	var docHeight = docElem.clientHeight - headHeight - bottomGap;
+	if (docWidth * canvasHeightRate > docHeight * canvasWidthRate) {
+		var cheight = docHeight;
+		var cwidth = Math.ceil(cheight * canvasWidthRate / canvasHeightRate);
+	} else {
+		cwidth = docWidth;
+		cheight = Math.ceil(cwidth * canvasHeightRate / canvasWidthRate);
+	}
+
+	return {
+		h: cheight,
+		w: cwidth
+	};
+};
+methods.renderCanvasSize = function () {
+	var _calCanvasSize = this.calCanvasSize(),
+	    h = _calCanvasSize.h,
+	    w = _calCanvasSize.w;
+
+	this.canvas.h = h;
+	this.canvas.w = w;
+	this.$refs.cvs.height = h;
+	this.$refs.cvs.width = w;
+};
+methods.handleResize = function () {
+	this.renderCanvasSize();
+	this.draw();
+};
 var computed = {};
-var mounted = function mounted() {};
-var destroyed = function destroyed() {};
+computed.canvasWidth = function () {
+	return this.canvas.w;
+};
+computed.canvasHeight = function () {
+	return this.canvas.h;
+};
+computed.canvasHolderStyle = function () {
+	return {
+		height: this.canvasHeight + 'px',
+		width: this.canvasWidth + 'px',
+		marginLeft: -(this.canvasWidth / 2) + 'px'
+	};
+};
+var mounted = function mounted() {
+	this.renderCanvasSize();
+	this.draw();
+	window.addEventListener('resize', this);
+};
+var destroyed = function destroyed() {
+	window.removeEventListener('resize', this);
+};
 var dataFunc = function dataFunc() {
-	var o = {};
+	var canvas = {
+		h: 0,
+		w: 0
+	};
+	var o = {
+		canvas: canvas
+	};
 	return o;
 };
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -5172,7 +5242,13 @@ exports.push([module.i, "", ""]);
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "stage-2"
-  }, [_vm._v("\r\n\tstage-2\r\n")])
+  }, [_c('div', {
+    ref: "canvasHolder",
+    staticClass: "canvas-holder",
+    style: (_vm.canvasHolderStyle)
+  }, [_c('canvas', {
+    ref: "cvs"
+  })])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -5290,6 +5366,27 @@ module.exports = function listToStyles (parentId, list) {
   return styles
 }
 
+
+/***/ }),
+/* 23 */
+/***/ (function(module, exports) {
+
+var Plugin = {};
+Plugin.install = function (Vue, options) {
+    var methods = {};
+    methods.handleEvent = function (e) {
+        var type = e.type.charAt(0).toUpperCase() + e.type.substr(1);
+        var methodsName = 'handle' + type;
+        if (typeof this[methodsName] === 'function') {
+            return this[methodsName](e);
+        }
+    };
+    Vue.mixin({
+        methods: methods
+    });
+};
+
+module.exports = Plugin;
 
 /***/ })
 ],[7]);

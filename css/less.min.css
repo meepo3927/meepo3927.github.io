@@ -3404,11 +3404,31 @@ textarea.input-text {
 html {
   background-color: #000;
 }
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
 .page-index {
   margin-left: auto;
   margin-right: auto;
   color: #fff;
+  height: 100%;
 }
 .page-index.os-pc {
   max-width: 640px;
+}
+.page-index > .stage-2 {
+  height: 100%;
+  position: relative;
+}
+.page-index > .stage-2 .canvas-holder {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  left: 50%;
+  bottom: 10px;
+}
+.page-index > .stage-2 canvas {
+  background-color: #fff;
 }

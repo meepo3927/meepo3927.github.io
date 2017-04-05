@@ -2,6 +2,7 @@
 	margin-left: auto;
 	margin-right: auto;
 	color: #fff;
+	height: 100%;
 	&.os-pc {
 		max-width: 640px;
 	}
@@ -9,4 +10,19 @@
 // 第一幕
 .page-index > .stage-1 {
 
+}
+// 第二幕
+.page-index > .stage-2 {
+	height: 100%;
+	position: relative;
+	.canvas-holder {
+		position: absolute;
+		width: 100%;
+		height: 0;
+		left: 50%;
+		bottom: 10px;
+	}
+	canvas {
+		background-color: #fff;
+	}
 }
