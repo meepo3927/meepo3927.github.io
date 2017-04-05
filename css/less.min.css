@@ -3401,3 +3401,12 @@ textarea.input-text {
 [v-cloak] {
   display: none;
 }
+html {
+  background-color: #000;
+}
+.page-index {
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #fff;
+}
