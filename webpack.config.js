@@ -63,12 +63,11 @@ var func = function (env) {
 			// echarts: 'echarts',
 			Vue: 'vue'
 		}),
-		new CleanWebpackPlugin(['dist', 'build'], {
+		new CleanWebpackPlugin(['dist'], {
 			root: __dirname,
 			verbose: true
 		}),
 		new Webpack2Polyfill()
-		// new webpack.HotModuleReplacementPlugin()
 	];
 
 	var alias = {

@@ -4,7 +4,7 @@
   "description": "Dungeon raid",
   "main": "gulpfile.js",
   "scripts": {
-    "dev": "webpack --env=dev --color",
+    "start": "webpack --env=dev --color",
     "build": "webpack --env=product --progress --color",
     "push": "git add . && git cm 'push' && git push"
   },
