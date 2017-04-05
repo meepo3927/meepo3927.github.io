@@ -84,7 +84,6 @@ var func = function (env) {
 		// 工具,插件
 		Promise$: 'lib/promise.js',
 		mlayer$: 'lib/mlayer.js',
-		autoComplete$: 'extend/jquery.autocomplete.js',
 		// 通用
 		polyfill$: JS_DIR + '/common/polyfill',
 		common$: JS_DIR + '/common.js'
