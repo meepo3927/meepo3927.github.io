@@ -1,0 +1,13 @@
+.loading-1 {
+    @size: 32px;
+    width: @size;
+    height: @size;
+    background: url("@{imgPath}loading.gif") no-repeat center center;
+    &.fixed {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        margin-left: -(@size / 2);
+        margin-top: -(@size / 2);
+    }
+}

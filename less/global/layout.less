@@ -1,0 +1,40 @@
+/**
+ * 横向布局
+ * <div class="m-row">
+ *     <div class="m-col" ></div>
+ *     <div class="m-col" ></div>
+ * </div>
+ */
+.m-row {
+    display: table;
+    width: 100%;
+    &.w-auto {
+        width: auto;
+    }
+    &.col-mid > .m-col {
+        vertical-align: middle;
+    }
+    /**
+     * col
+     */
+    .col() {
+        display: table-cell;
+        vertical-align: top;
+    }
+    & > .m-col {
+        .col();
+    }
+    & > .m-col.v-mid {
+        vertical-align: middle;
+    }
+}
+
+.m-flex {
+    display: flex;
+    &.m-col {
+        flex-direction: column;
+    }
+    & > .flex-1 {
+        flex: 1;
+    }
+}

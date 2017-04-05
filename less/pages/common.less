@@ -1,0 +1,11 @@
+.page-layout-1 {
+    @leftWidth: 180px;
+    & > .x-left {
+        position: absolute;
+        height: 100%;
+        width: @leftWidth;
+    }
+    & > .x-right {
+        margin-left: @leftWidth;
+    }
+}

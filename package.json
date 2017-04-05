@@ -1,0 +1,44 @@
+{
+  "name": "boot3",
+  "version": "1.0.0",
+  "description": "boot3",
+  "main": "gulpfile.js",
+  "scripts": {
+    "dev": "webpack --env=dev --color",
+    "build": "webpack --env=product --progress --color",
+    "push": "git add . && git cm 'a' && git push"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meepo3927/boot3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/meepo3927/boot3/issues"
+  },
+  "homepage": "https://github.com/meepo3927/boot3#readme",
+  "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.4.0",
+    "babel-preset-es2015": "^6.22.0",
+    "browser-sync": "^2.18.8",
+    "clean-webpack-plugin": "^0.1.16",
+    "es3ify-loader": "^0.2.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-connect": "^5.0.0",
+    "gulp-less": "^3.3.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-util": "^3.0.8",
+    "less-loader": "^2.2.3",
+    "postcss-loader": "^1.3.3",
+    "vue-loader": "^11.1.4",
+    "vue-template-compiler": "^2.2.1",
+    "webpack": "^2.2.1",
+    "webpack2-polyfill-plugin": "0.0.2"
+  }
+}
