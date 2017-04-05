@@ -60,7 +60,6 @@ var func = function (env) {
 			$: 'jquery',
 			jQuery: 'jquery',
 			'window.jQuery': 'jquery',
-			// echarts: 'echarts',
 			Vue: 'vue'
 		}),
 		new CleanWebpackPlugin(['dist'], {
@@ -86,7 +85,6 @@ var func = function (env) {
 		Promise$: 'lib/promise.js',
 		mlayer$: 'lib/mlayer.js',
 		autoComplete$: 'extend/jquery.autocomplete.js',
-		echarts$: 'lib/echarts.min.js',
 		// 通用
 		polyfill$: JS_DIR + '/common/polyfill',
 		common$: JS_DIR + '/common.js'

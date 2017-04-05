@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Dr</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
-    <meta name="renderer" content="webkit" />
     <link rel="stylesheet" href="css/less.min.css?">
 </head>
-<body class="page-index">
-
+<body>
+<div class="page-index" id="main">
+    <div class="stage-1">
+        stage-1
+        <input type="text" v-model="name">
+        <span>{{name}}</span>
+    </div>
+    <div class="stage-2">
+    </div>
+</div><!-- page-index -->
 </body>
 </html>
-<script src="js/main.js"></script>
+<script src="dist/commons.js?"></script>
+<script src="dist/index.js?"></script>
