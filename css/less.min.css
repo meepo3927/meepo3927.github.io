@@ -3405,8 +3405,10 @@ html {
   background-color: #000;
 }
 .page-index {
-  max-width: 640px;
   margin-left: auto;
   margin-right: auto;
   color: #fff;
+}
+.page-index.os-pc {
+  max-width: 640px;
 }
