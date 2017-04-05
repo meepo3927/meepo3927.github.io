@@ -26,16 +26,19 @@ methods.draw = function () {
     var cxt = this.mainContext;
     Cells.each((cell, row, col) => {
         let {w, h} = Canvas.getCellSize();
-        let {x, y} = this.calCellPosition(row, col, w, h);
+        let {x, y} = Canvas.calCellPosition(row, col, w, h);
         cell.draw(cxt, x, y, w, h);
+        /*
+        cxt.font = "20px Georgia";
+        cxt.fillStyle = "#0000ff";
+        cxt.fillText(`${row}:${col}`, x, y);
+        */
+    });
+    window.requestAnimationFrame(() => {
+        this.draw();
     });
 };
-methods.calCellPosition = function (row, col, w, h) {
-    return {
-        x: w * row,
-        y: h * col
-    };
-};
+
 
 methods.initSize = function () {
     var {h,w} = Canvas.calSize();

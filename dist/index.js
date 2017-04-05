@@ -648,12 +648,13 @@ module.exports = Component.exports
 
 var config = __webpack_require__(9);
 var Resource = __webpack_require__(33);
-
+var Canvas = __webpack_require__(35);
 function Cell(row, col) {
     var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Resource.randtype();
 
     // 类型
     this.type = type;
+    this.yOffset = Canvas.getCellOffset(row);
 }
 var proto = Cell.prototype;
 proto.draw = function (context, x, y, w, h) {
@@ -661,7 +662,15 @@ proto.draw = function (context, x, y, w, h) {
     if (!img) {
         LOG('[cell]draw: img null');
     }
+    y += this.yOffset;
+    this.calOffset();
     context.drawImage(img, x, y, w, h);
+};
+proto.calOffset = function () {
+    this.yOffset += 6;
+    if (this.yOffset >= 0) {
+        this.yOffset = 0;
+    }
 };
 
 module.exports = Cell;
@@ -5084,18 +5093,20 @@ methods.draw = function () {
             w = _Canvas$getCellSize.w,
             h = _Canvas$getCellSize.h;
 
-        var _calCellPosition = _this2.calCellPosition(row, col, w, h),
-            x = _calCellPosition.x,
-            y = _calCellPosition.y;
+        var _Canvas$calCellPositi = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.calCellPosition(row, col, w, h),
+            x = _Canvas$calCellPositi.x,
+            y = _Canvas$calCellPositi.y;
 
         cell.draw(cxt, x, y, w, h);
+        /*
+        cxt.font = "20px Georgia";
+        cxt.fillStyle = "#0000ff";
+        cxt.fillText(`${row}:${col}`, x, y);
+        */
     });
-};
-methods.calCellPosition = function (row, col, w, h) {
-    return {
-        x: w * row,
-        y: h * col
-    };
+    window.requestAnimationFrame(function () {
+        _this2.draw();
+    });
 };
 
 methods.initSize = function () {
@@ -6167,13 +6178,24 @@ exports.calSize = function () {
     };
 };
 exports.getCellSize = function () {
-    var w = Math.floor(exports.w / COL);
-    var h = Math.floor(exports.h / ROW);
+    var w = exports.cellWidth;
+    var h = exports.cellHeight;
     return { w: w, h: h };
+};
+exports.getCellOffset = function (row) {
+    return -exports.h;
+};
+exports.calCellPosition = function (row, col) {
+    return {
+        x: exports.cellWidth * col,
+        y: exports.cellHeight * (ROW - row - 1)
+    };
 };
 var size = exports.calSize();
 exports.w = size.w;
 exports.h = size.h;
+exports.cellWidth = Math.floor(exports.w / COL);
+exports.cellHeight = Math.floor(exports.h / ROW);
 
 /***/ })
 ],[31]);
