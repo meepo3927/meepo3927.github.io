@@ -13,6 +13,7 @@
 }
 // 第二幕
 .page-index > .stage-2 {
+	@head-height: 100px;
 	height: 100%;
 	position: relative;
 	.canvas-holder {
@@ -20,7 +21,7 @@
 		width: 100%;
 		height: 0;
 		left: 50%;
-		bottom: 10px;
+		top: @head-height;
 	}
 	canvas {
 		background-color: #fff;
