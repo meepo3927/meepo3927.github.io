@@ -27,15 +27,7 @@ exports.getCellSize = function () {
     var h = exports.cellHeight;
     return {w, h};
 };
-exports.getCellOffset = function (row) {
-    return -exports.h;
-};
-exports.calCellPosition = function (row, col) {
-    return {
-        x: exports.cellWidth * col,
-        y: exports.cellHeight * (ROW - row - 1)
-    };
-};
+
 var size = exports.calSize();
 exports.w = size.w;
 exports.h = size.h;

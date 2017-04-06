@@ -1,4 +1,5 @@
 var config = require('global/config');
+var canvasComp = require('comp/canvas.js');
 var canvasUtil = require('util/canvas.js');
 let TYPES = [
     'icon'
@@ -32,7 +33,11 @@ exports.load = function (callback) {
         img.src = getItemSrc(type);
         img.onload = () => {
             count++;
-            imageCanvasHolder[type] = canvasUtil.getImageCanvas(img, 100, 100);
+            imageCanvasHolder[type] = canvasUtil.getImageCanvas(
+                img,
+                canvasComp.cellWidth,
+                canvasComp.cellHeight
+            );
             if (count === TYPES.length) {
                 done();
             }

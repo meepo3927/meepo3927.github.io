@@ -36,10 +36,9 @@ methods.draw = function () {
     var cxt = this.mainContext;
     cxt.clearRect(0, 0, Canvas.w, Canvas.h);
     var continueDraw = false;
+    LOG('draw-1');
     Cells.each((cell, row, col) => {
-        let {w, h} = Canvas.getCellSize();
-        let {x, y} = Canvas.calCellPosition(row, col, w, h);
-        if (cell.draw(cxt, x, y, w, h)) {
+        if (cell.draw(cxt)) {
             continueDraw = true;
         }
         /*

@@ -391,15 +391,7 @@ exports.getCellSize = function () {
     var h = exports.cellHeight;
     return { w: w, h: h };
 };
-exports.getCellOffset = function (row) {
-    return -exports.h;
-};
-exports.calCellPosition = function (row, col) {
-    return {
-        x: exports.cellWidth * col,
-        y: exports.cellHeight * (ROW - row - 1)
-    };
-};
+
 var size = exports.calSize();
 exports.w = size.w;
 exports.h = size.h;
@@ -413,40 +405,65 @@ exports.cellHeight = Math.floor(exports.h / ROW);
 var config = __webpack_require__(0);
 var Resource = __webpack_require__(6);
 var Canvas = __webpack_require__(4);
+var Tween = __webpack_require__(36);
+var ROW = config.MAX_ROW;
+var CellHeight = Canvas.cellHeight;
+var CellWidth = Canvas.cellWidth;
 function Cell(row, col) {
     var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Resource.randtype();
 
+    this.row = row;
+    this.col = col;
     // 类型
     this.type = type;
+
+    // 延迟绘画
     this.delay = row * 3;
-    this.yOffset = Canvas.getCellOffset(row);
+
+    // 目标坐标
+    this.destX = CellWidth * col;
+    this.destY = CellHeight * (ROW - row - 1);
+
+    // 起始坐标
+    this.startY = this.destY - Canvas.h;
+    // 当前坐标(绘画)
+    this.x = this.destX;
+    this.y = this.startY;
+
+    this.distance = this.destY - this.startY;
+    this.step = 0;
 }
 var proto = Cell.prototype;
-proto.draw = function (context, x, y, w, h) {
+proto.isStopped = function () {
+    return this.y === this.destY;
+};
+proto.frameStep = function () {
+    var frameCount = (this.distance / 16 | 0) + 1;
+    var y = Math.tween.Cubic.easeIn(this.step, this.startY, this.distance, frameCount);
+    this.step++;
+    this.y = y;
+    if (this.y >= this.destY || this.step >= frameCount) {
+        this.y = this.destY;
+    }
+};
+proto.draw = function (context) {
     if (this.delay >= 0) {
         this.delay--;
         return true;
     }
-
+    // if nothing changed, return false
+    var stoped = this.isStopped();
+    // draw it
     var imageCanvas = Resource.imageCanvasHolder[this.type];
     if (!imageCanvas) {
         LOG('[cell]draw: imageCanvas null');
     } else {
-        y += this.yOffset;
-        context.drawImage(imageCanvas, x, y, w, h);
+        context.drawImage(imageCanvas, this.x, this.y, CellWidth, CellHeight);
     }
+    // step every frame
+    this.frameStep();
 
-    this.calOffset();
-    if (this.yOffset === 0) {
-        return false;
-    }
-    return true;
-};
-proto.calOffset = function () {
-    this.yOffset += 6;
-    if (this.yOffset >= 0) {
-        this.yOffset = 0;
-    }
+    return !stoped;
 };
 
 module.exports = Cell;
@@ -456,6 +473,7 @@ module.exports = Cell;
 /***/ (function(module, exports, __webpack_require__) {
 
 var config = __webpack_require__(0);
+var canvasComp = __webpack_require__(4);
 var canvasUtil = __webpack_require__(35);
 var TYPES = ['icon'];
 
@@ -487,7 +505,7 @@ exports.load = function (callback) {
         img.src = getItemSrc(type);
         img.onload = function () {
             count++;
-            imageCanvasHolder[type] = canvasUtil.getImageCanvas(img, 100, 100);
+            imageCanvasHolder[type] = canvasUtil.getImageCanvas(img, canvasComp.cellWidth, canvasComp.cellHeight);
             if (count === TYPES.length) {
                 done();
             }
@@ -3027,11 +3045,12 @@ exports.each = function (f) {
     }
     for (var i = 0; i < MAX_COL; i++) {
         for (var j = 0; j < MAX_ROW; j++) {
-            f(cells[i][j], j, i);
+            cells[i] && f(cells[i][j], j, i);
         }
     }
 };
 exports.init = function () {
+
     for (var i = 0; i < MAX_COL; i++) {
         cells[i] = [];
         for (var j = 0; j < MAX_ROW; j++) {
@@ -5732,16 +5751,9 @@ methods.draw = function () {
     var cxt = this.mainContext;
     cxt.clearRect(0, 0, __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.w, __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.h);
     var continueDraw = false;
+    LOG('draw-1');
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
-        var _Canvas$getCellSize = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.getCellSize(),
-            w = _Canvas$getCellSize.w,
-            h = _Canvas$getCellSize.h;
-
-        var _Canvas$calCellPositi = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.calCellPosition(row, col, w, h),
-            x = _Canvas$calCellPositi.x,
-            y = _Canvas$calCellPositi.y;
-
-        if (cell.draw(cxt, x, y, w, h)) {
+        if (cell.draw(cxt)) {
             continueDraw = true;
         }
         /*
@@ -6244,6 +6256,190 @@ exports.getImageCanvas = function (img, w, h) {
 
     return canvas;
 };
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+/*
+ * Tween.js
+ * t: current time（当前时间）；
+ * b: beginning value（初始值）；
+ * c: change in value（变化量）；
+ * d: duration（持续时间）。
+ * you can visit 'http://easings.net/zh-cn' to get effect
+*/
+var Tween = {
+    Linear: function Linear(t, b, c, d) {
+        return c * t / d + b;
+    },
+    Quad: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c * (t /= d) * t + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return -c * (t /= d) * (t - 2) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+            return -c / 2 * (--t * (t - 2) - 1) + b;
+        }
+    },
+    Cubic: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c * (t /= d) * t * t + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return c * ((t = t / d - 1) * t * t + 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t + 2) + b;
+        }
+    },
+    Quart: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c * (t /= d) * t * t * t + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
+            return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+        }
+    },
+    Quint: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c * (t /= d) * t * t * t * t + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+        }
+    },
+    Sine: {
+        easeIn: function easeIn(t, b, c, d) {
+            return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return c * Math.sin(t / d * (Math.PI / 2)) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+        }
+    },
+    Expo: {
+        easeIn: function easeIn(t, b, c, d) {
+            return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if (t == 0) return b;
+            if (t == d) return b + c;
+            if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+            return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+        }
+    },
+    Circ: {
+        easeIn: function easeIn(t, b, c, d) {
+            return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+        }
+    },
+    Elastic: {
+        easeIn: function easeIn(t, b, c, d, a, p) {
+            var s;
+            if (t == 0) return b;
+            if ((t /= d) == 1) return b + c;
+            if (typeof p == "undefined") p = d * .3;
+            if (!a || a < Math.abs(c)) {
+                s = p / 4;
+                a = c;
+            } else {
+                s = p / (2 * Math.PI) * Math.asin(c / a);
+            }
+            return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+        },
+        easeOut: function easeOut(t, b, c, d, a, p) {
+            var s;
+            if (t == 0) return b;
+            if ((t /= d) == 1) return b + c;
+            if (typeof p == "undefined") p = d * .3;
+            if (!a || a < Math.abs(c)) {
+                a = c;
+                s = p / 4;
+            } else {
+                s = p / (2 * Math.PI) * Math.asin(c / a);
+            }
+            return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d, a, p) {
+            var s;
+            if (t == 0) return b;
+            if ((t /= d / 2) == 2) return b + c;
+            if (typeof p == "undefined") p = d * (.3 * 1.5);
+            if (!a || a < Math.abs(c)) {
+                a = c;
+                s = p / 4;
+            } else {
+                s = p / (2 * Math.PI) * Math.asin(c / a);
+            }
+            if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+            return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
+        }
+    },
+    Back: {
+        easeIn: function easeIn(t, b, c, d, s) {
+            if (typeof s == "undefined") s = 1.70158;
+            return c * (t /= d) * t * ((s + 1) * t - s) + b;
+        },
+        easeOut: function easeOut(t, b, c, d, s) {
+            if (typeof s == "undefined") s = 1.70158;
+            return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d, s) {
+            if (typeof s == "undefined") s = 1.70158;
+            if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+            return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+        }
+    },
+    Bounce: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c - Tween.Bounce.easeOut(d - t, 0, c, d) + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            if ((t /= d) < 1 / 2.75) {
+                return c * (7.5625 * t * t) + b;
+            } else if (t < 2 / 2.75) {
+                return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+            } else if (t < 2.5 / 2.75) {
+                return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+            } else {
+                return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+            }
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if (t < d / 2) {
+                return Tween.Bounce.easeIn(t * 2, 0, c, d) * .5 + b;
+            } else {
+                return Tween.Bounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+            }
+        }
+    }
+};
+Math.tween = Tween;
 
 /***/ })
 ],[34]);
