@@ -61,7 +61,7 @@ proto.draw = function (context) {
 };
 
 proto.drawCover = function (context) {
-    LOG(this.x + ':' + this.y);
+    
     context.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
 
