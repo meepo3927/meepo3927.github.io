@@ -1,6 +1,7 @@
 <template>
 <div class="canvas-holder" >
     <canvas ref="mainCanvas" ></canvas>
+    <canvas ref="lineCanvas" class="line-canvas"></canvas>
 </div>
 </template>
 
@@ -17,7 +18,48 @@ const ROW = config.MAX_ROW;
 const noop = function () {};
 var docElem = document.documentElement;
 var methods = {};
-methods.start = function () {
+methods.bind = function () {
+    this.$refs.mainCanvas.addEventListener('mousedown', this, true);
+    docElem.addEventListener('mousemove', this, true);
+    this.$refs.mainCanvas.addEventListener('mouseup', this, true);
+};
+methods.handleMousedown = function (e) {
+    this.touchStart(e);
+};
+methods.handleMousemove = function (e) {
+    this.touchMove(e);
+};
+methods.handleMouseup = function (e) {
+    this.touchEnd();
+};
+
+// 交互开始(按下)
+methods.touchStart = function (e) {
+    if (this.isTouching) {
+        return false;
+    }
+    this.isTouching = true;
+};
+methods.touchMove = function (e) {
+    if (!this.isTouching) {
+        return false;
+    }
+    if (e.target.tagName.toLowerCase() !== 'canvas') {
+        return this.touchEnd();
+    }
+    var x = e.clientX;
+    var y = e.clientY;
+    
+};
+methods.touchEnd = function () {
+    if (!this.isTouching) {
+        return false;
+    }
+    this.isTouching = false;
+};
+
+// 开始绘画
+methods.startDraw = function () {
     Resource.load(() => {
         this.clearTimer();
         this.draw();
@@ -36,16 +78,10 @@ methods.draw = function () {
     var cxt = this.mainContext;
     cxt.clearRect(0, 0, Canvas.w, Canvas.h);
     var continueDraw = false;
-    LOG('draw-1');
     Cells.each((cell, row, col) => {
         if (cell.draw(cxt)) {
             continueDraw = true;
         }
-        /*
-        cxt.font = "20px Georgia";
-        cxt.fillStyle = "#0000ff";
-        cxt.fillText(`${row}:${col}`, x, y);
-        */
     });
     if (continueDraw) {
         this.drawTimer = window.requestAnimationFrame(() => {
@@ -56,17 +92,20 @@ methods.draw = function () {
     return false;
 };
 
-methods.initSize = function () {
+methods.initSize = function (elem) {
     var {h,w} = Canvas.calSize();
-    this.$refs.mainCanvas.height = h;
-    this.$refs.mainCanvas.width = w;
+    elem.height = h;
+    elem.width = w;
+    elem.style.marginLeft = -(w / 2) + 'px';
 };
 var computed = {};
 var mounted = function () {
-    this.initSize();
+    this.bind();
+    this.initSize(this.$refs.mainCanvas);
+    this.initSize(this.$refs.lineCanvas);
     this.mainContext = this.$refs.mainCanvas.getContext('2d');
     Cells.init();
-    this.start();
+    this.startDraw();
 };
 let destroyed = function () {
 };

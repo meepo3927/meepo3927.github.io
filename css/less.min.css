@@ -3426,5 +3426,13 @@ body {
   height: 100px;
 }
 .page-index > .stage-2 > .canvas-holder {
-  text-align: center;
+  position: relative;
+}
+.page-index > .stage-2 canvas {
+  position: absolute;
+  top: 0;
+  left: 50%;
+}
+.page-index > .stage-2 .line-canvas {
+  pointer-events: none;
 }

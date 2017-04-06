@@ -32,8 +32,8 @@ proto.isStopped = function () {
     return (this.y === this.destY);
 };
 proto.frameStep = function () {
-    let frameCount = ((this.distance / 16) | 0) + 1;
-    var y = Math.tween.Cubic.easeIn(this.step, this.startY, this.distance, frameCount);
+    let frameCount = ((this.distance / 14) | 0) + 1;
+    var y = Math.tween.Quad.easeIn(this.step, this.startY, this.distance, frameCount);
     this.step++;
     this.y = y;
     if (this.y >= this.destY || this.step >= frameCount) {

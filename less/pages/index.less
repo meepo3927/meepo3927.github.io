@@ -20,9 +20,15 @@
 		height: @head-height;
 	}
 	& > .canvas-holder {
-		text-align: center;
+		position: relative;
 	}
 	canvas {
+		position: absolute;
+		top: 0;
+		left: 50%;
 		// background-color: #fff;
+	}
+	.line-canvas {
+		pointer-events: none;
 	}
 }

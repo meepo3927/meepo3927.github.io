@@ -14,6 +14,46 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
 
 /***/ }),
 /* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var config = __webpack_require__(0);
+var COL = config.MAX_COL;
+var ROW = config.MAX_ROW;
+var canvasWidthRate = 6;
+var canvasHeightRate = 6;
+var headHeight = 100;
+var docElem = document.documentElement;
+
+exports.calSize = function () {
+    var docWidth = docElem.clientWidth;
+    var docHeight = docElem.clientHeight - headHeight;
+    if (docWidth * canvasHeightRate > docHeight * canvasWidthRate) {
+        var cheight = Math.max(320, docHeight);
+        var cwidth = Math.ceil(cheight * canvasWidthRate / canvasHeightRate);
+    } else {
+        cwidth = docWidth;
+        cheight = Math.ceil(cwidth * canvasHeightRate / canvasWidthRate);
+    }
+
+    return {
+        h: cheight,
+        w: cwidth
+    };
+};
+exports.getCellSize = function () {
+    var w = exports.cellWidth;
+    var h = exports.cellHeight;
+    return { w: w, h: h };
+};
+
+var size = exports.calSize();
+exports.w = size.w;
+exports.h = size.h;
+exports.cellWidth = Math.floor(exports.w / COL);
+exports.cellHeight = Math.floor(exports.h / ROW);
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports) {
 
 /*
@@ -69,7 +109,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = function normalizeComponent (
@@ -123,7 +163,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -142,7 +182,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(30)
+var listToStyles = __webpack_require__(32)
 
 /*
 type StyleObject = {
@@ -359,53 +399,13 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var config = __webpack_require__(0);
-var COL = config.MAX_COL;
-var ROW = config.MAX_ROW;
-var canvasWidthRate = 6;
-var canvasHeightRate = 6;
-var headHeight = 100;
-var docElem = document.documentElement;
-
-exports.calSize = function () {
-    var docWidth = docElem.clientWidth;
-    var docHeight = docElem.clientHeight - headHeight;
-    if (docWidth * canvasHeightRate > docHeight * canvasWidthRate) {
-        var cheight = Math.max(320, docHeight);
-        var cwidth = Math.ceil(cheight * canvasWidthRate / canvasHeightRate);
-    } else {
-        cwidth = docWidth;
-        cheight = Math.ceil(cwidth * canvasHeightRate / canvasWidthRate);
-    }
-
-    return {
-        h: cheight,
-        w: cwidth
-    };
-};
-exports.getCellSize = function () {
-    var w = exports.cellWidth;
-    var h = exports.cellHeight;
-    return { w: w, h: h };
-};
-
-var size = exports.calSize();
-exports.w = size.w;
-exports.h = size.h;
-exports.cellWidth = Math.floor(exports.w / COL);
-exports.cellHeight = Math.floor(exports.h / ROW);
-
-/***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var config = __webpack_require__(0);
 var Resource = __webpack_require__(6);
-var Canvas = __webpack_require__(4);
-var Tween = __webpack_require__(36);
+var Canvas = __webpack_require__(1);
+var Tween = __webpack_require__(16);
 var ROW = config.MAX_ROW;
 var CellHeight = Canvas.cellHeight;
 var CellWidth = Canvas.cellWidth;
@@ -438,8 +438,8 @@ proto.isStopped = function () {
     return this.y === this.destY;
 };
 proto.frameStep = function () {
-    var frameCount = (this.distance / 16 | 0) + 1;
-    var y = Math.tween.Cubic.easeIn(this.step, this.startY, this.distance, frameCount);
+    var frameCount = (this.distance / 14 | 0) + 1;
+    var y = Math.tween.Quad.easeIn(this.step, this.startY, this.distance, frameCount);
     this.step++;
     this.y = y;
     if (this.y >= this.destY || this.step >= frameCount) {
@@ -473,8 +473,8 @@ module.exports = Cell;
 /***/ (function(module, exports, __webpack_require__) {
 
 var config = __webpack_require__(0);
-var canvasComp = __webpack_require__(4);
-var canvasUtil = __webpack_require__(35);
+var canvasComp = __webpack_require__(1);
+var canvasUtil = __webpack_require__(18);
 var TYPES = ['icon'];
 
 var imageCanvasHolder = {};
@@ -2720,7 +2720,7 @@ exports.load = function (callback) {
     });
   }), n.fn.size = function () {
     return this.length;
-  }, n.fn.andSelf = n.fn.addBack, "function" == "function" && __webpack_require__(31) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+  }, n.fn.andSelf = n.fn.addBack, "function" == "function" && __webpack_require__(33) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
     return n;
   }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));var Lc = a.jQuery,
@@ -2728,7 +2728,7 @@ exports.load = function (callback) {
     return a.$ === n && (a.$ = Mc), b && a.jQuery === n && (a.jQuery = Lc), n;
   }, (typeof b === "undefined" ? "undefined" : _typeof(b)) === U && (a.jQuery = a.$ = n), n;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(35)(module)))
 
 /***/ }),
 /* 8 */
@@ -2739,7 +2739,7 @@ exports.load = function (callback) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_polyfill__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer__ = __webpack_require__(15);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mlayer__);
@@ -2960,17 +2960,17 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 /* styles */
 __webpack_require__(29)
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(3)(
   /* script */
-  __webpack_require__(18),
+  __webpack_require__(20),
   /* template */
   __webpack_require__(26),
   /* scopeId */
-  "data-v-6a2bcfee",
+  "data-v-219774e9",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\GuoYe\\work\\wamp\\www\\dr\\js\\global\\stage-1.vue"
+Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\global\\stage-1.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] stage-1.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -2981,9 +2981,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6a2bcfee", Component.options)
+    hotAPI.createRecord("data-v-219774e9", Component.options)
   } else {
-    hotAPI.reload("data-v-6a2bcfee", Component.options)
+    hotAPI.reload("data-v-219774e9", Component.options)
   }
 })()}
 
@@ -2996,19 +2996,19 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(28)
+__webpack_require__(30)
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(3)(
   /* script */
-  __webpack_require__(19),
+  __webpack_require__(21),
   /* template */
-  __webpack_require__(25),
+  __webpack_require__(27),
   /* scopeId */
-  "data-v-6a0fa0ec",
+  "data-v-21a58c6a",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\GuoYe\\work\\wamp\\www\\dr\\js\\global\\stage-2.vue"
+Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\global\\stage-2.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] stage-2.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -3019,9 +3019,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6a0fa0ec", Component.options)
+    hotAPI.createRecord("data-v-21a58c6a", Component.options)
   } else {
-    hotAPI.reload("data-v-6a0fa0ec", Component.options)
+    hotAPI.reload("data-v-21a58c6a", Component.options)
   }
 })()}
 
@@ -3698,6 +3698,190 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 /* 16 */
+/***/ (function(module, exports) {
+
+/*
+ * Tween.js
+ * t: current time（当前时间）；
+ * b: beginning value（初始值）；
+ * c: change in value（变化量）；
+ * d: duration（持续时间）。
+ * you can visit 'http://easings.net/zh-cn' to get effect
+*/
+var Tween = {
+    Linear: function Linear(t, b, c, d) {
+        return c * t / d + b;
+    },
+    Quad: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c * (t /= d) * t + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return -c * (t /= d) * (t - 2) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t + b;
+            return -c / 2 * (--t * (t - 2) - 1) + b;
+        }
+    },
+    Cubic: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c * (t /= d) * t * t + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return c * ((t = t / d - 1) * t * t + 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t + 2) + b;
+        }
+    },
+    Quart: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c * (t /= d) * t * t * t + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return -c * ((t = t / d - 1) * t * t * t - 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
+            return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
+        }
+    },
+    Quint: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c * (t /= d) * t * t * t * t + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
+            return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
+        }
+    },
+    Sine: {
+        easeIn: function easeIn(t, b, c, d) {
+            return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return c * Math.sin(t / d * (Math.PI / 2)) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
+        }
+    },
+    Expo: {
+        easeIn: function easeIn(t, b, c, d) {
+            return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if (t == 0) return b;
+            if (t == d) return b + c;
+            if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
+            return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
+        }
+    },
+    Circ: {
+        easeIn: function easeIn(t, b, c, d) {
+            return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
+            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
+        }
+    },
+    Elastic: {
+        easeIn: function easeIn(t, b, c, d, a, p) {
+            var s;
+            if (t == 0) return b;
+            if ((t /= d) == 1) return b + c;
+            if (typeof p == "undefined") p = d * .3;
+            if (!a || a < Math.abs(c)) {
+                s = p / 4;
+                a = c;
+            } else {
+                s = p / (2 * Math.PI) * Math.asin(c / a);
+            }
+            return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+        },
+        easeOut: function easeOut(t, b, c, d, a, p) {
+            var s;
+            if (t == 0) return b;
+            if ((t /= d) == 1) return b + c;
+            if (typeof p == "undefined") p = d * .3;
+            if (!a || a < Math.abs(c)) {
+                a = c;
+                s = p / 4;
+            } else {
+                s = p / (2 * Math.PI) * Math.asin(c / a);
+            }
+            return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d, a, p) {
+            var s;
+            if (t == 0) return b;
+            if ((t /= d / 2) == 2) return b + c;
+            if (typeof p == "undefined") p = d * (.3 * 1.5);
+            if (!a || a < Math.abs(c)) {
+                a = c;
+                s = p / 4;
+            } else {
+                s = p / (2 * Math.PI) * Math.asin(c / a);
+            }
+            if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
+            return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
+        }
+    },
+    Back: {
+        easeIn: function easeIn(t, b, c, d, s) {
+            if (typeof s == "undefined") s = 1.70158;
+            return c * (t /= d) * t * ((s + 1) * t - s) + b;
+        },
+        easeOut: function easeOut(t, b, c, d, s) {
+            if (typeof s == "undefined") s = 1.70158;
+            return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
+        },
+        easeInOut: function easeInOut(t, b, c, d, s) {
+            if (typeof s == "undefined") s = 1.70158;
+            if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
+            return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
+        }
+    },
+    Bounce: {
+        easeIn: function easeIn(t, b, c, d) {
+            return c - Tween.Bounce.easeOut(d - t, 0, c, d) + b;
+        },
+        easeOut: function easeOut(t, b, c, d) {
+            if ((t /= d) < 1 / 2.75) {
+                return c * (7.5625 * t * t) + b;
+            } else if (t < 2 / 2.75) {
+                return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
+            } else if (t < 2.5 / 2.75) {
+                return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
+            } else {
+                return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
+            }
+        },
+        easeInOut: function easeInOut(t, b, c, d) {
+            if (t < d / 2) {
+                return Tween.Bounce.easeIn(t * 2, 0, c, d) * .5 + b;
+            } else {
+                return Tween.Bounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
+            }
+        }
+    }
+};
+Math.tween = Tween;
+
+/***/ }),
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -5691,15 +5875,32 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
     }return Ns.call(this, e, t);
   }, Be.compile = Gr, Be;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(34)))
 
 /***/ }),
-/* 17 */
+/* 18 */
+/***/ (function(module, exports) {
+
+
+exports.getImageCanvas = function (img, w, h) {
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    w = w || img.width || 100;
+    h = h || img.height || 100;
+    canvas.width = w;
+    canvas.height = h;
+    context.drawImage(img, 0, 0, w, h);
+
+    return canvas;
+};
+
+/***/ }),
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_comp_canvas__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_cell__);
@@ -5709,6 +5910,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_global_config__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_global_resource__);
+//
 //
 //
 //
@@ -5728,7 +5930,47 @@ var ROW = __WEBPACK_IMPORTED_MODULE_3_global_config___default.a.MAX_ROW;
 var noop = function noop() {};
 var docElem = document.documentElement;
 var methods = {};
-methods.start = function () {
+methods.bind = function () {
+    this.$refs.mainCanvas.addEventListener('mousedown', this, true);
+    docElem.addEventListener('mousemove', this, true);
+    this.$refs.mainCanvas.addEventListener('mouseup', this, true);
+};
+methods.handleMousedown = function (e) {
+    this.touchStart(e);
+};
+methods.handleMousemove = function (e) {
+    this.touchMove(e);
+};
+methods.handleMouseup = function (e) {
+    this.touchEnd();
+};
+
+// 交互开始(按下)
+methods.touchStart = function (e) {
+    if (this.isTouching) {
+        return false;
+    }
+    this.isTouching = true;
+};
+methods.touchMove = function (e) {
+    if (!this.isTouching) {
+        return false;
+    }
+    if (e.target.tagName.toLowerCase() !== 'canvas') {
+        return this.touchEnd();
+    }
+    var x = e.clientX;
+    var y = e.clientY;
+};
+methods.touchEnd = function () {
+    if (!this.isTouching) {
+        return false;
+    }
+    this.isTouching = false;
+};
+
+// 开始绘画
+methods.startDraw = function () {
     var _this = this;
 
     __WEBPACK_IMPORTED_MODULE_4_global_resource___default.a.load(function () {
@@ -5751,16 +5993,10 @@ methods.draw = function () {
     var cxt = this.mainContext;
     cxt.clearRect(0, 0, __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.w, __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.h);
     var continueDraw = false;
-    LOG('draw-1');
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
         if (cell.draw(cxt)) {
             continueDraw = true;
         }
-        /*
-        cxt.font = "20px Georgia";
-        cxt.fillStyle = "#0000ff";
-        cxt.fillText(`${row}:${col}`, x, y);
-        */
     });
     if (continueDraw) {
         this.drawTimer = window.requestAnimationFrame(function () {
@@ -5771,20 +6007,23 @@ methods.draw = function () {
     return false;
 };
 
-methods.initSize = function () {
+methods.initSize = function (elem) {
     var _Canvas$calSize = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.calSize(),
         h = _Canvas$calSize.h,
         w = _Canvas$calSize.w;
 
-    this.$refs.mainCanvas.height = h;
-    this.$refs.mainCanvas.width = w;
+    elem.height = h;
+    elem.width = w;
+    elem.style.marginLeft = -(w / 2) + 'px';
 };
 var computed = {};
 var mounted = function mounted() {
-    this.initSize();
+    this.bind();
+    this.initSize(this.$refs.mainCanvas);
+    this.initSize(this.$refs.lineCanvas);
     this.mainContext = this.$refs.mainCanvas.getContext('2d');
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.init();
-    this.start();
+    this.startDraw();
 };
 var destroyed = function destroyed() {};
 var dataFunc = function dataFunc() {
@@ -5802,7 +6041,7 @@ var dataFunc = function dataFunc() {
 };
 
 /***/ }),
-/* 18 */
+/* 20 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5833,7 +6072,7 @@ var dataFunc = function dataFunc() {
 };
 
 /***/ }),
-/* 19 */
+/* 21 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5877,43 +6116,15 @@ var dataFunc = function dataFunc() {
     mounted: mounted,
     destroyed: destroyed,
     components: {
-        'vue-canvas': __webpack_require__(23)
+        'vue-canvas': __webpack_require__(25)
     }
 };
-
-/***/ }),
-/* 20 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)();
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(1)();
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
 
 /***/ }),
 /* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1)();
+exports = module.exports = __webpack_require__(2)();
 // imports
 
 
@@ -5927,21 +6138,49 @@ exports.push([module.i, "", ""]);
 /* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
+exports = module.exports = __webpack_require__(2)();
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
 
 /* styles */
-__webpack_require__(27)
+__webpack_require__(31)
 
-var Component = __webpack_require__(2)(
+var Component = __webpack_require__(3)(
   /* script */
-  __webpack_require__(17),
+  __webpack_require__(19),
   /* template */
-  __webpack_require__(24),
+  __webpack_require__(28),
   /* scopeId */
-  "data-v-2f313f15",
+  "data-v-746c0e35",
   /* cssModules */
   null
 )
-Component.options.__file = "C:\\Users\\GuoYe\\work\\wamp\\www\\dr\\js\\comp\\canvas.vue"
+Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\comp\\canvas.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] canvas.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5952,52 +6191,14 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2f313f15", Component.options)
+    hotAPI.createRecord("data-v-746c0e35", Component.options)
   } else {
-    hotAPI.reload("data-v-2f313f15", Component.options)
+    hotAPI.reload("data-v-746c0e35", Component.options)
   }
 })()}
 
 module.exports = Component.exports
 
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "canvas-holder"
-  }, [_c('canvas', {
-    ref: "mainCanvas"
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-2f313f15", module.exports)
-  }
-}
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "stage-2"
-  }, [_c('div', {
-    staticClass: "head"
-  }), _vm._v(" "), _c('vue-canvas')], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6a0fa0ec", module.exports)
-  }
-}
 
 /***/ }),
 /* 26 */
@@ -6019,7 +6220,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6a2bcfee", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-219774e9", module.exports)
   }
 }
 
@@ -6027,52 +6228,41 @@ if (false) {
 /* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(20);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("3b577785", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-2f313f15\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-2f313f15\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "stage-2"
+  }, [_c('div', {
+    staticClass: "head"
+  }), _vm._v(" "), _c('vue-canvas')], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-21a58c6a", module.exports)
+  }
 }
 
 /***/ }),
 /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(21);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(3)("48f9cce2", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-6a0fa0ec\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-6a0fa0ec\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "canvas-holder"
+  }, [_c('canvas', {
+    ref: "mainCanvas"
+  }), _vm._v(" "), _c('canvas', {
+    ref: "lineCanvas",
+    staticClass: "line-canvas"
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-746c0e35", module.exports)
+  }
 }
 
 /***/ }),
@@ -6086,13 +6276,13 @@ var content = __webpack_require__(22);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(3)("fda4af80", content, false);
+var update = __webpack_require__(4)("681a9c70", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-6a2bcfee\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-6a2bcfee\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-219774e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-219774e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -6103,6 +6293,58 @@ if(false) {
 
 /***/ }),
 /* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(23);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("d150fe58", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-21a58c6a\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-21a58c6a\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(24);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("2eb6d99d", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-746c0e35\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-746c0e35\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 32 */
 /***/ (function(module, exports) {
 
 /**
@@ -6135,7 +6377,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 31 */
+/* 33 */
 /***/ (function(module, exports) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
@@ -6144,7 +6386,7 @@ module.exports = __webpack_amd_options__;
 /* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ }),
-/* 32 */
+/* 34 */
 /***/ (function(module, exports) {
 
 var g;
@@ -6171,7 +6413,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 33 */
+/* 35 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -6199,7 +6441,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 34 */
+/* 36 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6240,206 +6482,5 @@ window.Index = new __WEBPACK_IMPORTED_MODULE_0_common__["a" /* Vue */]({
     }
 });
 
-/***/ }),
-/* 35 */
-/***/ (function(module, exports) {
-
-
-exports.getImageCanvas = function (img, w, h) {
-    var canvas = document.createElement('canvas');
-    var context = canvas.getContext('2d');
-    w = w || img.width || 100;
-    h = h || img.height || 100;
-    canvas.width = w;
-    canvas.height = h;
-    context.drawImage(img, 0, 0, w, h);
-
-    return canvas;
-};
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports) {
-
-/*
- * Tween.js
- * t: current time（当前时间）；
- * b: beginning value（初始值）；
- * c: change in value（变化量）；
- * d: duration（持续时间）。
- * you can visit 'http://easings.net/zh-cn' to get effect
-*/
-var Tween = {
-    Linear: function Linear(t, b, c, d) {
-        return c * t / d + b;
-    },
-    Quad: {
-        easeIn: function easeIn(t, b, c, d) {
-            return c * (t /= d) * t + b;
-        },
-        easeOut: function easeOut(t, b, c, d) {
-            return -c * (t /= d) * (t - 2) + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t + b;
-            return -c / 2 * (--t * (t - 2) - 1) + b;
-        }
-    },
-    Cubic: {
-        easeIn: function easeIn(t, b, c, d) {
-            return c * (t /= d) * t * t + b;
-        },
-        easeOut: function easeOut(t, b, c, d) {
-            return c * ((t = t / d - 1) * t * t + 1) + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t * t + b;
-            return c / 2 * ((t -= 2) * t * t + 2) + b;
-        }
-    },
-    Quart: {
-        easeIn: function easeIn(t, b, c, d) {
-            return c * (t /= d) * t * t * t + b;
-        },
-        easeOut: function easeOut(t, b, c, d) {
-            return -c * ((t = t / d - 1) * t * t * t - 1) + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t + b;
-            return -c / 2 * ((t -= 2) * t * t * t - 2) + b;
-        }
-    },
-    Quint: {
-        easeIn: function easeIn(t, b, c, d) {
-            return c * (t /= d) * t * t * t * t + b;
-        },
-        easeOut: function easeOut(t, b, c, d) {
-            return c * ((t = t / d - 1) * t * t * t * t + 1) + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d) {
-            if ((t /= d / 2) < 1) return c / 2 * t * t * t * t * t + b;
-            return c / 2 * ((t -= 2) * t * t * t * t + 2) + b;
-        }
-    },
-    Sine: {
-        easeIn: function easeIn(t, b, c, d) {
-            return -c * Math.cos(t / d * (Math.PI / 2)) + c + b;
-        },
-        easeOut: function easeOut(t, b, c, d) {
-            return c * Math.sin(t / d * (Math.PI / 2)) + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d) {
-            return -c / 2 * (Math.cos(Math.PI * t / d) - 1) + b;
-        }
-    },
-    Expo: {
-        easeIn: function easeIn(t, b, c, d) {
-            return t == 0 ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
-        },
-        easeOut: function easeOut(t, b, c, d) {
-            return t == d ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d) {
-            if (t == 0) return b;
-            if (t == d) return b + c;
-            if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
-            return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
-        }
-    },
-    Circ: {
-        easeIn: function easeIn(t, b, c, d) {
-            return -c * (Math.sqrt(1 - (t /= d) * t) - 1) + b;
-        },
-        easeOut: function easeOut(t, b, c, d) {
-            return c * Math.sqrt(1 - (t = t / d - 1) * t) + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d) {
-            if ((t /= d / 2) < 1) return -c / 2 * (Math.sqrt(1 - t * t) - 1) + b;
-            return c / 2 * (Math.sqrt(1 - (t -= 2) * t) + 1) + b;
-        }
-    },
-    Elastic: {
-        easeIn: function easeIn(t, b, c, d, a, p) {
-            var s;
-            if (t == 0) return b;
-            if ((t /= d) == 1) return b + c;
-            if (typeof p == "undefined") p = d * .3;
-            if (!a || a < Math.abs(c)) {
-                s = p / 4;
-                a = c;
-            } else {
-                s = p / (2 * Math.PI) * Math.asin(c / a);
-            }
-            return -(a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-        },
-        easeOut: function easeOut(t, b, c, d, a, p) {
-            var s;
-            if (t == 0) return b;
-            if ((t /= d) == 1) return b + c;
-            if (typeof p == "undefined") p = d * .3;
-            if (!a || a < Math.abs(c)) {
-                a = c;
-                s = p / 4;
-            } else {
-                s = p / (2 * Math.PI) * Math.asin(c / a);
-            }
-            return a * Math.pow(2, -10 * t) * Math.sin((t * d - s) * (2 * Math.PI) / p) + c + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d, a, p) {
-            var s;
-            if (t == 0) return b;
-            if ((t /= d / 2) == 2) return b + c;
-            if (typeof p == "undefined") p = d * (.3 * 1.5);
-            if (!a || a < Math.abs(c)) {
-                a = c;
-                s = p / 4;
-            } else {
-                s = p / (2 * Math.PI) * Math.asin(c / a);
-            }
-            if (t < 1) return -.5 * (a * Math.pow(2, 10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p)) + b;
-            return a * Math.pow(2, -10 * (t -= 1)) * Math.sin((t * d - s) * (2 * Math.PI) / p) * .5 + c + b;
-        }
-    },
-    Back: {
-        easeIn: function easeIn(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            return c * (t /= d) * t * ((s + 1) * t - s) + b;
-        },
-        easeOut: function easeOut(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
-        },
-        easeInOut: function easeInOut(t, b, c, d, s) {
-            if (typeof s == "undefined") s = 1.70158;
-            if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= 1.525) + 1) * t - s)) + b;
-            return c / 2 * ((t -= 2) * t * (((s *= 1.525) + 1) * t + s) + 2) + b;
-        }
-    },
-    Bounce: {
-        easeIn: function easeIn(t, b, c, d) {
-            return c - Tween.Bounce.easeOut(d - t, 0, c, d) + b;
-        },
-        easeOut: function easeOut(t, b, c, d) {
-            if ((t /= d) < 1 / 2.75) {
-                return c * (7.5625 * t * t) + b;
-            } else if (t < 2 / 2.75) {
-                return c * (7.5625 * (t -= 1.5 / 2.75) * t + .75) + b;
-            } else if (t < 2.5 / 2.75) {
-                return c * (7.5625 * (t -= 2.25 / 2.75) * t + .9375) + b;
-            } else {
-                return c * (7.5625 * (t -= 2.625 / 2.75) * t + .984375) + b;
-            }
-        },
-        easeInOut: function easeInOut(t, b, c, d) {
-            if (t < d / 2) {
-                return Tween.Bounce.easeIn(t * 2, 0, c, d) * .5 + b;
-            } else {
-                return Tween.Bounce.easeOut(t * 2 - d, 0, c, d) * .5 + c * .5 + b;
-            }
-        }
-    }
-};
-Math.tween = Tween;
-
 /***/ })
-],[34]);
+],[36]);
