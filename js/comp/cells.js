@@ -7,8 +7,30 @@ const MAX_ROW = config.MAX_ROW;
 const CellWidth = canvasComp.cellWidth;
 const CellHeight = canvasComp.cellHeight;
 let cells = [];
+let queue = [];
 
-exports.getCellByPoint = function (x, y) {
+let inQueue = (cell) => {
+    if (~queue.indexOf(cell)) {
+        return true;
+    }
+    return false;
+};
+
+exports.clearQueue = function () {
+    queue.length = 0;
+};
+exports.push = (cell) => {
+    if (!cell) {
+        return false;
+    }
+    if (inQueue(cell)) {
+        return false;
+    }
+
+    queue.push(cell);
+};
+
+exports.getCellByPoint = (x, y) => {
     var xUnit = (x / CellWidth) | 0;
     var yUnit = (y / CellHeight) | 0;
     // LOG('xunit:' + xUnit + '.yunit:' + yUnit);
@@ -42,3 +64,5 @@ exports.init = () => {
         }
     }
 };
+
+exports.queue = queue;

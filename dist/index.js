@@ -3051,6 +3051,28 @@ var MAX_ROW = config.MAX_ROW;
 var CellWidth = canvasComp.cellWidth;
 var CellHeight = canvasComp.cellHeight;
 var cells = [];
+var queue = [];
+
+var inQueue = function inQueue(cell) {
+    if (~queue.indexOf(cell)) {
+        return true;
+    }
+    return false;
+};
+
+exports.clearQueue = function () {
+    queue.length = 0;
+};
+exports.push = function (cell) {
+    if (!cell) {
+        return false;
+    }
+    if (inQueue(cell)) {
+        return false;
+    }
+
+    queue.push(cell);
+};
 
 exports.getCellByPoint = function (x, y) {
     var xUnit = x / CellWidth | 0;
@@ -3086,6 +3108,8 @@ exports.init = function () {
         }
     }
 };
+
+exports.queue = queue;
 
 /***/ }),
 /* 13 */
@@ -5995,21 +6019,35 @@ methods.touchMove = function (e) {
     y -= canvasRect.top;
 
     var cell = __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.getCellByPoint(x, y);
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.push(cell);
+    this.drawline();
 };
 methods.touchEnd = function () {
     if (!this.isTouching) {
         return false;
     }
     this.isTouching = false;
+
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.clearQueue();
+    this.drawline();
 };
 
-// 开始绘画
-methods.startDraw = function () {
+// 画线
+methods.drawline = function () {
     var _this = this;
 
+    __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(this.lineContext);
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.forEach(function (cell) {
+        cell.drawCover(_this.lineContext);
+    });
+};
+// 开始绘画
+methods.startDraw = function () {
+    var _this2 = this;
+
     __WEBPACK_IMPORTED_MODULE_4_global_resource___default.a.load(function () {
-        _this.clearTimer();
-        _this.draw();
+        _this2.clearTimer();
+        _this2.draw();
     });
 };
 methods.clearTimer = function () {
@@ -6019,7 +6057,7 @@ methods.clearTimer = function () {
     }
 };
 methods.draw = function () {
-    var _this2 = this;
+    var _this3 = this;
 
     if (this.stoped) {
         return false;
@@ -6034,7 +6072,7 @@ methods.draw = function () {
     });
     if (continueDraw) {
         this.drawTimer = window.requestAnimationFrame(function () {
-            _this2.draw();
+            _this3.draw();
         });
         return true;
     }

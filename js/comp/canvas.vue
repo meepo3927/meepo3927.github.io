@@ -55,15 +55,26 @@ methods.touchMove = function (e) {
     y -= canvasRect.top;
 
     var cell = Cells.getCellByPoint(x, y);
-    
+    Cells.push(cell);
+    this.drawline();
 };
 methods.touchEnd = function () {
     if (!this.isTouching) {
         return false;
     }
     this.isTouching = false;
+
+    Cells.clearQueue();
+    this.drawline();
 };
 
+// 画线
+methods.drawline = function () {
+    Canvas.clear(this.lineContext);
+    Cells.queue.forEach((cell) => {
+        cell.drawCover(this.lineContext);
+    });
+};
 // 开始绘画
 methods.startDraw = function () {
     Resource.load(() => {
