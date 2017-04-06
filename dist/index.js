@@ -52,6 +52,10 @@ exports.h = size.h;
 exports.cellWidth = Math.floor(exports.w / COL);
 exports.cellHeight = Math.floor(exports.h / ROW);
 
+exports.clear = function (cxt) {
+    cxt.clearRect(0, 0, exports.w, exports.h);
+};
+
 /***/ }),
 /* 2 */
 /***/ (function(module, exports) {
@@ -464,6 +468,11 @@ proto.draw = function (context) {
     this.frameStep();
 
     return !stoped;
+};
+
+proto.drawCover = function (context) {
+    LOG(this.x + ':' + this.y);
+    context.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
 
 module.exports = Cell;
@@ -3034,11 +3043,29 @@ module.exports = Component.exports
 
 
 var Cell = __webpack_require__(5);
+var canvasComp = __webpack_require__(1);
 var config = __webpack_require__(0);
 var MAX_COL = config.MAX_COL;
 var MAX_ROW = config.MAX_ROW;
+var CellWidth = canvasComp.cellWidth;
+var CellHeight = canvasComp.cellHeight;
 var cells = [];
 
+exports.getCellByPoint = function (x, y) {
+    var xUnit = x / CellWidth | 0;
+    var yUnit = y / CellHeight | 0;
+    // LOG('xunit:' + xUnit + '.yunit:' + yUnit);
+    var col = xUnit;
+    var row = MAX_ROW - yUnit - 1;
+    var emptyGap = CellWidth * 0.2 | 0;
+    var xGap = Math.abs(xUnit * CellWidth - x);
+    var yGap = Math.abs(yUnit * CellHeight - y);
+    // LOG('xg:' + xGap + '.yg:' + yGap);
+    if (xGap < emptyGap && yGap < emptyGap) {
+        return null;
+    }
+    return cells[col] ? cells[col][row] : null;
+};
 exports.each = function (f) {
     if (!f) {
         return;
@@ -5951,6 +5978,7 @@ methods.touchStart = function (e) {
         return false;
     }
     this.isTouching = true;
+    this.touchMove(e);
 };
 methods.touchMove = function (e) {
     if (!this.isTouching) {
@@ -5961,6 +5989,11 @@ methods.touchMove = function (e) {
     }
     var x = e.clientX;
     var y = e.clientY;
+    var canvasRect = this.mainCanvas.getBoundingClientRect();
+    x -= canvasRect.left;
+    y -= canvasRect.top;
+
+    var cell = __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.getCellByPoint(x, y);
 };
 methods.touchEnd = function () {
     if (!this.isTouching) {
@@ -5991,7 +6024,7 @@ methods.draw = function () {
         return false;
     }
     var cxt = this.mainContext;
-    cxt.clearRect(0, 0, __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.w, __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.h);
+    __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(cxt);
     var continueDraw = false;
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
         if (cell.draw(cxt)) {
@@ -6016,12 +6049,19 @@ methods.initSize = function (elem) {
     elem.width = w;
     elem.style.marginLeft = -(w / 2) + 'px';
 };
+methods.initContext = function () {
+    this.lineContext.fillStyle = 'rgba(0, 0, 0, .5)';
+};
 var computed = {};
 var mounted = function mounted() {
     this.bind();
     this.initSize(this.$refs.mainCanvas);
     this.initSize(this.$refs.lineCanvas);
+    this.mainCanvas = this.$refs.mainCanvas;
     this.mainContext = this.$refs.mainCanvas.getContext('2d');
+
+    this.lineContext = this.$refs.lineCanvas.getContext('2d');
+    this.initContext();
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.init();
     this.startDraw();
 };

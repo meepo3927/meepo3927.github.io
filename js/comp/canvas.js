@@ -33,3 +33,7 @@ exports.w = size.w;
 exports.h = size.h;
 exports.cellWidth = Math.floor(exports.w / COL);
 exports.cellHeight = Math.floor(exports.h / ROW);
+
+exports.clear = function (cxt) {
+    cxt.clearRect(0, 0, exports.w, exports.h);
+};

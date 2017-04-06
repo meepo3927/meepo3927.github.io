@@ -39,6 +39,7 @@ methods.touchStart = function (e) {
         return false;
     }
     this.isTouching = true;
+    this.touchMove(e);
 };
 methods.touchMove = function (e) {
     if (!this.isTouching) {
@@ -49,6 +50,11 @@ methods.touchMove = function (e) {
     }
     var x = e.clientX;
     var y = e.clientY;
+    var canvasRect = this.mainCanvas.getBoundingClientRect();
+    x -= canvasRect.left;
+    y -= canvasRect.top;
+
+    var cell = Cells.getCellByPoint(x, y);
     
 };
 methods.touchEnd = function () {
@@ -76,7 +82,7 @@ methods.draw = function () {
         return false;
     }
     var cxt = this.mainContext;
-    cxt.clearRect(0, 0, Canvas.w, Canvas.h);
+    Canvas.clear(cxt);
     var continueDraw = false;
     Cells.each((cell, row, col) => {
         if (cell.draw(cxt)) {
@@ -98,12 +104,19 @@ methods.initSize = function (elem) {
     elem.width = w;
     elem.style.marginLeft = -(w / 2) + 'px';
 };
+methods.initContext = function () {
+    this.lineContext.fillStyle = 'rgba(0, 0, 0, .5)';
+};
 var computed = {};
 var mounted = function () {
     this.bind();
     this.initSize(this.$refs.mainCanvas);
     this.initSize(this.$refs.lineCanvas);
+    this.mainCanvas = this.$refs.mainCanvas;
     this.mainContext = this.$refs.mainCanvas.getContext('2d');
+
+    this.lineContext = this.$refs.lineCanvas.getContext('2d');
+    this.initContext();
     Cells.init();
     this.startDraw();
 };
