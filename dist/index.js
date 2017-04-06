@@ -427,12 +427,14 @@ proto.draw = function (context, x, y, w, h) {
         this.delay--;
         return true;
     }
-    var img = Resource.imgs[this.type];
-    if (!img) {
-        LOG('[cell]draw: img null');
+
+    var imageCanvas = Resource.imageCanvasHolder[this.type];
+    if (!imageCanvas) {
+        LOG('[cell]draw: imageCanvas null');
+    } else {
+        y += this.yOffset;
+        context.drawImage(imageCanvas, x, y, w, h);
     }
-    y += this.yOffset;
-    context.drawImage(img, x, y, w, h);
 
     this.calOffset();
     if (this.yOffset === 0) {
@@ -454,16 +456,18 @@ module.exports = Cell;
 /***/ (function(module, exports, __webpack_require__) {
 
 var config = __webpack_require__(0);
-
+var canvasUtil = __webpack_require__(35);
 var TYPES = ['icon'];
-var imgs = {};
+
+var imageCanvasHolder = {};
 var randtype = function randtype() {
     return TYPES[0];
 };
 var getItemSrc = function getItemSrc(type) {
     return config.imgPath + '/items/' + type + '.png';
 };
-exports.imgs = imgs;
+
+exports.imageCanvasHolder = imageCanvasHolder;
 exports.getItemSrc = getItemSrc;
 exports.randtype = randtype;
 exports.load = function (callback) {
@@ -480,10 +484,10 @@ exports.load = function (callback) {
     };
     TYPES.forEach(function (type) {
         var img = new Image();
-        imgs[type] = img;
         img.src = getItemSrc(type);
         img.onload = function () {
             count++;
+            imageCanvasHolder[type] = canvasUtil.getImageCanvas(img, 100, 100);
             if (count === TYPES.length) {
                 done();
             }
@@ -5726,6 +5730,7 @@ methods.draw = function () {
         return false;
     }
     var cxt = this.mainContext;
+    cxt.clearRect(0, 0, __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.w, __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.h);
     var continueDraw = false;
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
         var _Canvas$getCellSize = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.getCellSize(),
@@ -6222,6 +6227,23 @@ window.Index = new __WEBPACK_IMPORTED_MODULE_0_common__["a" /* Vue */]({
         'stage-2': __webpack_require__(11)
     }
 });
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports) {
+
+
+exports.getImageCanvas = function (img, w, h) {
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    w = w || img.width || 100;
+    h = h || img.height || 100;
+    canvas.width = w;
+    canvas.height = h;
+    context.drawImage(img, 0, 0, w, h);
+
+    return canvas;
+};
 
 /***/ })
 ],[34]);

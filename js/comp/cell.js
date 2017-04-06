@@ -13,12 +13,14 @@ proto.draw = function (context, x, y, w, h) {
         this.delay--;
         return true;
     }
-    var img = Resource.imgs[this.type];
-    if (!img) {
-        LOG('[cell]draw: img null');
+
+    var imageCanvas = Resource.imageCanvasHolder[this.type];
+    if (!imageCanvas) {
+        LOG('[cell]draw: imageCanvas null');
+    } else {
+        y += this.yOffset;
+        context.drawImage(imageCanvas, x, y, w, h);
     }
-    y += this.yOffset;
-    context.drawImage(img, x, y, w, h);
 
     this.calOffset();
     if (this.yOffset === 0) {

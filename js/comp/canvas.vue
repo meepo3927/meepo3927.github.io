@@ -34,6 +34,7 @@ methods.draw = function () {
         return false;
     }
     var cxt = this.mainContext;
+    cxt.clearRect(0, 0, Canvas.w, Canvas.h);
     var continueDraw = false;
     Cells.each((cell, row, col) => {
         let {w, h} = Canvas.getCellSize();
