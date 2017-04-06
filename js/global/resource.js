@@ -2,12 +2,15 @@ var config = require('global/config');
 var canvasComp = require('comp/canvas.js');
 var canvasUtil = require('util/canvas.js');
 let TYPES = [
-    'icon'
+    'icon',
+    'sword',
+    'hp'
 ];
 
 let imageCanvasHolder = {};
 let randtype = function () {
-    return TYPES[0];
+    let n = (Math.random() * TYPES.length) | 0;
+    return TYPES[n] || TYPES[TYPES.length - 1];
 };
 let getItemSrc = (type) => {
     return config.imgPath + '/items/' + type + '.png';

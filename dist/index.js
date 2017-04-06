@@ -484,11 +484,12 @@ module.exports = Cell;
 var config = __webpack_require__(0);
 var canvasComp = __webpack_require__(1);
 var canvasUtil = __webpack_require__(18);
-var TYPES = ['icon'];
+var TYPES = ['icon', 'sword', 'hp'];
 
 var imageCanvasHolder = {};
 var randtype = function randtype() {
-    return TYPES[0];
+    var n = Math.random() * TYPES.length | 0;
+    return TYPES[n] || TYPES[TYPES.length - 1];
 };
 var getItemSrc = function getItemSrc(type) {
     return config.imgPath + '/items/' + type + '.png';
