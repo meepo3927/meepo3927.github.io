@@ -1,5 +1,19 @@
 webpackJsonp([0,1],[
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    return {
+        MAX_COL: 6,
+        MAX_ROW: 6,
+        mainColor: '#eee',
+        imgPath: './images'
+    };
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports) {
 
 /*
@@ -55,7 +69,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports) {
 
 module.exports = function normalizeComponent (
@@ -109,7 +123,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -128,7 +142,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(26)
+var listToStyles = __webpack_require__(30)
 
 /*
 type StyleObject = {
@@ -345,326 +359,86 @@ function applyToTag (styleElement, obj) {
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_polyfill__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer__ = __webpack_require__(34);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mlayer__);
-/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2_vue___default.a; });
-/* unused harmony reexport $ */
-
-// 基础库
-
-
-// Vue扩展
-__WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__webpack_require__(8));
-
-
-window.LOG = function () {
-    if (window.console && window.console.log) {
-        var args = Array.prototype.slice.call(arguments);
-        args.forEach(function (v) {
-            window.console.log(v);
-        });
-    }
-};
-
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
- * 浏览器以及环境识别
- */
+var config = __webpack_require__(0);
+var COL = config.MAX_COL;
+var ROW = config.MAX_ROW;
+var canvasWidthRate = 6;
+var canvasHeightRate = 6;
+var headHeight = 100;
+var docElem = document.documentElement;
 
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-    var cache = null;
-    /**
-     * UserAgent Detect
-     *
-     * @inner
-     * @param {string} ua navigator.userAgent
-     * @return {Object}
-     */
-    function detect(ua) {
-        if (cache) {
-            return cache;
-        }
-        ua = ua || navigator.userAgent;
-        var os = {},
-            browser = {},
-            webkit = ua.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
-            android = ua.match(/(Android);?[\s\/]+([\d.]+)?/),
-            osx = !!ua.match(/\(Macintosh\; Intel /),
-            ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
-            ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/),
-            iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
-            webos = ua.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
-            wp = ua.match(/Windows Phone ([\d.]+)/),
-            touchpad = webos && ua.match(/TouchPad/),
-            kindle = ua.match(/Kindle\/([\d.]+)/),
-            silk = ua.match(/Silk\/([\d._]+)/),
-            blackberry = ua.match(/(BlackBerry).*Version\/([\d.]+)/),
-            bb10 = ua.match(/(BB10).*Version\/([\d.]+)/),
-            rimtabletos = ua.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
-            playbook = ua.match(/PlayBook/),
-            chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
-            firefox = ua.match(/Firefox\/([\d.]+)/),
-            ie = ua.match(/MSIE\s([\d.]+)/) || ua.match(/Trident\/[\d](?=[^\?]+).*rv:([0-9.].)/),
-            webview = !chrome && ua.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/),
-            safari = webview || ua.match(/Version\/([\d.]+)([^S](Safari)|[^M]*(Mobile)[^S]*(Safari))/),
-            wechat = ua.match(/MicroMessenger\/([\d.]+)/),
-            baidu = ua.match(/baiduboxapp\/[^\/]+\/([\d.]+)_/) || ua.match(/baiduboxapp\/([\d.]+)/) || ua.match(/BaiduHD\/([\d.]+)/) || ua.match(/FlyFlow\/([\d.]+)/) || ua.match(/baidubrowser\/([\d.]+)/),
-            qq = ua.match(/MQQBrowser\/([\d.]+)/) || ua.match(/QQ\/([\d.]+)/),
-            uc = ua.match(/UCBrowser\/([\d.]+)/),
-            sogou = ua.match(/SogouMobileBrowser\/([\d.]+)/),
-            xiaomi = android && ua.match(/MiuiBrowser\/([\d.]+)/),
-            liebao = ua.match(/LBKIT/),
-            mercury = ua.match(/Mercury\/([\d.]+)/);
+exports.calSize = function () {
+    var docWidth = docElem.clientWidth;
+    var docHeight = docElem.clientHeight - headHeight;
+    if (docWidth * canvasHeightRate > docHeight * canvasWidthRate) {
+        var cheight = Math.max(320, docHeight);
+        var cwidth = Math.ceil(cheight * canvasWidthRate / canvasHeightRate);
+    } else {
+        cwidth = docWidth;
+        cheight = Math.ceil(cwidth * canvasHeightRate / canvasWidthRate);
+    }
 
-        // Todo: clean this up with a better OS/browser seperation:
-        // - discern (more) between multiple browsers on android
-        // - decide if kindle fire in silk mode is android or not
-        // - Firefox on Android doesn't specify the Android version
-        // - possibly devide in os, device and browser hashes
-
-        if (browser.webkit = !!webkit) {
-            browser.version = webkit[1];
-        }
-
-        if (android) {
-            os.android = true;
-            os.version = android[2];
-        }
-        if (iphone && !ipod) {
-            os.ios = os.iphone = true;
-            os.version = iphone[2].replace(/_/g, '.');
-        }
-        if (ipad) {
-            os.ios = os.ipad = true;
-            os.version = ipad[2].replace(/_/g, '.');
-        }
-        if (ipod) {
-            os.ios = os.ipod = true;
-            os.version = ipod[3] ? ipod[3].replace(/_/g, '.') : null;
-        }
-        if (wp) {
-            os.wp = true;
-            os.version = wp[1];
-        }
-        if (webos) {
-            os.webos = true;
-            os.version = webos[2];
-        }
-        if (touchpad) {
-            os.touchpad = true;
-        }
-        if (blackberry) {
-            os.blackberry = true;
-            os.version = blackberry[2];
-        }
-        if (bb10) {
-            os.bb10 = true;
-            os.version = bb10[2];
-        }
-        if (rimtabletos) {
-            os.rimtabletos = true;
-            os.version = rimtabletos[2];
-        }
-        if (playbook) {
-            browser.playbook = true;
-        }
-        if (kindle) {
-            os.kindle = true;
-            os.version = kindle[1];
-        }
-        if (silk) {
-            browser.silk = true;
-            browser.version = silk[1];
-        }
-        if (!silk && os.android && ua.match(/Kindle Fire/)) {
-            browser.silk = true;
-        }
-        if (chrome) {
-            browser.chrome = true;
-            browser.version = chrome[1];
-        }
-        if (firefox) {
-            browser.firefox = true;
-            browser.version = firefox[1];
-        }
-        if (ie) {
-            browser.ie = true;
-            browser.version = ie[1];
-        }
-        if (safari && (osx || os.ios)) {
-            browser.safari = true;
-            if (osx) {
-                browser.version = safari[1];
-            }
-        }
-        if (webview) {
-            browser.webview = true;
-        }
-        if (wechat) {
-            browser.wechat = true;
-            browser.version = wechat[1];
-        }
-        if (baidu) {
-            delete browser.webview;
-            browser.baidu = true;
-            browser.version = baidu[1];
-        }
-        if (qq) {
-            browser.qq = true;
-            browser.version = qq[1];
-        }
-        if (uc) {
-            delete browser.webview;
-            browser.uc = true;
-            browser.version = uc[1];
-        }
-        if (sogou) {
-            delete browser.webview;
-            browser.sogou = true;
-            browser.version = sogou[1];
-        }
-        if (xiaomi) {
-            browser.xiaomi = true;
-            browser.version = xiaomi[1];
-        }
-        if (liebao) {
-            browser.liebao = true;
-            browser.version = '0';
-        }
-        if (mercury) {
-            browser.mercury = true;
-            browser.version = mercury[1];
-        }
-        if (navigator.standalone) {
-            browser.standalone = true;
-        }
-
-        os.tablet = !!(ipad || playbook || android && !ua.match(/Mobile/) || firefox && ua.match(/Tablet/) || ie && !ua.match(/Phone/) && ua.match(/Touch/));
-        os.phone = !!(!os.tablet && !os.ipod && (android || iphone || webos || blackberry || bb10 || chrome && ua.match(/Android/) || chrome && ua.match(/CriOS\/([\d.]+)/) || firefox && ua.match(/Mobile/) || ie && ua.match(/Touch/)));
-        cache = {
-            browser: browser,
-            os: os
-        };
-        return cache;
+    return {
+        h: cheight,
+        w: cwidth
     };
-
-    return detect;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+};
+exports.getCellSize = function () {
+    var w = exports.cellWidth;
+    var h = exports.cellHeight;
+    return { w: w, h: h };
+};
+exports.getCellOffset = function (row) {
+    return -exports.h;
+};
+exports.calCellPosition = function (row, col) {
+    return {
+        x: exports.cellWidth * col,
+        y: exports.cellHeight * (ROW - row - 1)
+    };
+};
+var size = exports.calSize();
+exports.w = size.w;
+exports.h = size.h;
+exports.cellWidth = Math.floor(exports.w / COL);
+exports.cellHeight = Math.floor(exports.h / ROW);
 
 /***/ }),
 /* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(23)
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(14),
-  /* template */
-  __webpack_require__(20),
-  /* scopeId */
-  "data-v-219774e9",
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\global\\stage-1.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] stage-1.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-219774e9", Component.options)
-  } else {
-    hotAPI.reload("data-v-219774e9", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(24)
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(15),
-  /* template */
-  __webpack_require__(21),
-  /* scopeId */
-  "data-v-21a58c6a",
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\global\\stage-2.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] stage-2.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-21a58c6a", Component.options)
-  } else {
-    hotAPI.reload("data-v-21a58c6a", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var config = __webpack_require__(9);
-var Resource = __webpack_require__(33);
-var Canvas = __webpack_require__(35);
+var config = __webpack_require__(0);
+var Resource = __webpack_require__(6);
+var Canvas = __webpack_require__(4);
 function Cell(row, col) {
     var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Resource.randtype();
 
     // 类型
     this.type = type;
+    this.delay = row * 3;
     this.yOffset = Canvas.getCellOffset(row);
 }
 var proto = Cell.prototype;
 proto.draw = function (context, x, y, w, h) {
+    if (this.delay >= 0) {
+        this.delay--;
+        return true;
+    }
     var img = Resource.imgs[this.type];
     if (!img) {
         LOG('[cell]draw: img null');
     }
     y += this.yOffset;
-    this.calOffset();
     context.drawImage(img, x, y, w, h);
+
+    this.calOffset();
+    if (this.yOffset === 0) {
+        return false;
+    }
+    return true;
 };
 proto.calOffset = function () {
     this.yOffset += 6;
@@ -676,160 +450,49 @@ proto.calOffset = function () {
 module.exports = Cell;
 
 /***/ }),
-/* 8 */
-/***/ (function(module, exports) {
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var Plugin = {};
-Plugin.install = function (Vue, options) {
-    var methods = {};
-    methods.handleEvent = function (e) {
-        var type = e.type.charAt(0).toUpperCase() + e.type.substr(1);
-        var methodsName = 'handle' + type;
-        if (typeof this[methodsName] === 'function') {
-            return this[methodsName](e);
-        }
+var config = __webpack_require__(0);
+
+var TYPES = ['icon'];
+var imgs = {};
+var randtype = function randtype() {
+    return TYPES[0];
+};
+var getItemSrc = function getItemSrc(type) {
+    return config.imgPath + '/items/' + type + '.png';
+};
+exports.imgs = imgs;
+exports.getItemSrc = getItemSrc;
+exports.randtype = randtype;
+exports.load = function (callback) {
+    callback = callback || function () {};
+    var count = 0;
+    var layer;
+    var timer = setTimeout(function () {
+        layer = mlayer.loading();
+    }, 200);
+    var done = function done() {
+        clearTimeout(timer);
+        layer && layer.close();
+        callback();
     };
-    Vue.mixin({
-        methods: methods
+    TYPES.forEach(function (type) {
+        var img = new Image();
+        imgs[type] = img;
+        img.src = getItemSrc(type);
+        img.onload = function () {
+            count++;
+            if (count === TYPES.length) {
+                done();
+            }
+        };
     });
 };
 
-module.exports = Plugin;
-
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
-    return {
-        MAX_COL: 6,
-        MAX_ROW: 6,
-        mainColor: '#eee',
-        imgPath: './images'
-    };
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports) {
-
-/**
- * 1. Function.prototype.bind
- */
-if (!Function.prototype.bind) {
-    Function.prototype.bind = function (oThis) {
-        if (typeof this !== "function") {
-            // closest thing possible to the ECMAScript 5
-            // internal IsCallable function
-            throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
-        }
-
-        var aArgs = Array.prototype.slice.call(arguments, 1),
-            fToBind = this,
-            fNOP = function fNOP() {},
-            fBound = function fBound() {
-            return fToBind.apply(this instanceof fNOP ? this : oThis || this, aArgs.concat(Array.prototype.slice.call(arguments)));
-        };
-        fNOP.prototype = this.prototype;
-        fBound.prototype = new fNOP();
-        return fBound;
-    };
-}
-
-/**
- * 2. requestAnimationFrame, cancelAnimationFrame
- */
-(function (window) {
-    var vendors = ['ms', 'moz', 'webkit', 'o'];
-    for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
-        var vp = vendors[i];
-        window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
-        window.cancelAnimationFrame = window[vp + 'CancelAnimationFrame'] || window[vp + 'CancelRequestAnimationFrame'];
-    }
-    if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
-    || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
-        var lastTime = 0;
-        window.requestAnimationFrame = function (callback) {
-            var now = Date.now();
-            var nextTime = Math.max(lastTime + 16, now);
-            return setTimeout(function () {
-                callback(lastTime = nextTime);
-            }, nextTime - now);
-        };
-        window.cancelAnimationFrame = clearTimeout;
-    }
-})(window);
-
-/**
- * 3. Date.now
- */
-if (!Date.now) {
-    Date.now = function now() {
-        // return (new Date).valueOf();
-        return new Date().getTime();
-    };
-}
-/**
- * 4. [string].trim
- */
-if (!String.prototype.trim) {
-    String.prototype.trim = function () {
-        return this.replace(/^\s+|\s+$/g, '');
-    };
-}
-/**
- * 5. Array.isArray
- */
-if (!Array.isArray) {
-    Array.isArray = function (vArg) {
-        return Object.prototype.toString.call(vArg) === '[object Array]';
-    };
-}
-/**
- * 6. Array.prototype.forEach
- */
-if (typeof Array.prototype.forEach != "function") {
-    Array.prototype.forEach = function (fn, scope) {
-        for (var i = 0; i < this.length; ++i) {
-            if (i in this) {
-                fn.call(scope, this[i], i, this);
-            }
-        }
-    };
-}
-/**
- * 7. Array.prototype.map
- */
-if (typeof Array.prototype.map != "function") {
-    Array.prototype.map = function (fn, context) {
-        var arr = [];
-        if (typeof fn === "function") {
-            for (var i = 0; i < this.length; i++) {
-                arr.push(fn.call(context, this[i], i, this));
-            }
-        }
-        return arr;
-    };
-}
-/**
- * 8. Array.prototype.indexOf
- */
-if (typeof Array.prototype.indexOf != "function") {
-    Array.prototype.indexOf = function (searchElement, fromIndex) {
-        fromIndex = fromIndex * 1 || 0;
-        var len = this.length;
-        for (var i = fromIndex; i < len; i++) {
-            if (this[i] === searchElement) {
-                return k;
-            }
-        }
-        return -1;
-    };
-}
-
-/***/ }),
-/* 11 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(module) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -3035,7 +2698,7 @@ if (typeof Array.prototype.indexOf != "function") {
     });
   }), n.fn.size = function () {
     return this.length;
-  }, n.fn.andSelf = n.fn.addBack, "function" == "function" && __webpack_require__(27) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+  }, n.fn.andSelf = n.fn.addBack, "function" == "function" && __webpack_require__(31) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
     return n;
   }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));var Lc = a.jQuery,
@@ -3043,10 +2706,975 @@ if (typeof Array.prototype.indexOf != "function") {
     return a.$ === n && (a.$ = Mc), b && a.jQuery === n && (a.jQuery = Lc), n;
   }, (typeof b === "undefined" ? "undefined" : _typeof(b)) === U && (a.jQuery = a.$ = n), n;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(30)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33)(module)))
+
+/***/ }),
+/* 8 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_polyfill__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mlayer__);
+/* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2_vue___default.a; });
+/* unused harmony reexport $ */
+
+// 基础库
+
+
+// Vue扩展
+__WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__webpack_require__(13));
+
+
+window.LOG = function () {
+    if (window.console && window.console.log) {
+        var args = Array.prototype.slice.call(arguments);
+        args.forEach(function (v) {
+            window.console.log(v);
+        });
+    }
+};
+
+
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 浏览器以及环境识别
+ */
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var cache = null;
+    /**
+     * UserAgent Detect
+     *
+     * @inner
+     * @param {string} ua navigator.userAgent
+     * @return {Object}
+     */
+    function detect(ua) {
+        if (cache) {
+            return cache;
+        }
+        ua = ua || navigator.userAgent;
+        var os = {},
+            browser = {},
+            webkit = ua.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
+            android = ua.match(/(Android);?[\s\/]+([\d.]+)?/),
+            osx = !!ua.match(/\(Macintosh\; Intel /),
+            ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
+            ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/),
+            iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
+            webos = ua.match(/(webOS|hpwOS)[\s\/]([\d.]+)/),
+            wp = ua.match(/Windows Phone ([\d.]+)/),
+            touchpad = webos && ua.match(/TouchPad/),
+            kindle = ua.match(/Kindle\/([\d.]+)/),
+            silk = ua.match(/Silk\/([\d._]+)/),
+            blackberry = ua.match(/(BlackBerry).*Version\/([\d.]+)/),
+            bb10 = ua.match(/(BB10).*Version\/([\d.]+)/),
+            rimtabletos = ua.match(/(RIM\sTablet\sOS)\s([\d.]+)/),
+            playbook = ua.match(/PlayBook/),
+            chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
+            firefox = ua.match(/Firefox\/([\d.]+)/),
+            ie = ua.match(/MSIE\s([\d.]+)/) || ua.match(/Trident\/[\d](?=[^\?]+).*rv:([0-9.].)/),
+            webview = !chrome && ua.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/),
+            safari = webview || ua.match(/Version\/([\d.]+)([^S](Safari)|[^M]*(Mobile)[^S]*(Safari))/),
+            wechat = ua.match(/MicroMessenger\/([\d.]+)/),
+            baidu = ua.match(/baiduboxapp\/[^\/]+\/([\d.]+)_/) || ua.match(/baiduboxapp\/([\d.]+)/) || ua.match(/BaiduHD\/([\d.]+)/) || ua.match(/FlyFlow\/([\d.]+)/) || ua.match(/baidubrowser\/([\d.]+)/),
+            qq = ua.match(/MQQBrowser\/([\d.]+)/) || ua.match(/QQ\/([\d.]+)/),
+            uc = ua.match(/UCBrowser\/([\d.]+)/),
+            sogou = ua.match(/SogouMobileBrowser\/([\d.]+)/),
+            xiaomi = android && ua.match(/MiuiBrowser\/([\d.]+)/),
+            liebao = ua.match(/LBKIT/),
+            mercury = ua.match(/Mercury\/([\d.]+)/);
+
+        // Todo: clean this up with a better OS/browser seperation:
+        // - discern (more) between multiple browsers on android
+        // - decide if kindle fire in silk mode is android or not
+        // - Firefox on Android doesn't specify the Android version
+        // - possibly devide in os, device and browser hashes
+
+        if (browser.webkit = !!webkit) {
+            browser.version = webkit[1];
+        }
+
+        if (android) {
+            os.android = true;
+            os.version = android[2];
+        }
+        if (iphone && !ipod) {
+            os.ios = os.iphone = true;
+            os.version = iphone[2].replace(/_/g, '.');
+        }
+        if (ipad) {
+            os.ios = os.ipad = true;
+            os.version = ipad[2].replace(/_/g, '.');
+        }
+        if (ipod) {
+            os.ios = os.ipod = true;
+            os.version = ipod[3] ? ipod[3].replace(/_/g, '.') : null;
+        }
+        if (wp) {
+            os.wp = true;
+            os.version = wp[1];
+        }
+        if (webos) {
+            os.webos = true;
+            os.version = webos[2];
+        }
+        if (touchpad) {
+            os.touchpad = true;
+        }
+        if (blackberry) {
+            os.blackberry = true;
+            os.version = blackberry[2];
+        }
+        if (bb10) {
+            os.bb10 = true;
+            os.version = bb10[2];
+        }
+        if (rimtabletos) {
+            os.rimtabletos = true;
+            os.version = rimtabletos[2];
+        }
+        if (playbook) {
+            browser.playbook = true;
+        }
+        if (kindle) {
+            os.kindle = true;
+            os.version = kindle[1];
+        }
+        if (silk) {
+            browser.silk = true;
+            browser.version = silk[1];
+        }
+        if (!silk && os.android && ua.match(/Kindle Fire/)) {
+            browser.silk = true;
+        }
+        if (chrome) {
+            browser.chrome = true;
+            browser.version = chrome[1];
+        }
+        if (firefox) {
+            browser.firefox = true;
+            browser.version = firefox[1];
+        }
+        if (ie) {
+            browser.ie = true;
+            browser.version = ie[1];
+        }
+        if (safari && (osx || os.ios)) {
+            browser.safari = true;
+            if (osx) {
+                browser.version = safari[1];
+            }
+        }
+        if (webview) {
+            browser.webview = true;
+        }
+        if (wechat) {
+            browser.wechat = true;
+            browser.version = wechat[1];
+        }
+        if (baidu) {
+            delete browser.webview;
+            browser.baidu = true;
+            browser.version = baidu[1];
+        }
+        if (qq) {
+            browser.qq = true;
+            browser.version = qq[1];
+        }
+        if (uc) {
+            delete browser.webview;
+            browser.uc = true;
+            browser.version = uc[1];
+        }
+        if (sogou) {
+            delete browser.webview;
+            browser.sogou = true;
+            browser.version = sogou[1];
+        }
+        if (xiaomi) {
+            browser.xiaomi = true;
+            browser.version = xiaomi[1];
+        }
+        if (liebao) {
+            browser.liebao = true;
+            browser.version = '0';
+        }
+        if (mercury) {
+            browser.mercury = true;
+            browser.version = mercury[1];
+        }
+        if (navigator.standalone) {
+            browser.standalone = true;
+        }
+
+        os.tablet = !!(ipad || playbook || android && !ua.match(/Mobile/) || firefox && ua.match(/Tablet/) || ie && !ua.match(/Phone/) && ua.match(/Touch/));
+        os.phone = !!(!os.tablet && !os.ipod && (android || iphone || webos || blackberry || bb10 || chrome && ua.match(/Android/) || chrome && ua.match(/CriOS\/([\d.]+)/) || firefox && ua.match(/Mobile/) || ie && ua.match(/Touch/)));
+        cache = {
+            browser: browser,
+            os: os
+        };
+        return cache;
+    };
+
+    return detect;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(29)
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(18),
+  /* template */
+  __webpack_require__(26),
+  /* scopeId */
+  "data-v-6a2bcfee",
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\GuoYe\\work\\wamp\\www\\dr\\js\\global\\stage-1.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] stage-1.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6a2bcfee", Component.options)
+  } else {
+    hotAPI.reload("data-v-6a2bcfee", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(28)
+
+var Component = __webpack_require__(2)(
+  /* script */
+  __webpack_require__(19),
+  /* template */
+  __webpack_require__(25),
+  /* scopeId */
+  "data-v-6a0fa0ec",
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\GuoYe\\work\\wamp\\www\\dr\\js\\global\\stage-2.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] stage-2.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6a0fa0ec", Component.options)
+  } else {
+    hotAPI.reload("data-v-6a0fa0ec", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
 
 /***/ }),
 /* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var Cell = __webpack_require__(5);
+var config = __webpack_require__(0);
+var MAX_COL = config.MAX_COL;
+var MAX_ROW = config.MAX_ROW;
+var cells = [];
+
+exports.each = function (f) {
+    if (!f) {
+        return;
+    }
+    for (var i = 0; i < MAX_COL; i++) {
+        for (var j = 0; j < MAX_ROW; j++) {
+            f(cells[i][j], j, i);
+        }
+    }
+};
+exports.init = function () {
+    for (var i = 0; i < MAX_COL; i++) {
+        cells[i] = [];
+        for (var j = 0; j < MAX_ROW; j++) {
+            cells[i][j] = new Cell(j, i);
+        }
+    }
+};
+
+/***/ }),
+/* 13 */
+/***/ (function(module, exports) {
+
+var Plugin = {};
+Plugin.install = function (Vue, options) {
+    var methods = {};
+    methods.handleEvent = function (e) {
+        var type = e.type.charAt(0).toUpperCase() + e.type.substr(1);
+        var methodsName = 'handle' + type;
+        if (typeof this[methodsName] === 'function') {
+            return this[methodsName](e);
+        }
+    };
+    Vue.mixin({
+        methods: methods
+    });
+};
+
+module.exports = Plugin;
+
+/***/ }),
+/* 14 */
+/***/ (function(module, exports) {
+
+/**
+ * 1. Function.prototype.bind
+ */
+if (!Function.prototype.bind) {
+    Function.prototype.bind = function (oThis) {
+        if (typeof this !== "function") {
+            // closest thing possible to the ECMAScript 5
+            // internal IsCallable function
+            throw new TypeError("Function.prototype.bind - what is trying to be bound is not callable");
+        }
+
+        var aArgs = Array.prototype.slice.call(arguments, 1),
+            fToBind = this,
+            fNOP = function fNOP() {},
+            fBound = function fBound() {
+            return fToBind.apply(this instanceof fNOP ? this : oThis || this, aArgs.concat(Array.prototype.slice.call(arguments)));
+        };
+        fNOP.prototype = this.prototype;
+        fBound.prototype = new fNOP();
+        return fBound;
+    };
+}
+
+/**
+ * 2. requestAnimationFrame, cancelAnimationFrame
+ */
+(function (window) {
+    var vendors = ['ms', 'moz', 'webkit', 'o'];
+    for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
+        var vp = vendors[i];
+        window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
+        window.cancelAnimationFrame = window[vp + 'CancelAnimationFrame'] || window[vp + 'CancelRequestAnimationFrame'];
+    }
+    if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) // iOS6 is buggy
+    || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+        var lastTime = 0;
+        window.requestAnimationFrame = function (callback) {
+            var now = Date.now();
+            var nextTime = Math.max(lastTime + 16, now);
+            return setTimeout(function () {
+                callback(lastTime = nextTime);
+            }, nextTime - now);
+        };
+        window.cancelAnimationFrame = clearTimeout;
+    }
+})(window);
+
+/**
+ * 3. Date.now
+ */
+if (!Date.now) {
+    Date.now = function now() {
+        // return (new Date).valueOf();
+        return new Date().getTime();
+    };
+}
+/**
+ * 4. [string].trim
+ */
+if (!String.prototype.trim) {
+    String.prototype.trim = function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    };
+}
+/**
+ * 5. Array.isArray
+ */
+if (!Array.isArray) {
+    Array.isArray = function (vArg) {
+        return Object.prototype.toString.call(vArg) === '[object Array]';
+    };
+}
+/**
+ * 6. Array.prototype.forEach
+ */
+if (typeof Array.prototype.forEach != "function") {
+    Array.prototype.forEach = function (fn, scope) {
+        for (var i = 0; i < this.length; ++i) {
+            if (i in this) {
+                fn.call(scope, this[i], i, this);
+            }
+        }
+    };
+}
+/**
+ * 7. Array.prototype.map
+ */
+if (typeof Array.prototype.map != "function") {
+    Array.prototype.map = function (fn, context) {
+        var arr = [];
+        if (typeof fn === "function") {
+            for (var i = 0; i < this.length; i++) {
+                arr.push(fn.call(context, this[i], i, this));
+            }
+        }
+        return arr;
+    };
+}
+/**
+ * 8. Array.prototype.indexOf
+ */
+if (typeof Array.prototype.indexOf != "function") {
+    Array.prototype.indexOf = function (searchElement, fromIndex) {
+        fromIndex = fromIndex * 1 || 0;
+        var len = this.length;
+        for (var i = fromIndex; i < len; i++) {
+            if (this[i] === searchElement) {
+                return k;
+            }
+        }
+        return -1;
+    };
+}
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 浮层工具库
+ * mlayer.msg('some msg', options);
+ * mlayer.iconMsg('some msg', options);
+ * mlayer.alert('some msg', options|callback);
+ * mlayer.confirm('some msg', options|callback);
+ * mlayer.loading(options);
+ * mlayer.html(html, options);
+ *
+ * 通用options: {
+ *     coverZIndex: 10000,    // 遮罩层zindex, 默认19900415
+ *     coverOpacity: .3,      // 遮罩层透明度, 默认0.3
+ *     withCover: true,       // 遮罩层
+ *     zIndex: 10000,         // Content浮层zindex, 默认19900420
+ *     hookContentShow: func, // Content显示方法, 用于替代默认show方法
+ *
+ *     width: '100px',
+ *     width: '80%',          // Content宽度
+ *
+ *     height: '200px',
+ *     height: '80%',         // Content高度
+ *
+ *     overflow: 'auto',      // Content Overflow
+ *
+ *     closeBtn: true,        // 显示关闭按钮
+ *
+ *     time: 3000,            // 关闭时间, 毫秒
+ * }
+ */
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(7)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
+
+    var globalName = 'mlayer';
+    var BOX_CLASS_NAME = 'mlayer-box';
+    var COVER_CLASS_NAME = 'mlayer-cover';
+
+    function classInherit(Child, Parent) {
+        var F = function F() {};
+        F.prototype = Parent.prototype;
+        Child.prototype = new F();
+        Child.prototype.constructor = Child;
+        Child.uber = Parent.prototype;
+        return Child;
+    }
+    var $html = $(document.documentElement);
+    var $body = $(document.body);
+    var Z_INDEX = 19900420;
+
+    var makeAttr = function makeAttr(obj) {
+        var arr = [];
+        for (var i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                var value = obj[i] || '';
+                if (value.replace) {
+                    value = value.replace(/"/g, '');
+                }
+                arr.push(i + '="' + value + '"');
+            }
+        }
+        return ' ' + arr.join(' ') + ' ';
+    };
+
+    var getNumberPixel = function getNumberPixel(w) {
+        if (isNaN(w)) {
+            return w;
+        }
+        return w + 'px';
+    };
+
+    /**
+     * 基类
+     *
+     * @class      Base
+     */
+    function Base() {}
+    Base.prototype.createCover = function () {
+        var html = '<div class="' + COVER_CLASS_NAME + '">&nbsp;</div>';
+        var $cover = $(html);
+        $body.append($cover);
+        return $cover;
+    };
+    Base.prototype.showCover = function () {
+        if (!this.$cover) {
+            this.$cover = this.createCover();
+        }
+        if (this.options.coverZIndex !== undefined) {
+            this.$cover.css('z-index', this.options.coverZIndex);
+        }
+        if (this.options.coverOpacity !== undefined) {
+            var ieValue = this.options.coverOpacity * 100;
+            this.$cover.css('opacity', this.options.coverOpacity);
+            this.$cover.css('filter', 'alpha(opacity=' + ieValue + ')');
+        }
+        this.$cover.show();
+    };
+    Base.prototype.hideCover = function () {
+        if (this.$cover) {
+            this.$cover.hide();
+        }
+    };
+    Base.prototype.createBox = function (html, type) {
+        type = type || '';
+        var boxClassName = BOX_CLASS_NAME;
+        var contentClassName = 'mlayer-content ';
+        if (type) {
+            boxClassName += ' mlayer-box-' + type;
+            contentClassName += ' mlayer-content-' + type;
+        }
+        var html = ['<div class="' + boxClassName + '" style="display: none;">', '<div class="mlayer-box-height-wrapper">', '<div class="mlayer-box-inner">', '<div class="' + contentClassName + '">', html || '', '</div>', '</div>', '</div>', '</div>'].join('');
+
+        var $box = $(html);
+        $body.append($box);
+        $box[0].mlayerInstance = this;
+
+        if (this.options.zIndex !== undefined) {
+            $box.css('z-index', this.options.zIndex);
+        }
+        this.$wrapper = $box.children('.mlayer-box-height-wrapper');
+        this.$innerBox = this.$wrapper.children('.mlayer-box-inner');
+        this.$content = this.$innerBox.children('.mlayer-content');
+
+        if (this.options.hookContentShow) {
+            this.$content.hide();
+        }
+        if (this.options.overflow) {
+            this.$content.css('overflow', this.options.overflow);
+        }
+        return $box;
+    };
+    Base.prototype.showBox = function () {
+        if (!this.$box) {
+            return;
+        }
+        if (this.options.withCover) {
+            this.showCover();
+        }
+        this.$box.show();
+    };
+    Base.prototype.hideBox = function () {
+        if (!this.$box) {
+            return;
+        }
+        this.$box.hide();
+        if (this.options.withCover) {
+            this.hideCover();
+        }
+    };
+    Base.prototype.show = function () {
+        if (window.attachEvent) {
+            // this.hackIE();
+        }
+        this.showBox();
+        if (this.options.hookContentShow && this.$content) {
+            this.options.hookContentShow.call(this, this.$content);
+        }
+    };
+    Base.prototype.hide = function () {
+        this.stopHackIE();
+        this.hideBox();
+        if (this.options.hookContentShow && this.$content) {
+            this.$content.hide();
+        }
+    };
+
+    Base.prototype.close = function () {
+        if (this.closeTimer) {
+            clearTimeout(this.closeTimer);
+        }
+        this.trigger('beforeClose');
+        this.hide();
+        if (this.$box) {
+            this.$box.remove();
+            this.$box = null;
+        }
+
+        if (this.$cover) {
+            this.$cover.remove();
+            this.$cover = null;
+        }
+    };
+    Base.prototype.renderSize = function () {
+        if (this.options.width) {
+            var width = getNumberPixel(this.options.width);
+            this.$content.css('width', width);
+        }
+        if (this.options.height) {
+            var height = getNumberPixel(this.options.height);
+            this.$innerBox.css('height', height);
+            this.$content.css('height', '100%');
+        }
+    };
+    Base.prototype.trigger = function (name) {
+        if (!name) {
+            return false;
+        }
+        if (typeof name === 'function') {
+            var func = name;
+        } else if (typeof this.options[name] === 'function') {
+            func = this.options[name];
+        }
+
+        if (func) {
+            var args = Array.prototype.slice.call(arguments, 1);
+            return func.apply(this, args);
+        }
+    };
+
+    /**
+     * 基础事件绑定
+     */
+    Base.prototype.baseBind = function () {
+        var self = this;
+        this.$content.children('.x-close-btn').click(function () {
+            self.close();
+        });
+        this.$innerBox.delegate('.x-button-box button', 'click', function () {
+            var i = this.getAttribute('data-i');
+            if (self.options['btn' + i]) {
+                self.trigger(self.options['btn' + i].onClick);
+            }
+        });
+    };
+
+    /**
+     * 设置wrapper的高度
+     */
+    Base.prototype.renderWrapperHeight = function () {
+        this.$wrapper.css('height', window.innerHeight + 'px');
+    };
+
+    /**
+     * 关闭按钮HTML
+     *
+     * @return     {string}
+     */
+    Base.prototype.getCloseBtnHtml = function () {
+        return ['<a href="javascript:;" class="x-close-btn">', '<img src="' + (window.xPath || '') + 'images/mlayer/close.png" />', '</a>'].join('');
+    };
+
+    /**
+     * 获取底部按钮html
+     */
+    Base.prototype.getButtonHtml = function () {
+        var html = '';
+        for (var i = 1; this.options['btn' + i]; i++) {
+            var item = this.options['btn' + i];
+            var attrs = {};
+            attrs['class'] = 'x-btn';
+            if (item.type) {
+                attrs['class'] += ' button-' + item.type;
+            }
+            attrs['data-i'] = i;
+            html += '<button ' + makeAttr(attrs) + '>' + (item.text || '确定') + '</button>';
+        }
+        if (!html) {
+            return '';
+        }
+        var className = ['x-button-box', 'clearfix'];
+        if (this.options.btnAlign) {
+            className.push('align-' + this.options.btnAlign);
+        }
+        return '<div class="' + className.join(' ') + '">' + html + '</div>';
+    };
+
+    /**
+     * IE8下, 在content高度变化时, 不会自动居中
+     */
+    Base.prototype.hackIE = function () {
+        if (this.$box) {
+            this.$box.find('.mlayer-content');
+        }
+        var self = this;
+        this.hackIETimer = setTimeout(function () {
+            self.hackIE();
+        }, 500);
+    };
+    Base.prototype.stopHackIE = function () {
+        if (this.hackIETimer) {
+            clearTimeout(this.hackIETimer);
+            this.hackIETimer = null;
+        }
+    };
+
+    /**
+     * 浮层-构造函数
+     *
+     * @constructor
+     * @class      Mlayer
+     */
+    function Mlayer(options) {
+        this.options = $.extend(true, {}, Mlayer.config, options);
+        if (this.options.html) {
+            this.$box = this.createBox(this.getHtml(), this.options.type || 'html');
+            this.renderSize();
+        } else if (this.options.type === 'loading') {
+            this.$box = this.createBox('', 'loading');
+        }
+        this.baseBind();
+        this.show();
+    }
+    classInherit(Mlayer, Base);
+    Mlayer.config = {
+        closeBtn: true,
+        withCover: true
+    };
+    Mlayer.prototype.getHtml = function () {
+        return [this.options.closeBtn ? this.getCloseBtnHtml() : '', this.options.html || '', this.getButtonHtml()].join('');
+    };
+
+    /**
+     * 消息提示框
+     *
+     */
+    function Message(options) {
+        this.options = options || {};
+        this.$box = this.createBox(this.getHtml(), this.options.type || 'message');
+        this.show();
+        var self = this;
+        var time = this.options.time || 3000;
+        if (time < 60) {
+            time *= 1000;
+        }
+        this.closeTimer = setTimeout(function () {
+            self.close();
+        }, time);
+    }
+    classInherit(Message, Base);
+    Message.prototype.getHtml = function () {
+        var text = this.options.text || '';
+        var iconHtml = '';
+        if (this.options.type === 'iconmsg') {
+            var iconClass = 'x-icon-' + (this.options.icon || '1');
+            iconHtml = '<i class="' + iconClass + '"></i>';
+        }
+        return [iconHtml, '<p>' + text + '</p>'].join('');
+    };
+
+    /**
+     * 接口
+     */
+    if (window.parent && window.parent[globalName]) {
+        window[globalName] = window.parent[globalName];
+        return window.parent[globalName];
+    }
+
+    var exports = {};
+
+    /**
+     * 自定义Html浮层
+     *
+     * @param      {string}  html     The html
+     * @param      {object}  options  The options
+     * @return     {Mlayer}
+     */
+    exports.html = function (html, options) {
+        options = options || {};
+        options.html = html;
+        return new Mlayer(options);
+    };
+
+    /**
+     * 消息提示
+     *
+     * @param      {string}   text     The text
+     * @param      {object}   options  The options
+     * @return     {Message}
+     */
+    exports.msg = function (text, options) {
+        exports.close('iconmsg');
+        exports.close('message');
+        options = options || {};
+        options.text = text;
+        return new Message(options);
+    };
+
+    /**
+     * 带icon的msg
+     *
+     * @param      {string}  text     The text
+     * @param      {object}  options  The options
+     */
+    exports.iconMsg = function (text, options) {
+        exports.close('iconmsg');
+        exports.close('message');
+        options = options || {};
+        options.type = 'iconmsg';
+        options.text = text;
+        return new Message(options);
+    };
+
+    exports.alert = function (text, options) {
+        if (typeof options === 'function') {
+            var callback = options;
+            options = {};
+        } else {
+            options = options || {};
+        }
+        options.type = 'alert';
+        options.html = ['<div class="x-alert-box">', text || '', '</div>'].join('');
+        options.btnAlign = 'center';
+        options.btn1 = options.btn1 || {
+            text: '确定',
+            onClick: function onClick() {
+                var foo = callback || options.onCallback;
+                if (foo) {
+                    foo.call(this);
+                }
+                this.close();
+            }
+        };
+
+        return new Mlayer(options);
+    };
+
+    /**
+     * 确认框
+     *
+     * @param      {string}  text     The text
+     * @param      {object}  options  The options
+     */
+    exports.confirm = function (text, options) {
+        if (typeof options === 'function') {
+            var func1 = options;
+            options = {};
+        } else {
+            options = options || {};
+        }
+        options.type = 'confirm';
+        options.html = ['<div class="x-confirm-box">', text || '', '</div>'].join('');
+        options.btnAlign = 'right';
+        options.btn1 = options.btn1 || {
+            text: '确定',
+            onClick: function onClick() {
+                var foo = func1 || options.onConfirm;
+                if (foo) {
+                    foo.call(this);
+                }
+                this.close();
+            }
+        };
+        options.btn2 = options.btn2 || {
+            text: '取消',
+            type: 'cancel',
+            onClick: function onClick() {
+                this.close();
+            }
+        };
+        return new Mlayer(options);
+    };
+
+    /**
+     * 显示loading
+     *
+     * @param      {object}  options  The options
+     */
+    exports.loading = function (options) {
+        exports.close('loading');
+        options = options || {};
+        options.type = 'loading';
+        options.closeBtn = false;
+        options.zIndex = Z_INDEX + 10;
+        options.coverZIndex = options.zIndex - 5;
+        options.coverOpacity = 0;
+        return new Mlayer(options);
+    };
+
+    /**
+     * 关闭
+     *
+     * @param      {string}  type    The type
+     */
+    exports.close = function (type) {
+        if (type) {
+            var $layers = $('.mlayer-box-' + type);
+        } else {
+            $layers = $('.' + BOX_CLASS_NAME);
+        }
+
+        if ($layers.length) {
+            $layers.each(function () {
+                var instance = this.mlayerInstance;
+                if (instance) {
+                    instance.close();
+                }
+            });
+        }
+        return $layers;
+    };
+
+    window[globalName] = exports;
+    return exports;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -5040,23 +5668,23 @@ if (typeof Array.prototype.indexOf != "function") {
     }return Ns.call(this, e, t);
   }, Be.compile = Gr, Be;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(28)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(32)))
 
 /***/ }),
-/* 13 */
+/* 17 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas__ = __webpack_require__(35);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_comp_canvas__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_cell__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_comp_cells__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_global_config__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource__ = __webpack_require__(33);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_global_resource__);
 //
 //
@@ -5081,13 +5709,24 @@ methods.start = function () {
     var _this = this;
 
     __WEBPACK_IMPORTED_MODULE_4_global_resource___default.a.load(function () {
+        _this.clearTimer();
         _this.draw();
     });
+};
+methods.clearTimer = function () {
+    if (this.drawTimer) {
+        cancelAnimationFrame(this.drawTimer);
+        this.drawTimer = null;
+    }
 };
 methods.draw = function () {
     var _this2 = this;
 
+    if (this.stoped) {
+        return false;
+    }
     var cxt = this.mainContext;
+    var continueDraw = false;
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
         var _Canvas$getCellSize = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.getCellSize(),
             w = _Canvas$getCellSize.w,
@@ -5097,16 +5736,22 @@ methods.draw = function () {
             x = _Canvas$calCellPositi.x,
             y = _Canvas$calCellPositi.y;
 
-        cell.draw(cxt, x, y, w, h);
+        if (cell.draw(cxt, x, y, w, h)) {
+            continueDraw = true;
+        }
         /*
         cxt.font = "20px Georgia";
         cxt.fillStyle = "#0000ff";
         cxt.fillText(`${row}:${col}`, x, y);
         */
     });
-    window.requestAnimationFrame(function () {
-        _this2.draw();
-    });
+    if (continueDraw) {
+        this.drawTimer = window.requestAnimationFrame(function () {
+            _this2.draw();
+        });
+        return true;
+    }
+    return false;
 };
 
 methods.initSize = function () {
@@ -5140,7 +5785,7 @@ var dataFunc = function dataFunc() {
 };
 
 /***/ }),
-/* 14 */
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5171,7 +5816,7 @@ var dataFunc = function dataFunc() {
 };
 
 /***/ }),
-/* 15 */
+/* 19 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5215,15 +5860,15 @@ var dataFunc = function dataFunc() {
     mounted: mounted,
     destroyed: destroyed,
     components: {
-        'vue-canvas': __webpack_require__(19)
+        'vue-canvas': __webpack_require__(23)
     }
 };
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)();
+exports = module.exports = __webpack_require__(1)();
 // imports
 
 
@@ -5234,10 +5879,10 @@ exports.push([module.i, "", ""]);
 
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)();
+exports = module.exports = __webpack_require__(1)();
 // imports
 
 
@@ -5248,10 +5893,10 @@ exports.push([module.i, "", ""]);
 
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(0)();
+exports = module.exports = __webpack_require__(1)();
 // imports
 
 
@@ -5262,24 +5907,24 @@ exports.push([module.i, "", ""]);
 
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(25)
+__webpack_require__(27)
 
-var Component = __webpack_require__(1)(
+var Component = __webpack_require__(2)(
   /* script */
-  __webpack_require__(13),
+  __webpack_require__(17),
   /* template */
-  __webpack_require__(22),
+  __webpack_require__(24),
   /* scopeId */
-  "data-v-746c0e35",
+  "data-v-2f313f15",
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\comp\\canvas.vue"
+Component.options.__file = "C:\\Users\\GuoYe\\work\\wamp\\www\\dr\\js\\comp\\canvas.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] canvas.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -5290,9 +5935,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-746c0e35", Component.options)
+    hotAPI.createRecord("data-v-2f313f15", Component.options)
   } else {
-    hotAPI.reload("data-v-746c0e35", Component.options)
+    hotAPI.reload("data-v-2f313f15", Component.options)
   }
 })()}
 
@@ -5300,7 +5945,45 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 20 */
+/* 24 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "canvas-holder"
+  }, [_c('canvas', {
+    ref: "mainCanvas"
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2f313f15", module.exports)
+  }
+}
+
+/***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "stage-2"
+  }, [_c('div', {
+    staticClass: "head"
+  }), _vm._v(" "), _c('vue-canvas')], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-6a0fa0ec", module.exports)
+  }
+}
+
+/***/ }),
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -5319,66 +6002,28 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-219774e9", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-6a2bcfee", module.exports)
   }
 }
 
 /***/ }),
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "stage-2"
-  }, [_c('div', {
-    staticClass: "head"
-  }), _vm._v(" "), _c('vue-canvas')], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-21a58c6a", module.exports)
-  }
-}
-
-/***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "canvas-holder"
-  }, [_c('canvas', {
-    ref: "mainCanvas"
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-746c0e35", module.exports)
-  }
-}
-
-/***/ }),
-/* 23 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(16);
+var content = __webpack_require__(20);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("681a9c70", content, false);
+var update = __webpack_require__(3)("3b577785", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-219774e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-219774e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-2f313f15\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-2f313f15\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -5388,23 +6033,23 @@ if(false) {
 }
 
 /***/ }),
-/* 24 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(17);
+var content = __webpack_require__(21);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("d150fe58", content, false);
+var update = __webpack_require__(3)("48f9cce2", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-21a58c6a\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-21a58c6a\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-6a0fa0ec\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-6a0fa0ec\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -5414,23 +6059,23 @@ if(false) {
 }
 
 /***/ }),
-/* 25 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(18);
+var content = __webpack_require__(22);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(2)("2eb6d99d", content, false);
+var update = __webpack_require__(3)("fda4af80", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-746c0e35\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-746c0e35\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue");
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-6a2bcfee\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-6a2bcfee\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });
@@ -5440,7 +6085,7 @@ if(false) {
 }
 
 /***/ }),
-/* 26 */
+/* 30 */
 /***/ (function(module, exports) {
 
 /**
@@ -5473,7 +6118,7 @@ module.exports = function listToStyles (parentId, list) {
 
 
 /***/ }),
-/* 27 */
+/* 31 */
 /***/ (function(module, exports) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
@@ -5482,7 +6127,7 @@ module.exports = __webpack_amd_options__;
 /* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ }),
-/* 28 */
+/* 32 */
 /***/ (function(module, exports) {
 
 var g;
@@ -5509,8 +6154,7 @@ module.exports = g;
 
 
 /***/ }),
-/* 29 */,
-/* 30 */
+/* 33 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -5538,13 +6182,13 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 31 */
+/* 34 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util_detect__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util_detect__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util_detect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util_detect__);
 
 
@@ -5574,628 +6218,10 @@ window.Index = new __WEBPACK_IMPORTED_MODULE_0_common__["a" /* Vue */]({
         stage: 0
     },
     components: {
-        'stage-1': __webpack_require__(5),
-        'stage-2': __webpack_require__(6)
+        'stage-1': __webpack_require__(10),
+        'stage-2': __webpack_require__(11)
     }
 });
 
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-var Cell = __webpack_require__(7);
-var config = __webpack_require__(9);
-var MAX_COL = config.MAX_COL;
-var MAX_ROW = config.MAX_ROW;
-var cells = [];
-
-exports.each = function (f) {
-    if (!f) {
-        return;
-    }
-    for (var i = 0; i < MAX_COL; i++) {
-        for (var j = 0; j < MAX_ROW; j++) {
-            f(cells[i][j], j, i);
-        }
-    }
-};
-exports.init = function () {
-    for (var i = 0; i < MAX_COL; i++) {
-        cells[i] = [];
-        for (var j = 0; j < MAX_ROW; j++) {
-            cells[i][j] = new Cell(j, i);
-        }
-    }
-};
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var config = __webpack_require__(9);
-
-var TYPES = ['icon'];
-var imgs = {};
-var randtype = function randtype() {
-    return TYPES[0];
-};
-var getItemSrc = function getItemSrc(type) {
-    return config.imgPath + '/items/' + type + '.png';
-};
-exports.imgs = imgs;
-exports.getItemSrc = getItemSrc;
-exports.randtype = randtype;
-exports.load = function (callback) {
-    callback = callback || function () {};
-    var count = 0;
-    var layer;
-    var timer = setTimeout(function () {
-        layer = mlayer.loading();
-    }, 200);
-    var done = function done() {
-        clearTimeout(timer);
-        layer && layer.close();
-        callback();
-    };
-    TYPES.forEach(function (type) {
-        var img = new Image();
-        imgs[type] = img;
-        img.src = getItemSrc(type);
-        img.onload = function () {
-            count++;
-            if (count === TYPES.length) {
-                done();
-            }
-        };
-    });
-};
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
- * 浮层工具库
- * mlayer.msg('some msg', options);
- * mlayer.iconMsg('some msg', options);
- * mlayer.alert('some msg', options|callback);
- * mlayer.confirm('some msg', options|callback);
- * mlayer.loading(options);
- * mlayer.html(html, options);
- *
- * 通用options: {
- *     coverZIndex: 10000,    // 遮罩层zindex, 默认19900415
- *     coverOpacity: .3,      // 遮罩层透明度, 默认0.3
- *     withCover: true,       // 遮罩层
- *     zIndex: 10000,         // Content浮层zindex, 默认19900420
- *     hookContentShow: func, // Content显示方法, 用于替代默认show方法
- *
- *     width: '100px',
- *     width: '80%',          // Content宽度
- *
- *     height: '200px',
- *     height: '80%',         // Content高度
- *
- *     overflow: 'auto',      // Content Overflow
- *
- *     closeBtn: true,        // 显示关闭按钮
- *
- *     time: 3000,            // 关闭时间, 毫秒
- * }
- */
-
-!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(11)], __WEBPACK_AMD_DEFINE_RESULT__ = function ($) {
-
-    var globalName = 'mlayer';
-    var BOX_CLASS_NAME = 'mlayer-box';
-    var COVER_CLASS_NAME = 'mlayer-cover';
-
-    function classInherit(Child, Parent) {
-        var F = function F() {};
-        F.prototype = Parent.prototype;
-        Child.prototype = new F();
-        Child.prototype.constructor = Child;
-        Child.uber = Parent.prototype;
-        return Child;
-    }
-    var $html = $(document.documentElement);
-    var $body = $(document.body);
-    var Z_INDEX = 19900420;
-
-    var makeAttr = function makeAttr(obj) {
-        var arr = [];
-        for (var i in obj) {
-            if (obj.hasOwnProperty(i)) {
-                var value = obj[i] || '';
-                if (value.replace) {
-                    value = value.replace(/"/g, '');
-                }
-                arr.push(i + '="' + value + '"');
-            }
-        }
-        return ' ' + arr.join(' ') + ' ';
-    };
-
-    var getNumberPixel = function getNumberPixel(w) {
-        if (isNaN(w)) {
-            return w;
-        }
-        return w + 'px';
-    };
-
-    /**
-     * 基类
-     *
-     * @class      Base
-     */
-    function Base() {}
-    Base.prototype.createCover = function () {
-        var html = '<div class="' + COVER_CLASS_NAME + '">&nbsp;</div>';
-        var $cover = $(html);
-        $body.append($cover);
-        return $cover;
-    };
-    Base.prototype.showCover = function () {
-        if (!this.$cover) {
-            this.$cover = this.createCover();
-        }
-        if (this.options.coverZIndex !== undefined) {
-            this.$cover.css('z-index', this.options.coverZIndex);
-        }
-        if (this.options.coverOpacity !== undefined) {
-            var ieValue = this.options.coverOpacity * 100;
-            this.$cover.css('opacity', this.options.coverOpacity);
-            this.$cover.css('filter', 'alpha(opacity=' + ieValue + ')');
-        }
-        this.$cover.show();
-    };
-    Base.prototype.hideCover = function () {
-        if (this.$cover) {
-            this.$cover.hide();
-        }
-    };
-    Base.prototype.createBox = function (html, type) {
-        type = type || '';
-        var boxClassName = BOX_CLASS_NAME;
-        var contentClassName = 'mlayer-content ';
-        if (type) {
-            boxClassName += ' mlayer-box-' + type;
-            contentClassName += ' mlayer-content-' + type;
-        }
-        var html = ['<div class="' + boxClassName + '" style="display: none;">', '<div class="mlayer-box-height-wrapper">', '<div class="mlayer-box-inner">', '<div class="' + contentClassName + '">', html || '', '</div>', '</div>', '</div>', '</div>'].join('');
-
-        var $box = $(html);
-        $body.append($box);
-        $box[0].mlayerInstance = this;
-
-        if (this.options.zIndex !== undefined) {
-            $box.css('z-index', this.options.zIndex);
-        }
-        this.$wrapper = $box.children('.mlayer-box-height-wrapper');
-        this.$innerBox = this.$wrapper.children('.mlayer-box-inner');
-        this.$content = this.$innerBox.children('.mlayer-content');
-
-        if (this.options.hookContentShow) {
-            this.$content.hide();
-        }
-        if (this.options.overflow) {
-            this.$content.css('overflow', this.options.overflow);
-        }
-        return $box;
-    };
-    Base.prototype.showBox = function () {
-        if (!this.$box) {
-            return;
-        }
-        if (this.options.withCover) {
-            this.showCover();
-        }
-        this.$box.show();
-    };
-    Base.prototype.hideBox = function () {
-        if (!this.$box) {
-            return;
-        }
-        this.$box.hide();
-        if (this.options.withCover) {
-            this.hideCover();
-        }
-    };
-    Base.prototype.show = function () {
-        if (window.attachEvent) {
-            // this.hackIE();
-        }
-        this.showBox();
-        if (this.options.hookContentShow && this.$content) {
-            this.options.hookContentShow.call(this, this.$content);
-        }
-    };
-    Base.prototype.hide = function () {
-        this.stopHackIE();
-        this.hideBox();
-        if (this.options.hookContentShow && this.$content) {
-            this.$content.hide();
-        }
-    };
-
-    Base.prototype.close = function () {
-        if (this.closeTimer) {
-            clearTimeout(this.closeTimer);
-        }
-        this.trigger('beforeClose');
-        this.hide();
-        if (this.$box) {
-            this.$box.remove();
-            this.$box = null;
-        }
-
-        if (this.$cover) {
-            this.$cover.remove();
-            this.$cover = null;
-        }
-    };
-    Base.prototype.renderSize = function () {
-        if (this.options.width) {
-            var width = getNumberPixel(this.options.width);
-            this.$content.css('width', width);
-        }
-        if (this.options.height) {
-            var height = getNumberPixel(this.options.height);
-            this.$innerBox.css('height', height);
-            this.$content.css('height', '100%');
-        }
-    };
-    Base.prototype.trigger = function (name) {
-        if (!name) {
-            return false;
-        }
-        if (typeof name === 'function') {
-            var func = name;
-        } else if (typeof this.options[name] === 'function') {
-            func = this.options[name];
-        }
-
-        if (func) {
-            var args = Array.prototype.slice.call(arguments, 1);
-            return func.apply(this, args);
-        }
-    };
-
-    /**
-     * 基础事件绑定
-     */
-    Base.prototype.baseBind = function () {
-        var self = this;
-        this.$content.children('.x-close-btn').click(function () {
-            self.close();
-        });
-        this.$innerBox.delegate('.x-button-box button', 'click', function () {
-            var i = this.getAttribute('data-i');
-            if (self.options['btn' + i]) {
-                self.trigger(self.options['btn' + i].onClick);
-            }
-        });
-    };
-
-    /**
-     * 设置wrapper的高度
-     */
-    Base.prototype.renderWrapperHeight = function () {
-        this.$wrapper.css('height', window.innerHeight + 'px');
-    };
-
-    /**
-     * 关闭按钮HTML
-     *
-     * @return     {string}
-     */
-    Base.prototype.getCloseBtnHtml = function () {
-        return ['<a href="javascript:;" class="x-close-btn">', '<img src="' + (window.xPath || '') + 'images/mlayer/close.png" />', '</a>'].join('');
-    };
-
-    /**
-     * 获取底部按钮html
-     */
-    Base.prototype.getButtonHtml = function () {
-        var html = '';
-        for (var i = 1; this.options['btn' + i]; i++) {
-            var item = this.options['btn' + i];
-            var attrs = {};
-            attrs['class'] = 'x-btn';
-            if (item.type) {
-                attrs['class'] += ' button-' + item.type;
-            }
-            attrs['data-i'] = i;
-            html += '<button ' + makeAttr(attrs) + '>' + (item.text || '确定') + '</button>';
-        }
-        if (!html) {
-            return '';
-        }
-        var className = ['x-button-box', 'clearfix'];
-        if (this.options.btnAlign) {
-            className.push('align-' + this.options.btnAlign);
-        }
-        return '<div class="' + className.join(' ') + '">' + html + '</div>';
-    };
-
-    /**
-     * IE8下, 在content高度变化时, 不会自动居中
-     */
-    Base.prototype.hackIE = function () {
-        if (this.$box) {
-            this.$box.find('.mlayer-content');
-        }
-        var self = this;
-        this.hackIETimer = setTimeout(function () {
-            self.hackIE();
-        }, 500);
-    };
-    Base.prototype.stopHackIE = function () {
-        if (this.hackIETimer) {
-            clearTimeout(this.hackIETimer);
-            this.hackIETimer = null;
-        }
-    };
-
-    /**
-     * 浮层-构造函数
-     *
-     * @constructor
-     * @class      Mlayer
-     */
-    function Mlayer(options) {
-        this.options = $.extend(true, {}, Mlayer.config, options);
-        if (this.options.html) {
-            this.$box = this.createBox(this.getHtml(), this.options.type || 'html');
-            this.renderSize();
-        } else if (this.options.type === 'loading') {
-            this.$box = this.createBox('', 'loading');
-        }
-        this.baseBind();
-        this.show();
-    }
-    classInherit(Mlayer, Base);
-    Mlayer.config = {
-        closeBtn: true,
-        withCover: true
-    };
-    Mlayer.prototype.getHtml = function () {
-        return [this.options.closeBtn ? this.getCloseBtnHtml() : '', this.options.html || '', this.getButtonHtml()].join('');
-    };
-
-    /**
-     * 消息提示框
-     *
-     */
-    function Message(options) {
-        this.options = options || {};
-        this.$box = this.createBox(this.getHtml(), this.options.type || 'message');
-        this.show();
-        var self = this;
-        var time = this.options.time || 3000;
-        if (time < 60) {
-            time *= 1000;
-        }
-        this.closeTimer = setTimeout(function () {
-            self.close();
-        }, time);
-    }
-    classInherit(Message, Base);
-    Message.prototype.getHtml = function () {
-        var text = this.options.text || '';
-        var iconHtml = '';
-        if (this.options.type === 'iconmsg') {
-            var iconClass = 'x-icon-' + (this.options.icon || '1');
-            iconHtml = '<i class="' + iconClass + '"></i>';
-        }
-        return [iconHtml, '<p>' + text + '</p>'].join('');
-    };
-
-    /**
-     * 接口
-     */
-    if (window.parent && window.parent[globalName]) {
-        window[globalName] = window.parent[globalName];
-        return window.parent[globalName];
-    }
-
-    var exports = {};
-
-    /**
-     * 自定义Html浮层
-     *
-     * @param      {string}  html     The html
-     * @param      {object}  options  The options
-     * @return     {Mlayer}
-     */
-    exports.html = function (html, options) {
-        options = options || {};
-        options.html = html;
-        return new Mlayer(options);
-    };
-
-    /**
-     * 消息提示
-     *
-     * @param      {string}   text     The text
-     * @param      {object}   options  The options
-     * @return     {Message}
-     */
-    exports.msg = function (text, options) {
-        exports.close('iconmsg');
-        exports.close('message');
-        options = options || {};
-        options.text = text;
-        return new Message(options);
-    };
-
-    /**
-     * 带icon的msg
-     *
-     * @param      {string}  text     The text
-     * @param      {object}  options  The options
-     */
-    exports.iconMsg = function (text, options) {
-        exports.close('iconmsg');
-        exports.close('message');
-        options = options || {};
-        options.type = 'iconmsg';
-        options.text = text;
-        return new Message(options);
-    };
-
-    exports.alert = function (text, options) {
-        if (typeof options === 'function') {
-            var callback = options;
-            options = {};
-        } else {
-            options = options || {};
-        }
-        options.type = 'alert';
-        options.html = ['<div class="x-alert-box">', text || '', '</div>'].join('');
-        options.btnAlign = 'center';
-        options.btn1 = options.btn1 || {
-            text: '确定',
-            onClick: function onClick() {
-                var foo = callback || options.onCallback;
-                if (foo) {
-                    foo.call(this);
-                }
-                this.close();
-            }
-        };
-
-        return new Mlayer(options);
-    };
-
-    /**
-     * 确认框
-     *
-     * @param      {string}  text     The text
-     * @param      {object}  options  The options
-     */
-    exports.confirm = function (text, options) {
-        if (typeof options === 'function') {
-            var func1 = options;
-            options = {};
-        } else {
-            options = options || {};
-        }
-        options.type = 'confirm';
-        options.html = ['<div class="x-confirm-box">', text || '', '</div>'].join('');
-        options.btnAlign = 'right';
-        options.btn1 = options.btn1 || {
-            text: '确定',
-            onClick: function onClick() {
-                var foo = func1 || options.onConfirm;
-                if (foo) {
-                    foo.call(this);
-                }
-                this.close();
-            }
-        };
-        options.btn2 = options.btn2 || {
-            text: '取消',
-            type: 'cancel',
-            onClick: function onClick() {
-                this.close();
-            }
-        };
-        return new Mlayer(options);
-    };
-
-    /**
-     * 显示loading
-     *
-     * @param      {object}  options  The options
-     */
-    exports.loading = function (options) {
-        exports.close('loading');
-        options = options || {};
-        options.type = 'loading';
-        options.closeBtn = false;
-        options.zIndex = Z_INDEX + 10;
-        options.coverZIndex = options.zIndex - 5;
-        options.coverOpacity = 0;
-        return new Mlayer(options);
-    };
-
-    /**
-     * 关闭
-     *
-     * @param      {string}  type    The type
-     */
-    exports.close = function (type) {
-        if (type) {
-            var $layers = $('.mlayer-box-' + type);
-        } else {
-            $layers = $('.' + BOX_CLASS_NAME);
-        }
-
-        if ($layers.length) {
-            $layers.each(function () {
-                var instance = this.mlayerInstance;
-                if (instance) {
-                    instance.close();
-                }
-            });
-        }
-        return $layers;
-    };
-
-    window[globalName] = exports;
-    return exports;
-}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
-				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var config = __webpack_require__(9);
-var COL = config.MAX_COL;
-var ROW = config.MAX_ROW;
-var canvasWidthRate = 6;
-var canvasHeightRate = 6;
-var headHeight = 100;
-var docElem = document.documentElement;
-
-exports.calSize = function () {
-    var docWidth = docElem.clientWidth;
-    var docHeight = docElem.clientHeight - headHeight;
-    if (docWidth * canvasHeightRate > docHeight * canvasWidthRate) {
-        var cheight = Math.max(320, docHeight);
-        var cwidth = Math.ceil(cheight * canvasWidthRate / canvasHeightRate);
-    } else {
-        cwidth = docWidth;
-        cheight = Math.ceil(cwidth * canvasHeightRate / canvasWidthRate);
-    }
-
-    return {
-        h: cheight,
-        w: cwidth
-    };
-};
-exports.getCellSize = function () {
-    var w = exports.cellWidth;
-    var h = exports.cellHeight;
-    return { w: w, h: h };
-};
-exports.getCellOffset = function (row) {
-    return -exports.h;
-};
-exports.calCellPosition = function (row, col) {
-    return {
-        x: exports.cellWidth * col,
-        y: exports.cellHeight * (ROW - row - 1)
-    };
-};
-var size = exports.calSize();
-exports.w = size.w;
-exports.h = size.h;
-exports.cellWidth = Math.floor(exports.w / COL);
-exports.cellHeight = Math.floor(exports.h / ROW);
-
 /***/ })
-],[31]);
+],[34]);

@@ -19,26 +19,42 @@ var docElem = document.documentElement;
 var methods = {};
 methods.start = function () {
     Resource.load(() => {
+        this.clearTimer();
         this.draw();
     });
 };
+methods.clearTimer = function () {
+    if (this.drawTimer) {
+        cancelAnimationFrame(this.drawTimer);
+        this.drawTimer = null;
+    }
+};
 methods.draw = function () {
+    if (this.stoped) {
+        return false;
+    }
     var cxt = this.mainContext;
+    var continueDraw = false;
     Cells.each((cell, row, col) => {
         let {w, h} = Canvas.getCellSize();
         let {x, y} = Canvas.calCellPosition(row, col, w, h);
-        cell.draw(cxt, x, y, w, h);
+        if (cell.draw(cxt, x, y, w, h)) {
+            continueDraw = true;
+        }
         /*
         cxt.font = "20px Georgia";
         cxt.fillStyle = "#0000ff";
         cxt.fillText(`${row}:${col}`, x, y);
         */
     });
-    window.requestAnimationFrame(() => {
-        this.draw();
-    });
+    if (continueDraw) {
+        this.drawTimer = window.requestAnimationFrame(() => {
+            this.draw();
+        });
+        return true;
+    }
+    return false;
 };
-
 
 methods.initSize = function () {
     var {h,w} = Canvas.calSize();
