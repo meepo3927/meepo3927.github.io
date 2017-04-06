@@ -10,24 +10,40 @@ function Cell(row, col, type = Resource.randtype()) {
     this.col = col;
     // 类型
     this.type = type;
-
+    this.resetAnim();
+}
+var proto = Cell.prototype;
+proto.repos = function (row, col) {
+    if (this.row === row && this.col === col) {
+        return false;
+    }
+    this.row = row;
+    this.col = col;
+    this.resetAnim({
+        startY: this.y
+    });
+};
+proto.resetAnim = function (o = {}) {
     // 延迟绘画
-    this.delay = row * 3;
+    this.delay = this.row * 3;
 
     // 目标坐标
-    this.destX = CellWidth * col;
-    this.destY = CellHeight * (ROW - row - 1);
+    this.destX = CellWidth * this.col;
+    this.destY = CellHeight * (ROW - this.row - 1);
+    this.step = 0;
 
     // 起始坐标
-    this.startY = this.destY - Canvas.h;
+    if (o.startY === undefined) {
+        this.startY = this.destY - Canvas.h;
+    } else {
+        this.startY = o.startY;
+    }
+    
     // 当前坐标(绘画)
     this.x = this.destX;
     this.y = this.startY;
-
     this.distance = this.destY - this.startY;
-    this.step = 0;
-}
-var proto = Cell.prototype;
+};
 proto.isStopped = function () {
     return (this.y === this.destY);
 };
@@ -61,7 +77,7 @@ proto.draw = function (context) {
 };
 
 proto.drawCover = function (context) {
-    
+
     context.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
 

@@ -63,9 +63,10 @@ methods.touchEnd = function () {
         return false;
     }
     this.isTouching = false;
-
+    Cells.removeQueueCells();
     Cells.clearQueue();
     this.drawline();
+    this.startDraw();
 };
 
 // 画线

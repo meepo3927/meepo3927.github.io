@@ -420,24 +420,42 @@ function Cell(row, col) {
     this.col = col;
     // 类型
     this.type = type;
+    this.resetAnim();
+}
+var proto = Cell.prototype;
+proto.repos = function (row, col) {
+    if (this.row === row && this.col === col) {
+        return false;
+    }
+    this.row = row;
+    this.col = col;
+    this.resetAnim({
+        startY: this.y
+    });
+};
+proto.resetAnim = function () {
+    var o = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     // 延迟绘画
-    this.delay = row * 3;
+    this.delay = this.row * 3;
 
     // 目标坐标
-    this.destX = CellWidth * col;
-    this.destY = CellHeight * (ROW - row - 1);
+    this.destX = CellWidth * this.col;
+    this.destY = CellHeight * (ROW - this.row - 1);
+    this.step = 0;
 
     // 起始坐标
-    this.startY = this.destY - Canvas.h;
+    if (o.startY === undefined) {
+        this.startY = this.destY - Canvas.h;
+    } else {
+        this.startY = o.startY;
+    }
+
     // 当前坐标(绘画)
     this.x = this.destX;
     this.y = this.startY;
-
     this.distance = this.destY - this.startY;
-    this.step = 0;
-}
-var proto = Cell.prototype;
+};
 proto.isStopped = function () {
     return this.y === this.destY;
 };
@@ -3052,14 +3070,50 @@ var CellWidth = canvasComp.cellWidth;
 var CellHeight = canvasComp.cellHeight;
 var cells = [];
 var queue = [];
-
+var each = function each(f) {
+    if (!f) {
+        return;
+    }
+    for (var i = 0; i < MAX_COL; i++) {
+        for (var j = 0; j < MAX_ROW; j++) {
+            cells[i] && cells[i][j] && f(cells[i][j], j, i);
+        }
+    }
+};
 var inQueue = function inQueue(cell) {
     if (~queue.indexOf(cell)) {
         return true;
     }
     return false;
 };
-
+var removeCell = function removeCell(cell) {
+    var col = cells[cell.col];
+    col.splice(cell.row, 1);
+    return cell;
+};
+var fillColumn = function fillColumn(column, col) {
+    while (column.length < MAX_ROW) {
+        column.push(new Cell(column.length, col));
+    }
+};
+var refill = function refill() {
+    for (var col = 0; col < MAX_COL; col++) {
+        var list = cells[col] || [];
+        for (var row = 0; row < list.length; row++) {
+            var cell = list[row];
+            if (cell) {
+                cell.repos(row, col);
+            }
+        }
+        fillColumn(list, col);
+    }
+};
+exports.removeQueueCells = function () {
+    queue.forEach(function (cell) {
+        removeCell(cell);
+    });
+    refill();
+};
 exports.clearQueue = function () {
     queue.length = 0;
 };
@@ -3089,23 +3143,12 @@ exports.getCellByPoint = function (x, y) {
     }
     return cells[col] ? cells[col][row] : null;
 };
-exports.each = function (f) {
-    if (!f) {
-        return;
-    }
-    for (var i = 0; i < MAX_COL; i++) {
-        for (var j = 0; j < MAX_ROW; j++) {
-            cells[i] && f(cells[i][j], j, i);
-        }
-    }
-};
+exports.each = each;
 exports.init = function () {
 
     for (var i = 0; i < MAX_COL; i++) {
         cells[i] = [];
-        for (var j = 0; j < MAX_ROW; j++) {
-            cells[i][j] = new Cell(j, i);
-        }
+        fillColumn(cells[i], i);
     }
 };
 
@@ -6027,9 +6070,10 @@ methods.touchEnd = function () {
         return false;
     }
     this.isTouching = false;
-
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.removeQueueCells();
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.clearQueue();
     this.drawline();
+    this.startDraw();
 };
 
 // 画线

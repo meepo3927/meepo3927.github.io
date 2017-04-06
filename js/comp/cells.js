@@ -8,14 +8,50 @@ const CellWidth = canvasComp.cellWidth;
 const CellHeight = canvasComp.cellHeight;
 let cells = [];
 let queue = [];
-
+let each = (f) => {
+    if (!f) {
+        return;
+    }
+    for (let i = 0; i < MAX_COL; i++) {
+        for (let j = 0; j < MAX_ROW; j++) {
+            cells[i] && cells[i][j] && f(cells[i][j], j, i);
+        }
+    }
+};
 let inQueue = (cell) => {
     if (~queue.indexOf(cell)) {
         return true;
     }
     return false;
 };
-
+let removeCell = (cell) => {
+    var col = cells[cell.col];
+    col.splice(cell.row, 1);
+    return cell;
+};
+let fillColumn = (column, col) => {
+    while (column.length < MAX_ROW) {
+        column.push(new Cell(column.length, col))
+    }
+};
+let refill = () => {
+    for (let col = 0; col < MAX_COL; col++) {
+        let list = cells[col] || [];
+        for (let row = 0; row < list.length; row++) {
+            let cell = list[row];
+            if (cell) {
+                cell.repos(row, col);
+            }
+        }
+        fillColumn(list, col);
+    }
+};
+exports.removeQueueCells = function () {
+    queue.forEach((cell) => {
+        removeCell(cell);
+    });
+    refill();
+};
 exports.clearQueue = function () {
     queue.length = 0;
 };
@@ -45,23 +81,12 @@ exports.getCellByPoint = (x, y) => {
     }
     return cells[col] ? cells[col][row] : null;
 };
-exports.each = (f) => {
-    if (!f) {
-        return;
-    }
-    for (let i = 0; i < MAX_COL; i++) {
-        for (let j = 0; j < MAX_ROW; j++) {
-            cells[i] && f(cells[i][j], j, i);
-        }
-    }
-};
+exports.each = each;
 exports.init = () => {
 
     for (let i = 0; i < MAX_COL; i++) {
         cells[i] = [];
-        for (let j = 0; j < MAX_ROW; j++) {
-            cells[i][j] = new Cell(j, i);
-        }
+        fillColumn(cells[i], i);
     }
 };
 
