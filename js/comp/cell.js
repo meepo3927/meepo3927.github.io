@@ -5,12 +5,19 @@ var Tween = require('lib/tween');
 let ROW = config.MAX_ROW;
 let CellHeight = Canvas.cellHeight;
 let CellWidth = Canvas.cellWidth;
-function Cell(row, col, type = Resource.randtype()) {
+function Cell(row, col, options = {}) {
     this.row = row;
     this.col = col;
     // 类型
-    this.type = type;
-    this.resetAnim();
+    this.type = options.type || Resource.randtype();
+
+    let delay = row - options.len;
+    LOG(`row:${row}. col:${col}. len:${options.len} delay:${delay}`);
+    
+    this.resetAnim({
+        delay,
+        startY: -CellHeight * 1.5
+    });
 }
 var proto = Cell.prototype;
 proto.repos = function (row, col) {
@@ -25,7 +32,7 @@ proto.repos = function (row, col) {
 };
 proto.resetAnim = function (o = {}) {
     // 延迟绘画
-    this.delay = this.row * 3;
+    this.delay = o.delay * 12;
 
     // 目标坐标
     this.destX = CellWidth * this.col;
@@ -38,7 +45,7 @@ proto.resetAnim = function (o = {}) {
     } else {
         this.startY = o.startY;
     }
-    
+
     // 当前坐标(绘画)
     this.x = this.destX;
     this.y = this.startY;
@@ -48,7 +55,7 @@ proto.isStopped = function () {
     return (this.y === this.destY);
 };
 proto.frameStep = function () {
-    let frameCount = ((this.distance / 14) | 0) + 1;
+    let frameCount = ((this.distance / 12) | 0) + 1;
     var y = Math.tween.Quad.easeIn(this.step, this.startY, this.distance, frameCount);
     this.step++;
     this.y = y;
@@ -80,5 +87,7 @@ proto.drawCover = function (context) {
 
     context.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
-
+proto.dispose = function () {
+    
+};
 module.exports = Cell;

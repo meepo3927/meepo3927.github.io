@@ -26,12 +26,19 @@ let inQueue = (cell) => {
 };
 let removeCell = (cell) => {
     var col = cells[cell.col];
-    col.splice(cell.row, 1);
+    var pos = col.indexOf(cell);
+    if (pos >= 0) {
+        col.splice(pos, 1);
+    }
+    cell.dispose();
     return cell;
 };
 let fillColumn = (column, col) => {
+    let len = column.length;
     while (column.length < MAX_ROW) {
-        column.push(new Cell(column.length, col))
+        column.push(new Cell(column.length, col, {
+            len: len
+        }))
     }
 };
 let refill = () => {

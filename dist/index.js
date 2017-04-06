@@ -414,13 +414,20 @@ var ROW = config.MAX_ROW;
 var CellHeight = Canvas.cellHeight;
 var CellWidth = Canvas.cellWidth;
 function Cell(row, col) {
-    var type = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : Resource.randtype();
+    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
     this.row = row;
     this.col = col;
     // 类型
-    this.type = type;
-    this.resetAnim();
+    this.type = options.type || Resource.randtype();
+
+    var delay = row - options.len;
+    LOG('row:' + row + '. col:' + col + '. len:' + options.len + ' delay:' + delay);
+
+    this.resetAnim({
+        delay: delay,
+        startY: -CellHeight * 1.5
+    });
 }
 var proto = Cell.prototype;
 proto.repos = function (row, col) {
@@ -437,7 +444,7 @@ proto.resetAnim = function () {
     var o = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     // 延迟绘画
-    this.delay = this.row * 3;
+    this.delay = o.delay * 12;
 
     // 目标坐标
     this.destX = CellWidth * this.col;
@@ -460,7 +467,7 @@ proto.isStopped = function () {
     return this.y === this.destY;
 };
 proto.frameStep = function () {
-    var frameCount = (this.distance / 14 | 0) + 1;
+    var frameCount = (this.distance / 12 | 0) + 1;
     var y = Math.tween.Quad.easeIn(this.step, this.startY, this.distance, frameCount);
     this.step++;
     this.y = y;
@@ -492,7 +499,7 @@ proto.drawCover = function (context) {
 
     context.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
-
+proto.dispose = function () {};
 module.exports = Cell;
 
 /***/ }),
@@ -3088,12 +3095,19 @@ var inQueue = function inQueue(cell) {
 };
 var removeCell = function removeCell(cell) {
     var col = cells[cell.col];
-    col.splice(cell.row, 1);
+    var pos = col.indexOf(cell);
+    if (pos >= 0) {
+        col.splice(pos, 1);
+    }
+    cell.dispose();
     return cell;
 };
 var fillColumn = function fillColumn(column, col) {
+    var len = column.length;
     while (column.length < MAX_ROW) {
-        column.push(new Cell(column.length, col));
+        column.push(new Cell(column.length, col, {
+            len: len
+        }));
     }
 };
 var refill = function refill() {
