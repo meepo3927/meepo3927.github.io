@@ -420,9 +420,14 @@ function Cell(row, col) {
     this.col = col;
     // 类型
     this.type = options.type || Resource.randtype();
-
+    this.mainContext = options.mainContext;
+    this.lineContext = options.lineContext;
     var delay = row - options.len;
-    LOG('row:' + row + '. col:' + col + '. len:' + options.len + ' delay:' + delay);
+
+    this.anim = {
+        scale: 1
+    };
+    this.state = {};
 
     this.resetAnim({
         delay: delay,
@@ -430,6 +435,30 @@ function Cell(row, col) {
     });
 }
 var proto = Cell.prototype;
+// 在队列中
+proto.renderInQueue = function () {
+    this.anim.scale = .8;
+    this.state.inQueue = true;
+};
+/**
+ * 离开队列
+ */
+proto.leaveQueue = function () {
+    this.anim.scale = 1;
+    this.state.inQueue = false;
+};
+/**
+ * 根据类型判断，不符合类型则cover
+ */
+proto.drawByType = function (type) {
+    if (this.type !== type) {
+        this.drawCover();
+    }
+};
+
+/**
+ * 重新设置行列位置，重新计算坐标
+ */
 proto.repos = function (row, col) {
     if (this.row === row && this.col === col) {
         return false;
@@ -440,6 +469,10 @@ proto.repos = function (row, col) {
         startY: this.y
     });
 };
+/**
+ * 重新计算坐标，动画
+ * @return {[type]}
+ */
 proto.resetAnim = function () {
     var o = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -463,9 +496,16 @@ proto.resetAnim = function () {
     this.y = this.startY;
     this.distance = this.destY - this.startY;
 };
+/**
+ * 是否应该停止移动
+ * @return {Boolean}
+ */
 proto.isStopped = function () {
     return this.y === this.destY;
 };
+/**
+ * 逐帧计算位置
+ */
 proto.frameStep = function () {
     var frameCount = (this.distance / 12 | 0) + 1;
     var y = Math.tween.Quad.easeIn(this.step, this.startY, this.distance, frameCount);
@@ -475,7 +515,11 @@ proto.frameStep = function () {
         this.y = this.destY;
     }
 };
-proto.draw = function (context) {
+/**
+ * 绘画自己的位置
+ * @param  {Context}
+ */
+proto.draw = function () {
     if (this.delay >= 0) {
         this.delay--;
         return true;
@@ -487,17 +531,23 @@ proto.draw = function (context) {
     if (!imageCanvas) {
         LOG('[cell]draw: imageCanvas null');
     } else {
-        context.drawImage(imageCanvas, this.x, this.y, CellWidth, CellHeight);
+        var scale = this.anim.scale;
+        var w = CellWidth * scale;
+        var h = CellHeight * scale;
+        var x = this.x + (CellWidth - w) / 2;
+        var y = this.y + (CellHeight - h) / 2;
+        this.mainContext.drawImage(imageCanvas, x, y, w, h);
     }
     // step every frame
     this.frameStep();
 
     return !stoped;
 };
-
-proto.drawCover = function (context) {
-
-    context.fillRect(this.x, this.y, CellWidth, CellHeight);
+/**
+ * 画透明遮罩层
+ */
+proto.drawCover = function () {
+    this.lineContext.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
 proto.dispose = function () {};
 module.exports = Cell;
@@ -3106,7 +3156,9 @@ var fillColumn = function fillColumn(column, col) {
     var len = column.length;
     while (column.length < MAX_ROW) {
         column.push(new Cell(column.length, col, {
-            len: len
+            len: len,
+            mainContext: exports.mainContext,
+            lineContext: exports.lineContext
         }));
     }
 };
@@ -3122,6 +3174,65 @@ var refill = function refill() {
         fillColumn(list, col);
     }
 };
+/**
+ * 队列中最后一个Cell
+ * @return {Cell}
+ */
+var lastQueueCell = function lastQueueCell() {
+    return queue[queue.length - 1];
+};
+/**
+ * 截断queue
+ */
+var cutQueue = function cutQueue(cell) {
+    var pos = queue.indexOf(cell);
+    if (pos < 0) {
+        return false;
+    }
+    for (var i = pos + 1; i < queue.length; i++) {
+        queue[i].leaveQueue();
+    }
+    queue.length = pos + 1;
+};
+/**
+ * 获取两点距离
+ * @return {integer}
+ */
+var getDistance = function getDistance(c1, c2) {
+    var xdiff = Math.abs(c1.col - c2.col);
+    var ydiff = Math.abs(c1.row - c2.row);
+    return Math.max(xdiff, ydiff);
+};
+/**
+ * 进队列
+ * @param  {Cell}
+ */
+var push = function push(cell) {
+    if (!cell) {
+        return false;
+    }
+
+    queue.push(cell);
+};
+// 根据(第一个)选中的类型绘画
+// 规则：只能选择同类型的
+exports.drawByType = function () {
+    var cell = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : queue[0];
+
+    if (!cell) {
+        return false;
+    }
+    var type = cell.type;
+    each(function (cell) {
+        cell.drawByType(type);
+    });
+};
+// 队列是否可收集 (长度 >= 3)
+exports.isQueueCollectable = function () {
+    return queue.length >= 3;
+};
+// 将队列中的cell从游戏中清除
+// 并重新填充
 exports.removeQueueCells = function () {
     queue.forEach(function (cell) {
         removeCell(cell);
@@ -3129,18 +3240,36 @@ exports.removeQueueCells = function () {
     refill();
 };
 exports.clearQueue = function () {
+    queue.forEach(function (cell) {
+        return cell.leaveQueue();
+    });
     queue.length = 0;
 };
-exports.push = function (cell) {
+
+/**
+ * 尝试加入队列, 需要符合规则
+ */
+exports.tryPush = function (cell) {
     if (!cell) {
         return false;
     }
     if (inQueue(cell)) {
+        cutQueue(cell);
         return false;
     }
-
-    queue.push(cell);
+    var lastCell = lastQueueCell();
+    if (!lastCell) {
+        push(cell);
+        return true;
+    }
+    if (lastCell.type !== cell.type) {
+        return false;
+    }
+    if (getDistance(lastCell, cell) === 1) {
+        push(cell);
+    }
 };
+exports.push = push;
 
 exports.getCellByPoint = function (x, y) {
     var xUnit = x / CellWidth | 0;
@@ -3159,7 +3288,10 @@ exports.getCellByPoint = function (x, y) {
 };
 exports.each = each;
 exports.init = function () {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
+    exports.mainContext = options.mainContext;
+    exports.lineContext = options.lineContext;
     for (var i = 0; i < MAX_COL; i++) {
         cells[i] = [];
         fillColumn(cells[i], i);
@@ -6040,6 +6172,7 @@ var noop = function noop() {};
 var docElem = document.documentElement;
 var methods = {};
 methods.bind = function () {
+    docElem.addEventListener('contextmenu', this, true);
     this.$refs.mainCanvas.addEventListener('mousedown', this, true);
     docElem.addEventListener('mousemove', this, true);
     this.$refs.mainCanvas.addEventListener('mouseup', this, true);
@@ -6052,6 +6185,10 @@ methods.handleMousemove = function (e) {
 };
 methods.handleMouseup = function (e) {
     this.touchEnd();
+};
+methods.handleContextmenu = function (e) {
+    e.preventDefault();
+    return false;
 };
 
 // 交互开始(按下)
@@ -6076,7 +6213,7 @@ methods.touchMove = function (e) {
     y -= canvasRect.top;
 
     var cell = __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.getCellByPoint(x, y);
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.push(cell);
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.tryPush(cell);
     this.drawline();
 };
 methods.touchEnd = function () {
@@ -6084,7 +6221,10 @@ methods.touchEnd = function () {
         return false;
     }
     this.isTouching = false;
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.removeQueueCells();
+    if (__WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.isQueueCollectable()) {
+        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.removeQueueCells();
+    }
+
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.clearQueue();
     this.drawline();
     this.startDraw();
@@ -6092,20 +6232,19 @@ methods.touchEnd = function () {
 
 // 画线
 methods.drawline = function () {
-    var _this = this;
-
     __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(this.lineContext);
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.drawByType();
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.forEach(function (cell) {
-        cell.drawCover(_this.lineContext);
+        cell.renderInQueue();
     });
 };
 // 开始绘画
 methods.startDraw = function () {
-    var _this2 = this;
+    var _this = this;
 
     __WEBPACK_IMPORTED_MODULE_4_global_resource___default.a.load(function () {
-        _this2.clearTimer();
-        _this2.draw();
+        _this.clearTimer();
+        _this.draw();
     });
 };
 methods.clearTimer = function () {
@@ -6115,7 +6254,7 @@ methods.clearTimer = function () {
     }
 };
 methods.draw = function () {
-    var _this3 = this;
+    var _this2 = this;
 
     if (this.stoped) {
         return false;
@@ -6124,17 +6263,15 @@ methods.draw = function () {
     __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(cxt);
     var continueDraw = false;
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
-        if (cell.draw(cxt)) {
+        if (cell.draw()) {
             continueDraw = true;
         }
     });
-    if (continueDraw) {
-        this.drawTimer = window.requestAnimationFrame(function () {
-            _this3.draw();
-        });
-        return true;
-    }
-    return false;
+    // if (continueDraw) {
+    this.drawTimer = window.requestAnimationFrame(function () {
+        _this2.draw();
+    });
+    return true;
 };
 
 methods.initSize = function (elem) {
@@ -6159,7 +6296,10 @@ var mounted = function mounted() {
 
     this.lineContext = this.$refs.lineCanvas.getContext('2d');
     this.initContext();
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.init();
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.init({
+        mainContext: this.mainContext,
+        lineContext: this.lineContext
+    });
     this.startDraw();
 };
 var destroyed = function destroyed() {};

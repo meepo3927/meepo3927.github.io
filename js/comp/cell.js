@@ -10,16 +10,45 @@ function Cell(row, col, options = {}) {
     this.col = col;
     // 类型
     this.type = options.type || Resource.randtype();
-
+    this.mainContext = options.mainContext;
+    this.lineContext = options.lineContext;
     let delay = row - options.len;
-    LOG(`row:${row}. col:${col}. len:${options.len} delay:${delay}`);
-    
+
+    this.anim = {
+        scale: 1
+    };
+    this.state = {};
+
     this.resetAnim({
         delay,
         startY: -CellHeight * 1.5
     });
 }
 var proto = Cell.prototype;
+// 在队列中
+proto.renderInQueue = function () {
+    this.anim.scale = .8;
+    this.state.inQueue = true;
+};
+/**
+ * 离开队列
+ */
+proto.leaveQueue = function () {
+    this.anim.scale = 1;
+    this.state.inQueue = false;
+};
+/**
+ * 根据类型判断，不符合类型则cover
+ */
+proto.drawByType = function (type) {
+    if (this.type !== type) {
+        this.drawCover();
+    }
+};
+
+/**
+ * 重新设置行列位置，重新计算坐标
+ */
 proto.repos = function (row, col) {
     if (this.row === row && this.col === col) {
         return false;
@@ -30,6 +59,10 @@ proto.repos = function (row, col) {
         startY: this.y
     });
 };
+/**
+ * 重新计算坐标，动画
+ * @return {[type]}
+ */
 proto.resetAnim = function (o = {}) {
     // 延迟绘画
     this.delay = o.delay * 12;
@@ -51,9 +84,16 @@ proto.resetAnim = function (o = {}) {
     this.y = this.startY;
     this.distance = this.destY - this.startY;
 };
+/**
+ * 是否应该停止移动
+ * @return {Boolean}
+ */
 proto.isStopped = function () {
     return (this.y === this.destY);
 };
+/**
+ * 逐帧计算位置
+ */
 proto.frameStep = function () {
     let frameCount = ((this.distance / 12) | 0) + 1;
     var y = Math.tween.Quad.easeIn(this.step, this.startY, this.distance, frameCount);
@@ -63,7 +103,11 @@ proto.frameStep = function () {
         this.y = this.destY;
     }
 };
-proto.draw = function (context) {
+/**
+ * 绘画自己的位置
+ * @param  {Context}
+ */
+proto.draw = function () {
     if (this.delay >= 0) {
         this.delay--;
         return true;
@@ -75,19 +119,24 @@ proto.draw = function (context) {
     if (!imageCanvas) {
         LOG('[cell]draw: imageCanvas null');
     } else {
-        context.drawImage(imageCanvas, this.x, this.y, CellWidth, CellHeight);
+        var scale = this.anim.scale;
+        var w = CellWidth * scale;
+        var h = CellHeight * scale;
+        var x = this.x + (CellWidth - w) / 2;
+        var y = this.y + (CellHeight - h) / 2;
+        this.mainContext.drawImage(imageCanvas, x, y, w, h);
     }
     // step every frame
     this.frameStep();
 
     return !stoped;
 };
-
-proto.drawCover = function (context) {
-
-    context.fillRect(this.x, this.y, CellWidth, CellHeight);
+/**
+ * 画透明遮罩层
+ */
+proto.drawCover = function () {
+    this.lineContext.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
 proto.dispose = function () {
-    
 };
 module.exports = Cell;

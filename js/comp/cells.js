@@ -37,7 +37,9 @@ let fillColumn = (column, col) => {
     let len = column.length;
     while (column.length < MAX_ROW) {
         column.push(new Cell(column.length, col, {
-            len: len
+            len: len,
+            mainContext: exports.mainContext,
+            lineContext: exports.lineContext
         }))
     }
 };
@@ -53,25 +55,98 @@ let refill = () => {
         fillColumn(list, col);
     }
 };
+/**
+ * 队列中最后一个Cell
+ * @return {Cell}
+ */
+const lastQueueCell = () => {
+    return queue[queue.length - 1];
+};
+/**
+ * 截断queue
+ */
+const cutQueue = (cell) => {
+    var pos = queue.indexOf(cell);
+    if (pos < 0) {
+        return false;
+    }
+    for (let i = pos + 1; i < queue.length; i++) {
+        queue[i].leaveQueue();
+    }
+    queue.length = pos + 1;
+};
+/**
+ * 获取两点距离
+ * @return {integer}
+ */
+const getDistance = (c1, c2) => {
+    var xdiff = Math.abs(c1.col - c2.col);
+    var ydiff = Math.abs(c1.row - c2.row);
+    return Math.max(xdiff, ydiff);
+};
+/**
+ * 进队列
+ * @param  {Cell}
+ */
+const push = (cell) => {
+    if (!cell) {
+        return false;
+    }
+
+    queue.push(cell);
+};
+// 根据(第一个)选中的类型绘画
+// 规则：只能选择同类型的
+exports.drawByType = function (cell = queue[0]) {
+    if (!cell) {
+        return false;
+    }
+    let type = cell.type;
+    each((cell) => {
+        cell.drawByType(type);
+    });
+};
+// 队列是否可收集 (长度 >= 3)
+exports.isQueueCollectable = function () {
+    return queue.length >= 3;
+};
+// 将队列中的cell从游戏中清除
+// 并重新填充
 exports.removeQueueCells = function () {
     queue.forEach((cell) => {
         removeCell(cell);
     });
     refill();
 };
-exports.clearQueue = function () {
+exports.clearQueue = () => {
+    queue.forEach((cell) => (cell.leaveQueue()));
     queue.length = 0;
 };
-exports.push = (cell) => {
+
+/**
+ * 尝试加入队列, 需要符合规则
+ */
+exports.tryPush = (cell) => {
     if (!cell) {
         return false;
     }
     if (inQueue(cell)) {
+        cutQueue(cell);
         return false;
     }
-
-    queue.push(cell);
+    let lastCell = lastQueueCell();
+    if (!lastCell) {
+        push(cell);
+        return true;
+    }
+    if (lastCell.type !== cell.type) {
+        return false;
+    }
+    if (getDistance(lastCell, cell) === 1) {
+        push(cell);
+    }
 };
+exports.push = push;
 
 exports.getCellByPoint = (x, y) => {
     var xUnit = (x / CellWidth) | 0;
@@ -89,8 +164,9 @@ exports.getCellByPoint = (x, y) => {
     return cells[col] ? cells[col][row] : null;
 };
 exports.each = each;
-exports.init = () => {
-
+exports.init = (options = {}) => {
+    exports.mainContext = options.mainContext;
+    exports.lineContext = options.lineContext;
     for (let i = 0; i < MAX_COL; i++) {
         cells[i] = [];
         fillColumn(cells[i], i);

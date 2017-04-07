@@ -19,6 +19,7 @@ const noop = function () {};
 var docElem = document.documentElement;
 var methods = {};
 methods.bind = function () {
+    docElem.addEventListener('contextmenu', this, true);
     this.$refs.mainCanvas.addEventListener('mousedown', this, true);
     docElem.addEventListener('mousemove', this, true);
     this.$refs.mainCanvas.addEventListener('mouseup', this, true);
@@ -31,6 +32,10 @@ methods.handleMousemove = function (e) {
 };
 methods.handleMouseup = function (e) {
     this.touchEnd();
+};
+methods.handleContextmenu = function (e) {
+    e.preventDefault();
+    return false;
 };
 
 // 交互开始(按下)
@@ -55,7 +60,7 @@ methods.touchMove = function (e) {
     y -= canvasRect.top;
 
     var cell = Cells.getCellByPoint(x, y);
-    Cells.push(cell);
+    Cells.tryPush(cell);
     this.drawline();
 };
 methods.touchEnd = function () {
@@ -63,7 +68,10 @@ methods.touchEnd = function () {
         return false;
     }
     this.isTouching = false;
-    Cells.removeQueueCells();
+    if (Cells.isQueueCollectable()) {
+        Cells.removeQueueCells();
+    }
+    
     Cells.clearQueue();
     this.drawline();
     this.startDraw();
@@ -72,8 +80,9 @@ methods.touchEnd = function () {
 // 画线
 methods.drawline = function () {
     Canvas.clear(this.lineContext);
+    Cells.drawByType();
     Cells.queue.forEach((cell) => {
-        cell.drawCover(this.lineContext);
+        cell.renderInQueue();
     });
 };
 // 开始绘画
@@ -97,17 +106,15 @@ methods.draw = function () {
     Canvas.clear(cxt);
     var continueDraw = false;
     Cells.each((cell, row, col) => {
-        if (cell.draw(cxt)) {
+        if (cell.draw()) {
             continueDraw = true;
         }
     });
-    if (continueDraw) {
-        this.drawTimer = window.requestAnimationFrame(() => {
-            this.draw();
-        });
-        return true;
-    }
-    return false;
+    // if (continueDraw) {
+    this.drawTimer = window.requestAnimationFrame(() => {
+        this.draw();
+    });
+    return true;
 };
 
 methods.initSize = function (elem) {
@@ -129,7 +136,10 @@ var mounted = function () {
 
     this.lineContext = this.$refs.lineCanvas.getContext('2d');
     this.initContext();
-    Cells.init();
+    Cells.init({
+        mainContext: this.mainContext,
+        lineContext: this.lineContext
+    });
     this.startDraw();
 };
 let destroyed = function () {
