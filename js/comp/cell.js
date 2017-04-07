@@ -137,6 +137,17 @@ proto.draw = function () {
 proto.drawCover = function () {
     this.lineContext.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
+/**
+ * 获取中心点
+ */
+proto.getCenter = function () {
+    let x = this.x + CellWidth / 2;
+    let y = this.y + CellHeight / 2;
+    return {x, y};
+};
+/**
+ * 销毁
+ */
 proto.dispose = function () {
 };
 module.exports = Cell;

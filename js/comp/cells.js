@@ -106,6 +106,32 @@ exports.drawByType = function (cell = queue[0]) {
         cell.drawByType(type);
     });
 };
+/**
+ * 画队列路径线
+ */
+exports.drawQueuePath = () => {
+    var cxt = exports.lineContext;
+    // 黑
+    cxt.strokeStyle = 'rgba(0, 0, 0, .8)';
+    cxt.lineWidth = 6;
+    exports.lineToQueue(cxt);
+    // 绿
+    cxt.strokeStyle = 'rgba(0, 255, 0, .8)';
+    cxt.lineWidth = 4;
+    exports.lineToQueue(cxt);
+};
+exports.lineToQueue = (cxt) => {
+    cxt.beginPath();
+    queue.forEach((cell, index) => {
+        let {x, y} = cell.getCenter();
+        if (index === 0) {
+            cxt.moveTo(x, y);
+        } else {
+            cxt.lineTo(x, y);
+        }
+    });
+    cxt.stroke();
+};
 // 队列是否可收集 (长度 >= 3)
 exports.isQueueCollectable = function () {
     return queue.length >= 3;
@@ -130,9 +156,9 @@ exports.tryPush = (cell) => {
     if (!cell) {
         return false;
     }
-    if (inQueue(cell)) {
+    if (inQueue(cell) && cell !== lastQueueCell()) {
         cutQueue(cell);
-        return false;
+        return true;
     }
     let lastCell = lastQueueCell();
     if (!lastCell) {
@@ -144,23 +170,35 @@ exports.tryPush = (cell) => {
     }
     if (getDistance(lastCell, cell) === 1) {
         push(cell);
+        return true;
     }
+    return false;
 };
 exports.push = push;
 
+// 根据坐标获取Cell
 exports.getCellByPoint = (x, y) => {
-    var xUnit = (x / CellWidth) | 0;
-    var yUnit = (y / CellHeight) | 0;
-    // LOG('xunit:' + xUnit + '.yunit:' + yUnit);
-    var col = xUnit;
-    var row = MAX_ROW - yUnit - 1;
-    var emptyGap = (CellWidth * 0.2) | 0;
-    var xGap = Math.abs(xUnit * CellWidth - x);
-    var yGap = Math.abs(yUnit * CellHeight - y);
-    // LOG('xg:' + xGap + '.yg:' + yGap);
-    if (xGap < emptyGap && yGap < emptyGap) {
+    // 触摸边缘系数
+    var gapRatio = .18;
+
+    let xUnit = (x / CellWidth) | 0;
+    let yUnit = (y / CellHeight) | 0;
+
+    let innerX = Math.abs(x - xUnit * CellWidth);
+    let xGap = CellWidth * gapRatio;
+    if (innerX < xGap || innerX > (CellWidth - xGap)) {
         return null;
     }
+
+    let innerY = Math.abs(y - yUnit * CellHeight);
+    let yGap = CellHeight * gapRatio;
+    if (innerY < yGap || innerY > (CellHeight - yGap)) {
+        return null;
+    }
+
+    var col = xUnit;
+    var row = MAX_ROW - yUnit - 1;
+
     return cells[col] ? cells[col][row] : null;
 };
 exports.each = each;

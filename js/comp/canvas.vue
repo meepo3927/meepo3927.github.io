@@ -31,7 +31,7 @@ methods.handleMousemove = function (e) {
     this.touchMove(e);
 };
 methods.handleMouseup = function (e) {
-    this.touchEnd();
+    this.touchEnd(e);
 };
 methods.handleContextmenu = function (e) {
     e.preventDefault();
@@ -60,30 +60,48 @@ methods.touchMove = function (e) {
     y -= canvasRect.top;
 
     var cell = Cells.getCellByPoint(x, y);
-    Cells.tryPush(cell);
-    this.drawline();
+
+    if (Cells.tryPush(cell)) {
+        this.drawline();
+    }
+
 };
-methods.touchEnd = function () {
+methods.touchEnd = function (e) {
     if (!this.isTouching) {
         return false;
     }
+
     this.isTouching = false;
-    if (Cells.isQueueCollectable()) {
+    var collect = true;
+    if (!e) {
+        collect = false;
+    }
+
+    // 收集成功
+    if (collect && Cells.isQueueCollectable()) {
         Cells.removeQueueCells();
     }
-    
+
+    // 清除并绘画
     Cells.clearQueue();
     this.drawline();
-    this.startDraw();
+    // this.startDraw();
 };
 
 // 画线
 methods.drawline = function () {
+    // 先清除line画布
     Canvas.clear(this.lineContext);
+    // 类型
     Cells.drawByType();
-    Cells.queue.forEach((cell) => {
-        cell.renderInQueue();
-    });
+    if (Cells.queue.length) {
+        // 在队列中的cell
+        Cells.queue.forEach((cell) => {
+            cell.renderInQueue();
+        });
+        // 线条
+        Cells.drawQueuePath();
+    }
 };
 // 开始绘画
 methods.startDraw = function () {
@@ -124,6 +142,7 @@ methods.initSize = function (elem) {
     elem.style.marginLeft = -(w / 2) + 'px';
 };
 methods.initContext = function () {
+    // 填充
     this.lineContext.fillStyle = 'rgba(0, 0, 0, .5)';
 };
 var computed = {};

@@ -549,6 +549,17 @@ proto.draw = function () {
 proto.drawCover = function () {
     this.lineContext.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
+/**
+ * 获取中心点
+ */
+proto.getCenter = function () {
+    var x = this.x + CellWidth / 2;
+    var y = this.y + CellHeight / 2;
+    return { x: x, y: y };
+};
+/**
+ * 销毁
+ */
 proto.dispose = function () {};
 module.exports = Cell;
 
@@ -3227,6 +3238,35 @@ exports.drawByType = function () {
         cell.drawByType(type);
     });
 };
+/**
+ * 画队列路径线
+ */
+exports.drawQueuePath = function () {
+    var cxt = exports.lineContext;
+    // 黑
+    cxt.strokeStyle = 'rgba(0, 0, 0, .8)';
+    cxt.lineWidth = 6;
+    exports.lineToQueue(cxt);
+    // 绿
+    cxt.strokeStyle = 'rgba(0, 255, 0, .8)';
+    cxt.lineWidth = 4;
+    exports.lineToQueue(cxt);
+};
+exports.lineToQueue = function (cxt) {
+    cxt.beginPath();
+    queue.forEach(function (cell, index) {
+        var _cell$getCenter = cell.getCenter(),
+            x = _cell$getCenter.x,
+            y = _cell$getCenter.y;
+
+        if (index === 0) {
+            cxt.moveTo(x, y);
+        } else {
+            cxt.lineTo(x, y);
+        }
+    });
+    cxt.stroke();
+};
 // 队列是否可收集 (长度 >= 3)
 exports.isQueueCollectable = function () {
     return queue.length >= 3;
@@ -3253,9 +3293,9 @@ exports.tryPush = function (cell) {
     if (!cell) {
         return false;
     }
-    if (inQueue(cell)) {
+    if (inQueue(cell) && cell !== lastQueueCell()) {
         cutQueue(cell);
-        return false;
+        return true;
     }
     var lastCell = lastQueueCell();
     if (!lastCell) {
@@ -3267,23 +3307,35 @@ exports.tryPush = function (cell) {
     }
     if (getDistance(lastCell, cell) === 1) {
         push(cell);
+        return true;
     }
+    return false;
 };
 exports.push = push;
 
+// 根据坐标获取Cell
 exports.getCellByPoint = function (x, y) {
+    // 触摸边缘系数
+    var gapRatio = .18;
+
     var xUnit = x / CellWidth | 0;
     var yUnit = y / CellHeight | 0;
-    // LOG('xunit:' + xUnit + '.yunit:' + yUnit);
-    var col = xUnit;
-    var row = MAX_ROW - yUnit - 1;
-    var emptyGap = CellWidth * 0.2 | 0;
-    var xGap = Math.abs(xUnit * CellWidth - x);
-    var yGap = Math.abs(yUnit * CellHeight - y);
-    // LOG('xg:' + xGap + '.yg:' + yGap);
-    if (xGap < emptyGap && yGap < emptyGap) {
+
+    var innerX = Math.abs(x - xUnit * CellWidth);
+    var xGap = CellWidth * gapRatio;
+    if (innerX < xGap || innerX > CellWidth - xGap) {
         return null;
     }
+
+    var innerY = Math.abs(y - yUnit * CellHeight);
+    var yGap = CellHeight * gapRatio;
+    if (innerY < yGap || innerY > CellHeight - yGap) {
+        return null;
+    }
+
+    var col = xUnit;
+    var row = MAX_ROW - yUnit - 1;
+
     return cells[col] ? cells[col][row] : null;
 };
 exports.each = each;
@@ -6184,7 +6236,7 @@ methods.handleMousemove = function (e) {
     this.touchMove(e);
 };
 methods.handleMouseup = function (e) {
-    this.touchEnd();
+    this.touchEnd(e);
 };
 methods.handleContextmenu = function (e) {
     e.preventDefault();
@@ -6213,30 +6265,47 @@ methods.touchMove = function (e) {
     y -= canvasRect.top;
 
     var cell = __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.getCellByPoint(x, y);
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.tryPush(cell);
-    this.drawline();
+
+    if (__WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.tryPush(cell)) {
+        this.drawline();
+    }
 };
-methods.touchEnd = function () {
+methods.touchEnd = function (e) {
     if (!this.isTouching) {
         return false;
     }
+
     this.isTouching = false;
-    if (__WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.isQueueCollectable()) {
+    var collect = true;
+    if (!e) {
+        collect = false;
+    }
+
+    // 收集成功
+    if (collect && __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.isQueueCollectable()) {
         __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.removeQueueCells();
     }
 
+    // 清除并绘画
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.clearQueue();
     this.drawline();
-    this.startDraw();
+    // this.startDraw();
 };
 
 // 画线
 methods.drawline = function () {
+    // 先清除line画布
     __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(this.lineContext);
+    // 类型
     __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.drawByType();
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.forEach(function (cell) {
-        cell.renderInQueue();
-    });
+    if (__WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.length) {
+        // 在队列中的cell
+        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.forEach(function (cell) {
+            cell.renderInQueue();
+        });
+        // 线条
+        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.drawQueuePath();
+    }
 };
 // 开始绘画
 methods.startDraw = function () {
@@ -6284,6 +6353,7 @@ methods.initSize = function (elem) {
     elem.style.marginLeft = -(w / 2) + 'px';
 };
 methods.initContext = function () {
+    // 填充
     this.lineContext.fillStyle = 'rgba(0, 0, 0, .5)';
 };
 var computed = {};
