@@ -547,6 +547,7 @@ proto.draw = function () {
  * 画透明遮罩层
  */
 proto.drawCover = function () {
+    this.lineContext.fillStyle = 'rgba(0, 0, 0, .5)';
     this.lineContext.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
 /**
@@ -3136,6 +3137,9 @@ var MAX_COL = config.MAX_COL;
 var MAX_ROW = config.MAX_ROW;
 var CellWidth = canvasComp.cellWidth;
 var CellHeight = canvasComp.cellHeight;
+
+var lineColor = 'rgba(0, 255, 0, .8)';
+var lineBgColor = 'rgba(0, 0, 0, .8)';
 var cells = [];
 var queue = [];
 var each = function each(f) {
@@ -3238,17 +3242,51 @@ exports.drawByType = function () {
         cell.drawByType(type);
     });
 };
+var drawPie = function drawPie(cxt, x, y, radius) {
+    cxt.beginPath();
+    cxt.arc(x, y, radius, 0, Math.PI * 2, true);
+    cxt.closePath();
+    cxt.fill();
+};
 /**
  * 画队列路径线
  */
 exports.drawQueuePath = function () {
+    if (queue.length === 0) {
+        return false;
+    }
     var cxt = exports.lineContext;
+    var first = queue[0];
+
+    var _first$getCenter = first.getCenter(),
+        x = _first$getCenter.x,
+        y = _first$getCenter.y;
+    // 起始圆
+
+
+    if (queue.length > 1) {
+        cxt.fillStyle = lineBgColor;
+        drawPie(cxt, x, y, 2);
+    }
+
+    // 结束圆
+    var last = lastQueueCell();
+    if (last && last !== first) {
+        var _last$getCenter = last.getCenter(),
+            _x2 = _last$getCenter.x,
+            _y = _last$getCenter.y;
+
+        cxt.fillStyle = lineBgColor;
+        drawPie(cxt, _x2, _y, 3);
+        cxt.fillStyle = lineColor;
+        drawPie(cxt, _x2, _y, 2);
+    }
     // 黑
-    cxt.strokeStyle = 'rgba(0, 0, 0, .8)';
+    cxt.strokeStyle = lineBgColor;
     cxt.lineWidth = 6;
     exports.lineToQueue(cxt);
     // 绿
-    cxt.strokeStyle = 'rgba(0, 255, 0, .8)';
+    cxt.strokeStyle = lineColor;
     cxt.lineWidth = 4;
     exports.lineToQueue(cxt);
 };
@@ -6352,10 +6390,7 @@ methods.initSize = function (elem) {
     elem.width = w;
     elem.style.marginLeft = -(w / 2) + 'px';
 };
-methods.initContext = function () {
-    // 填充
-    this.lineContext.fillStyle = 'rgba(0, 0, 0, .5)';
-};
+methods.initContext = function () {};
 var computed = {};
 var mounted = function mounted() {
     this.bind();

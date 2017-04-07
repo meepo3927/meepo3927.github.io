@@ -142,8 +142,6 @@ methods.initSize = function (elem) {
     elem.style.marginLeft = -(w / 2) + 'px';
 };
 methods.initContext = function () {
-    // 填充
-    this.lineContext.fillStyle = 'rgba(0, 0, 0, .5)';
 };
 var computed = {};
 var mounted = function () {

@@ -135,6 +135,7 @@ proto.draw = function () {
  * 画透明遮罩层
  */
 proto.drawCover = function () {
+    this.lineContext.fillStyle = 'rgba(0, 0, 0, .5)';
     this.lineContext.fillRect(this.x, this.y, CellWidth, CellHeight);
 };
 /**

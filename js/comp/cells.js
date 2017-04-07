@@ -6,6 +6,9 @@ const MAX_COL = config.MAX_COL;
 const MAX_ROW = config.MAX_ROW;
 const CellWidth = canvasComp.cellWidth;
 const CellHeight = canvasComp.cellHeight;
+
+const lineColor = 'rgba(0, 255, 0, .8)';
+const lineBgColor = 'rgba(0, 0, 0, .8)';
 let cells = [];
 let queue = [];
 let each = (f) => {
@@ -106,17 +109,43 @@ exports.drawByType = function (cell = queue[0]) {
         cell.drawByType(type);
     });
 };
+const drawPie = (cxt, x, y, radius) => {
+    cxt.beginPath();
+    cxt.arc(x, y, radius, 0, Math.PI * 2, true);
+    cxt.closePath();
+    cxt.fill();
+};
 /**
  * 画队列路径线
  */
 exports.drawQueuePath = () => {
+    if (queue.length === 0) {
+        return false;
+    }
     var cxt = exports.lineContext;
+    var first = queue[0];
+    var {x, y} = first.getCenter();
+    // 起始圆
+    if (queue.length > 1) {
+        cxt.fillStyle = lineBgColor;
+        drawPie(cxt, x, y, 2);
+    }
+    
+    // 结束圆
+    var last = lastQueueCell();
+    if (last && last !== first) {
+        let {x, y} = last.getCenter();
+        cxt.fillStyle = lineBgColor;
+        drawPie(cxt, x, y, 3);
+        cxt.fillStyle = lineColor;
+        drawPie(cxt, x, y, 2);
+    }
     // 黑
-    cxt.strokeStyle = 'rgba(0, 0, 0, .8)';
+    cxt.strokeStyle = lineBgColor;
     cxt.lineWidth = 6;
     exports.lineToQueue(cxt);
     // 绿
-    cxt.strokeStyle = 'rgba(0, 255, 0, .8)';
+    cxt.strokeStyle = lineColor;
     cxt.lineWidth = 4;
     exports.lineToQueue(cxt);
 };
