@@ -6943,6 +6943,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 var methods = {};
 var computed = {};
@@ -6974,7 +6976,7 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, "\n.player-board.on .avatar-box img[data-v-27efa117] {\n  border-color: #fff;\n}\n.avatar-box[data-v-27efa117] {\n  position: relative;\n  line-height: 0;\n  font-size: 0;\n}\n.avatar-box img[data-v-27efa117] {\n  border: 1px solid #333;\n  width: 44px;\n  height: 44px;\n  display: block;\n}\n.level[data-v-27efa117] {\n  position: absolute;\n  left: 3px;\n  top: 3px;\n  font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.player-board.on .avatar-box img[data-v-27efa117] {\n  border-color: #fff;\n}\n.avatar-box[data-v-27efa117] {\n  position: relative;\n  line-height: 0;\n  font-size: 0;\n}\n.avatar-box img[data-v-27efa117] {\n  border: 1px solid #333;\n  width: 44px;\n  height: 44px;\n  display: block;\n}\n.avatar-box .exp-bar[data-v-27efa117] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  height: 4px;\n  width: 0;\n  background-color: #66FF33;\n  -webkit-transition: width .3s ease;\n  -o-transition: width .3s ease;\n  -moz-transition: width .3s ease;\n  transition: width .3s ease;\n}\n.level[data-v-27efa117] {\n  position: absolute;\n  left: 3px;\n  top: 3px;\n  font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -7038,6 +7040,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "images/class/warrior.jpg",
       "alt": ""
     }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "exp-bar"
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -7046,15 +7050,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "x-1 m-row "
   }, [_c('div', {
     staticClass: "col-1 hp"
-  }, [_vm._v("生命：100")]), _vm._v(" "), _c('div', {
-    staticClass: "col-2 gold"
-  }, [_vm._v("金币：0")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("生命：100 / 100")])]), _vm._v(" "), _c('div', {
     staticClass: "x-2 m-row "
   }, [_c('div', {
     staticClass: "col-1 mana"
   }, [_vm._v("魔法：10")]), _vm._v(" "), _c('div', {
-    staticClass: "col-2 exp"
-  }, [_vm._v("经验：0%")])])])
+    staticClass: "col-2 gold"
+  }, [_vm._v("金币：0")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

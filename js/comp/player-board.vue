@@ -4,16 +4,18 @@
     <div class="avatar-box">
         <div class="level">LV.1</div>
         <img src="images/class/warrior.jpg" alt="">
+        <div class="exp-bar">
+        </div>
     </div>
     <!-- 状态 -->
     <div class="status-box">
         <div class="x-1 m-row ">
-            <div class="col-1 hp">生命：100</div>
-            <div class="col-2 gold">金币：0</div>
+            <div class="col-1 hp">生命：100 / 100</div>
+            
         </div>
         <div class="x-2 m-row ">
             <div class="col-1 mana">魔法：10</div>
-            <div class="col-2 exp">经验：0%</div>
+            <div class="col-2 gold">金币：0</div>
         </div>
     </div>
 </div>
@@ -58,6 +60,15 @@ export default {
         width: 44px;
         height: 44px;
         display: block;
+    }
+    .exp-bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        width: 0;
+        background-color: #66FF33;
+        transition: width .3s ease;
     }
 }
 .level {
