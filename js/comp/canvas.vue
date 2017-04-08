@@ -19,7 +19,7 @@ const noop = function () {};
 var docElem = document.documentElement;
 var methods = {};
 methods.bind = function () {
-    docElem.addEventListener('contextmenu', this, true);
+    this.$refs.mainCanvas.addEventListener('contextmenu', this, true);
     this.$refs.mainCanvas.addEventListener('mousedown', this, true);
     docElem.addEventListener('mousemove', this, true);
     this.$refs.mainCanvas.addEventListener('mouseup', this, true);
@@ -160,6 +160,7 @@ var mounted = function () {
     this.startDraw();
 };
 let destroyed = function () {
+    this.stoped = true;
 };
 let dataFunc = function () {
     var o = {

@@ -6262,7 +6262,7 @@ var noop = function noop() {};
 var docElem = document.documentElement;
 var methods = {};
 methods.bind = function () {
-    docElem.addEventListener('contextmenu', this, true);
+    this.$refs.mainCanvas.addEventListener('contextmenu', this, true);
     this.$refs.mainCanvas.addEventListener('mousedown', this, true);
     docElem.addEventListener('mousemove', this, true);
     this.$refs.mainCanvas.addEventListener('mouseup', this, true);
@@ -6407,7 +6407,9 @@ var mounted = function mounted() {
     });
     this.startDraw();
 };
-var destroyed = function destroyed() {};
+var destroyed = function destroyed() {
+    this.stoped = true;
+};
 var dataFunc = function dataFunc() {
     var o = {};
     return o;
@@ -6466,40 +6468,30 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
-window.li = function (url) {
-    var img = new Image();
-    var t1 = Date.now();
-    img.onload = function () {
-        LOG('onload', Date.now() - t1);
-    };
-    img.onerror = function () {
-        LOG('onerror', Date.now() - t1);
-    };
-    img.onabort = function () {
-        LOG('onabort');
-    };
-    img.src = url;
-};
 var docElem = document.documentElement;
 var methods = {};
 var computed = {};
 var mounted = function mounted() {};
 var destroyed = function destroyed() {};
 var dataFunc = function dataFunc() {
-    var o = {};
-    return o;
+	var o = {};
+	return o;
 };
 /* harmony default export */ __webpack_exports__["default"] = {
-    data: dataFunc,
-    methods: methods,
-    computed: computed,
-    props: [],
-    mounted: mounted,
-    destroyed: destroyed,
-    components: {
-        'vue-canvas': __webpack_require__(25)
-    }
+	data: dataFunc,
+	methods: methods,
+	computed: computed,
+	props: [],
+	mounted: mounted,
+	destroyed: destroyed,
+	components: {
+		'vue-canvas': __webpack_require__(25),
+		'player-board': __webpack_require__(44)
+	}
 };
 
 /***/ }),
@@ -6525,7 +6517,7 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, "\n.board[data-v-21a58c6a] {\n  width: 50%;\n  float: left;\n}\n", ""]);
 
 // exports
 
@@ -6614,8 +6606,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "stage-2"
   }, [_c('div', {
-    staticClass: "head"
-  }), _vm._v(" "), _c('vue-canvas')], 1)
+    staticClass: "head clearfix"
+  }, [_c('player-board', {
+    staticClass: "board"
+  }), _vm._v(" "), _c('player-board', {
+    staticClass: "board"
+  })], 1), _vm._v(" "), _c('vue-canvas')], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -6863,6 +6859,177 @@ window.Index = new __WEBPACK_IMPORTED_MODULE_0_common__["a" /* Vue */]({
         'stage-2': __webpack_require__(11)
     }
 });
+
+/***/ }),
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var methods = {};
+var computed = {};
+var mounted = function mounted() {};
+var destroyed = function destroyed() {};
+var dataFunc = function dataFunc() {
+    var o = {};
+    return o;
+};
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: dataFunc,
+    methods: methods,
+    computed: computed,
+    props: [],
+    mounted: mounted,
+    destroyed: destroyed,
+    components: {}
+};
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.avatar-box[data-v-27efa117] {\n  position: relative;\n  line-height: 0;\n  font-size: 0;\n}\n.avatar-box img[data-v-27efa117] {\n  border: 1px solid #eee;\n  width: 44px;\n  height: 44px;\n  display: block;\n}\n.level[data-v-27efa117] {\n  position: absolute;\n  left: 3px;\n  top: 3px;\n  font-size: 12px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(46)
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(42),
+  /* template */
+  __webpack_require__(45),
+  /* scopeId */
+  "data-v-27efa117",
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\comp\\player-board.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] player-board.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-27efa117", Component.options)
+  } else {
+    hotAPI.reload("data-v-27efa117", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _vm._m(0)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "player-board m-row"
+  }, [_c('div', {
+    staticClass: "avatar-box"
+  }, [_c('div', {
+    staticClass: "level"
+  }, [_vm._v("LV.1")]), _vm._v(" "), _c('img', {
+    attrs: {
+      "src": "images/class/warrior.jpg",
+      "alt": ""
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "status-box"
+  }, [_c('div', {
+    staticClass: "x-1 m-row "
+  }, [_c('div', {
+    staticClass: "col-1 hp"
+  }, [_vm._v("生命：100")]), _vm._v(" "), _c('div', {
+    staticClass: "col-2 gold"
+  }, [_vm._v("金币：0")])]), _vm._v(" "), _c('div', {
+    staticClass: "x-2 m-row "
+  }, [_c('div', {
+    staticClass: "col-1 mana"
+  }, [_vm._v("魔法：10")]), _vm._v(" "), _c('div', {
+    staticClass: "col-2 exp"
+  }, [_vm._v("经验：0%")])])])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-27efa117", module.exports)
+  }
+}
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(43);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("09f975d4", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-27efa117\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./player-board.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-27efa117\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./player-board.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 ],[36]);

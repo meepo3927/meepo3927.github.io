@@ -13,7 +13,7 @@
 }
 // 第二幕
 .page-index > .stage-2 {
-	@head-height: 100px;
+	@head-height: 50px;
 	height: 100%;
 	position: relative;
 	& > .head {
@@ -30,5 +30,40 @@
 	}
 	.line-canvas {
 		pointer-events: none;
+	}
+	// 玩家面板
+	.player-board {
+		.status-box {
+			width: 80%;
+			padding-left: 4px;
+			.hp {
+				color: #FF0000;
+			}
+			.gold {
+				color: #FFFF33;
+			}
+			.mana {
+				color: #0099FF;
+			}
+			.exp {
+				color: #66FF33;
+			}
+		}
+		.status-box > .x-1,
+		.status-box > .x-2 {
+			padding-top: 7px;
+			line-height: 0;
+			font-size: 12px;
+			white-space: nowrap;
+		}
+		.status-box > .x-1 {
+		}
+		.status-box > .x-2 {}
+		.status-box .col-1 {
+			width: 50%;
+		}
+		.status-box .col-2 {
+			width: 50%;
+		}
 	}
 }

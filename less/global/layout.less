@@ -11,20 +11,14 @@
     &.w-auto {
         width: auto;
     }
-    &.col-mid > .m-col {
+    &.col-mid > div {
         vertical-align: middle;
     }
-    /**
-     * col
-     */
-    .col() {
+    & > div {
         display: table-cell;
         vertical-align: top;
     }
-    & > .m-col {
-        .col();
-    }
-    & > .m-col.v-mid {
+    & > div.v-mid {
         vertical-align: middle;
     }
 }
@@ -37,4 +31,13 @@
     & > .flex-1 {
         flex: 1;
     }
+}
+
+.center-layer {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 33333;
+    -webkit-filter: blur(0.000001px); //fix chrome font blurry
 }
