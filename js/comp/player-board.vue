@@ -1,5 +1,5 @@
 <template>
-<div class="player-board m-row">
+<div class="player-board m-row" :class="{on: on}">
     <!-- 头像 -->
     <div class="avatar-box">
         <div class="level">LV.1</div>
@@ -22,6 +22,9 @@
 <script>
 var methods = {};
 var computed = {};
+computed.on = function () {
+    return this.status ? this.status.on : false;
+};
 var mounted = function () {};
 let destroyed = function () {};
 let dataFunc = function () {
@@ -32,7 +35,7 @@ export default {
     data: dataFunc,
     methods,
     computed,
-    props: [],
+    props: ['data', 'status'],
     mounted,
     destroyed,
     components: {}
@@ -40,14 +43,18 @@ export default {
 </script>
 
 <style scoped lang="less">
-.player-board {
+// 当前回合
+.player-board.on {
+    .avatar-box img {
+        border-color: #fff;
+    }
 }
 .avatar-box {
     position: relative;
     line-height: 0;
     font-size: 0;
     img {
-        border: 1px solid #eee;
+        border: 1px solid #333;
         width: 44px;
         height: 44px;
         display: block;

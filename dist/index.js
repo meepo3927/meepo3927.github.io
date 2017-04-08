@@ -6321,6 +6321,10 @@ methods.touchEnd = function (e) {
 
     // 收集成功
     if (collect && __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.isQueueCollectable()) {
+        this.$emit('collect', __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue);
+        this.$nextTick(function () {
+            this.$emit('after-collect');
+        });
         __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.removeQueueCells();
     }
 
@@ -6461,6 +6465,8 @@ var dataFunc = function dataFunc() {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util_player_js__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util_player_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_util_player_js__);
 //
 //
 //
@@ -6472,13 +6478,45 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
 var docElem = document.documentElement;
 var methods = {};
+// 收集
+methods.collect = function (list) {
+	// playerUtil.collect(this.getCurPlayer(), list);
+};
+// 收集结束
+methods.afterCollect = function () {
+	this.turnPlayer();
+};
+methods.getCurPlayer = function () {
+	return this['p' + this.curPlayer];
+};
+// 切换玩家
+methods.turnPlayer = function () {
+	this.curPlayer = 3 - this.curPlayer;
+};
 var computed = {};
-var mounted = function mounted() {};
+computed.p1Status = function () {
+	return {
+		on: this.curPlayer === 1
+	};
+};
+computed.p2Status = function () {
+	return {
+		on: this.curPlayer === 2
+	};
+};
+var mounted = function mounted() {
+	this.curPlayer = 1;
+};
 var destroyed = function destroyed() {};
 var dataFunc = function dataFunc() {
-	var o = {};
+	var o = {
+		curPlayer: 0,
+		p1: __WEBPACK_IMPORTED_MODULE_0_util_player_js___default.a.getDefaultProperty(),
+		p2: __WEBPACK_IMPORTED_MODULE_0_util_player_js___default.a.getDefaultProperty()
+	};
 	return o;
 };
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -6608,10 +6646,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "head clearfix"
   }, [_c('player-board', {
-    staticClass: "board"
+    staticClass: "board",
+    attrs: {
+      "data": _vm.p1,
+      "status": _vm.p1Status
+    }
   }), _vm._v(" "), _c('player-board', {
-    staticClass: "board"
-  })], 1), _vm._v(" "), _c('vue-canvas')], 1)
+    staticClass: "board",
+    attrs: {
+      "data": _vm.p2,
+      "status": _vm.p2Status
+    }
+  })], 1), _vm._v(" "), _c('vue-canvas', {
+    on: {
+      "collect": _vm.collect,
+      "after-collect": _vm.afterCollect
+    }
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -6895,6 +6946,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 var methods = {};
 var computed = {};
+computed.on = function () {
+    return this.status ? this.status.on : false;
+};
 var mounted = function mounted() {};
 var destroyed = function destroyed() {};
 var dataFunc = function dataFunc() {
@@ -6905,7 +6959,7 @@ var dataFunc = function dataFunc() {
     data: dataFunc,
     methods: methods,
     computed: computed,
-    props: [],
+    props: ['data', 'status'],
     mounted: mounted,
     destroyed: destroyed,
     components: {}
@@ -6920,7 +6974,7 @@ exports = module.exports = __webpack_require__(2)();
 
 
 // module
-exports.push([module.i, "\n.avatar-box[data-v-27efa117] {\n  position: relative;\n  line-height: 0;\n  font-size: 0;\n}\n.avatar-box img[data-v-27efa117] {\n  border: 1px solid #eee;\n  width: 44px;\n  height: 44px;\n  display: block;\n}\n.level[data-v-27efa117] {\n  position: absolute;\n  left: 3px;\n  top: 3px;\n  font-size: 12px;\n}\n", ""]);
+exports.push([module.i, "\n.player-board.on .avatar-box img[data-v-27efa117] {\n  border-color: #fff;\n}\n.avatar-box[data-v-27efa117] {\n  position: relative;\n  line-height: 0;\n  font-size: 0;\n}\n.avatar-box img[data-v-27efa117] {\n  border: 1px solid #333;\n  width: 44px;\n  height: 44px;\n  display: block;\n}\n.level[data-v-27efa117] {\n  position: absolute;\n  left: 3px;\n  top: 3px;\n  font-size: 12px;\n}\n", ""]);
 
 // exports
 
@@ -6968,11 +7022,14 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _vm._m(0)
+  return _c('div', {
+    staticClass: "player-board m-row",
+    class: {
+      on: _vm.on
+    }
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "player-board m-row"
-  }, [_c('div', {
     staticClass: "avatar-box"
   }, [_c('div', {
     staticClass: "level"
@@ -6981,7 +7038,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": "images/class/warrior.jpg",
       "alt": ""
     }
-  })]), _vm._v(" "), _c('div', {
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "status-box"
   }, [_c('div', {
     staticClass: "x-1 m-row "
@@ -6995,7 +7054,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-1 mana"
   }, [_vm._v("魔法：10")]), _vm._v(" "), _c('div', {
     staticClass: "col-2 exp"
-  }, [_vm._v("经验：0%")])])])])
+  }, [_vm._v("经验：0%")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -7030,6 +7089,21 @@ if(false) {
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
 }
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+
+exports.getDefaultProperty = function () {
+    return {
+        level: 1,
+        hp: 100,
+        gold: 0,
+        mana: 0,
+        exp: 0
+    };
+};
 
 /***/ })
 ],[36]);

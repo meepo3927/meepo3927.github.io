@@ -79,6 +79,10 @@ methods.touchEnd = function (e) {
 
     // 收集成功
     if (collect && Cells.isQueueCollectable()) {
+        this.$emit('collect', Cells.queue);
+        this.$nextTick(function () {
+            this.$emit('after-collect');
+        });
         Cells.removeQueueCells();
     }
 
