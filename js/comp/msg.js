@@ -12,7 +12,11 @@ function Msg(options = {}) {
     document.body.appendChild(elem);
     var $elem = $(elem);
 
-    this.animDiraction = 'down';
+    if (options.color) {
+        $elem.css('color', options.color);
+    }
+
+    this.animDiraction = 'up';
     (options.position || '').split(' ').forEach((val) => {
         $elem.addClass(val);
         let offset = msgCount * 24;
@@ -21,12 +25,13 @@ function Msg(options = {}) {
         } else if (val === 'right') {
             $elem.css('marginRight', -(Width / 2) + 'px');
         } else if (val === 'bottom') {
-            let top = (Height + offset);
+            let top = (Height * .75 + offset);
             $elem.css('top', top + 'px');
             this.animDiraction = 'up';
         } else if (val === 'top') {
             let top = HEAD_HEIGHT - offset;
             $elem.css('top', top + 'px');
+            this.animDiraction = 'down';
         }
     });
     this.$elem = $elem;

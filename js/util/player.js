@@ -1,8 +1,9 @@
 
 var Resource = require('global/resource.js');
+var config = require('global/config.js');
 var Msg = require('comp/msg.js');
-var TYPES_MAP = Resource.TYPES_MAP;
-
+const TYPES_MAP = Resource.TYPES_MAP;
+const COLOR = config.color;
 exports.getDefaultProperty = () => {
     return {
         level: 1,
@@ -26,7 +27,9 @@ exports.collect = function (p, list) {
         if (type === 'coin') {
             let text = Resource.TYPES_TEXT_MAP[type];
             p.gold += num;
-            Msg.pop(`获得${num}${text}`);
+            Msg.pop(`获得${num}${text}`, {
+                color: COLOR.gold
+            });
         }
     }
 };

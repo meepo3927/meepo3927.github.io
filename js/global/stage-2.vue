@@ -28,15 +28,7 @@ methods.getCurPlayer = function () {
 // 切换玩家
 methods.turnPlayer = function () {
 	this.curPlayer = 3 - this.curPlayer;
-	let position = 'top ';
-	if (this.curPlayer === 1) {
-		position += 'left';
-	} else {
-		position += 'right';
-	}
-	Msg.pop(`P${this.curPlayer}的回合`, {
-		position
-	});
+
 };
 var computed = {};
 computed.p1Status = function () {

@@ -15,7 +15,7 @@
         </div>
         <div class="x-2 m-row ">
             <div class="col-1 mana">魔法：10</div>
-            <div class="col-2 gold">金币：0</div>
+            <div class="col-2 gold">金币：{{gold}}</div>
         </div>
     </div>
 </div>
@@ -26,6 +26,12 @@ var methods = {};
 var computed = {};
 computed.on = function () {
     return this.status ? this.status.on : false;
+};
+computed.myData = function () {
+    return this.data || {};
+};
+computed.gold = function () {
+    return this.myData.gold;
 };
 var mounted = function () {};
 let destroyed = function () {};

@@ -3,7 +3,13 @@ webpackJsonp([0,1],[
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var color = {
+        gold: '#FFFF33',
+        hp: '#FF0000',
+        mana: '#0099FF'
+    };
     return {
+        color: color,
         MAX_COL: 6,
         MAX_ROW: 6,
         HEAD_HEIGHT: 60,
@@ -6506,15 +6512,6 @@ methods.getCurPlayer = function () {
 // 切换玩家
 methods.turnPlayer = function () {
 	this.curPlayer = 3 - this.curPlayer;
-	var position = 'top ';
-	if (this.curPlayer === 1) {
-		position += 'left';
-	} else {
-		position += 'right';
-	}
-	__WEBPACK_IMPORTED_MODULE_1_comp_msg_js___default.a.pop('P' + this.curPlayer + '\u7684\u56DE\u5408', {
-		position: position
-	});
 };
 var computed = {};
 computed.p1Status = function () {
@@ -6976,6 +6973,12 @@ var computed = {};
 computed.on = function () {
     return this.status ? this.status.on : false;
 };
+computed.myData = function () {
+    return this.data || {};
+};
+computed.gold = function () {
+    return this.myData.gold;
+};
 var mounted = function mounted() {};
 var destroyed = function destroyed() {};
 var dataFunc = function dataFunc() {
@@ -7054,7 +7057,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       on: _vm.on
     }
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1)])
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "status-box"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "x-2 m-row "
+  }, [_c('div', {
+    staticClass: "col-1 mana"
+  }, [_vm._v("魔法：10")]), _vm._v(" "), _c('div', {
+    staticClass: "col-2 gold"
+  }, [_vm._v("金币：" + _vm._s(_vm.gold))])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "avatar-box"
@@ -7070,18 +7081,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "status-box"
-  }, [_c('div', {
     staticClass: "x-1 m-row "
   }, [_c('div', {
     staticClass: "col-1 hp"
-  }, [_vm._v("生命：100 / 100")])]), _vm._v(" "), _c('div', {
-    staticClass: "x-2 m-row "
-  }, [_c('div', {
-    staticClass: "col-1 mana"
-  }, [_vm._v("魔法：10")]), _vm._v(" "), _c('div', {
-    staticClass: "col-2 gold"
-  }, [_vm._v("金币：0")])])])
+  }, [_vm._v("生命：100 / 100")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -7123,9 +7126,10 @@ if(false) {
 
 
 var Resource = __webpack_require__(6);
+var config = __webpack_require__(0);
 var Msg = __webpack_require__(48);
 var TYPES_MAP = Resource.TYPES_MAP;
-
+var COLOR = config.color;
 exports.getDefaultProperty = function () {
     return {
         level: 1,
@@ -7149,7 +7153,9 @@ exports.collect = function (p, list) {
         if (type === 'coin') {
             var text = Resource.TYPES_TEXT_MAP[type];
             p.gold += num;
-            Msg.pop('\u83B7\u5F97' + num + text);
+            Msg.pop('\u83B7\u5F97' + num + text, {
+                color: COLOR.gold
+            });
         }
     }
 };
@@ -7176,7 +7182,11 @@ function Msg() {
     document.body.appendChild(elem);
     var $elem = $(elem);
 
-    this.animDiraction = 'down';
+    if (options.color) {
+        $elem.css('color', options.color);
+    }
+
+    this.animDiraction = 'up';
     (options.position || '').split(' ').forEach(function (val) {
         $elem.addClass(val);
         var offset = msgCount * 24;
@@ -7185,12 +7195,13 @@ function Msg() {
         } else if (val === 'right') {
             $elem.css('marginRight', -(Width / 2) + 'px');
         } else if (val === 'bottom') {
-            var top = Height + offset;
+            var top = Height * .75 + offset;
             $elem.css('top', top + 'px');
             _this.animDiraction = 'up';
         } else if (val === 'top') {
             var _top = HEAD_HEIGHT - offset;
             $elem.css('top', _top + 'px');
+            _this.animDiraction = 'down';
         }
     });
     this.$elem = $elem;
