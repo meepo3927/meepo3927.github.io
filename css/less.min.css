@@ -3407,6 +3407,25 @@ textarea.input-text {
   margin-left: -16px;
   margin-top: -16px;
 }
+.comp-msg {
+  position: fixed;
+  top: 50%;
+  font-size: 26px;
+  color: #fff;
+  border: 1px solid #999;
+  -webkit-box-shadow: 0 0 4px #ccc;
+  box-shadow: 0 0 4px #ccc;
+  background-color: rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+  pointer-events: none;
+}
+.comp-msg.left {
+  left: 50%;
+}
+.comp-msg.right {
+  right: 50%;
+  text-align: right;
+}
 [v-cloak] {
   display: none;
 }

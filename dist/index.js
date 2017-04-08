@@ -6,6 +6,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;!(__WEBPACK_AMD_
     return {
         MAX_COL: 6,
         MAX_ROW: 6,
+        HEAD_HEIGHT: 60,
         mainColor: '#eee',
         imgPath: './images'
     };
@@ -571,7 +572,13 @@ module.exports = Cell;
 var config = __webpack_require__(0);
 var canvasComp = __webpack_require__(1);
 var canvasUtil = __webpack_require__(18);
-var TYPES = ['icon', 'sword', 'hp'];
+var TYPES = ['coin', 'sword', 'hp'];
+
+var TYPES_TEXT_MAP = {
+    coin: '金币',
+    sword: '刀',
+    hp: '血瓶'
+};
 
 var imageCanvasHolder = {};
 var randtype = function randtype() {
@@ -581,7 +588,7 @@ var randtype = function randtype() {
 var getItemSrc = function getItemSrc(type) {
     return config.imgPath + '/items/' + type + '.png';
 };
-
+exports.TYPES_TEXT_MAP = TYPES_TEXT_MAP;
 exports.imageCanvasHolder = imageCanvasHolder;
 exports.getItemSrc = getItemSrc;
 exports.randtype = randtype;
@@ -6467,6 +6474,8 @@ var dataFunc = function dataFunc() {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util_player_js__ = __webpack_require__(47);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_util_player_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_util_player_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_msg_js__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_msg_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_msg_js__);
 //
 //
 //
@@ -6477,13 +6486,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 
 var docElem = document.documentElement;
 var methods = {};
 // 收集
 methods.collect = function (list) {
-	// playerUtil.collect(this.getCurPlayer(), list);
+	__WEBPACK_IMPORTED_MODULE_0_util_player_js___default.a.collect(this.getCurPlayer(), list);
 };
 // 收集结束
 methods.afterCollect = function () {
@@ -6495,6 +6506,15 @@ methods.getCurPlayer = function () {
 // 切换玩家
 methods.turnPlayer = function () {
 	this.curPlayer = 3 - this.curPlayer;
+	var position = 'top ';
+	if (this.curPlayer === 1) {
+		position += 'left';
+	} else {
+		position += 'right';
+	}
+	__WEBPACK_IMPORTED_MODULE_1_comp_msg_js___default.a.pop('P' + this.curPlayer + '\u7684\u56DE\u5408', {
+		position: position
+	});
 };
 var computed = {};
 computed.p1Status = function () {
@@ -6509,6 +6529,11 @@ computed.p2Status = function () {
 };
 var mounted = function mounted() {
 	this.curPlayer = 1;
+	setTimeout(function () {
+		__WEBPACK_IMPORTED_MODULE_1_comp_msg_js___default.a.pop('游戏开始，玩家1行动', {
+			position: 'left bottom'
+		});
+	}, 800);
 };
 var destroyed = function destroyed() {};
 var dataFunc = function dataFunc() {
@@ -7094,8 +7119,12 @@ if(false) {
 
 /***/ }),
 /* 47 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
+
+var Resource = __webpack_require__(6);
+var Msg = __webpack_require__(48);
+var TYPES_MAP = Resource.TYPES_MAP;
 
 exports.getDefaultProperty = function () {
     return {
@@ -7106,6 +7135,95 @@ exports.getDefaultProperty = function () {
         exp: 0
     };
 };
+
+exports.collect = function (p, list) {
+    var countMap = {};
+    list.forEach(function (cell) {
+        var type = cell.type;
+        countMap[type] = countMap[type] ? countMap[type] + 1 : 1;
+    });
+
+    for (var type in countMap) {
+        var num = countMap[type];
+        // 获得金币
+        if (type === 'coin') {
+            var text = Resource.TYPES_TEXT_MAP[type];
+            p.gold += num;
+            Msg.pop('\u83B7\u5F97' + num + text);
+        }
+    }
+};
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {var canvas = __webpack_require__(1);
+var config = __webpack_require__(0);
+var Width = canvas.w;
+var Height = canvas.h;
+var HEAD_HEIGHT = config.HEAD_HEIGHT;
+
+function Msg() {
+    var _this = this;
+
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    var elem = document.createElement('div');
+    elem.className = 'comp-msg';
+    elem.innerHTML = options.text;
+    elem.style.display = 'none';
+    document.body.appendChild(elem);
+    var $elem = $(elem);
+
+    this.animDiraction = 'down';
+    (options.position || '').split(' ').forEach(function (val) {
+        $elem.addClass(val);
+        var offset = msgCount * 24;
+        if (val === 'left') {
+            $elem.css('marginLeft', -(Width / 2) + 'px');
+        } else if (val === 'right') {
+            $elem.css('marginRight', -(Width / 2) + 'px');
+        } else if (val === 'bottom') {
+            var top = Height + offset;
+            $elem.css('top', top + 'px');
+            _this.animDiraction = 'up';
+        } else if (val === 'top') {
+            var _top = HEAD_HEIGHT - offset;
+            $elem.css('top', _top + 'px');
+        }
+    });
+    this.$elem = $elem;
+    msgCount++;
+}
+var proto = Msg.prototype;
+proto.show = function () {
+    var _this2 = this;
+
+    var animTop = this.animDiraction === 'down' ? '+=' : '-=';
+    animTop += '50px';
+    this.$elem.show();
+    this.$elem.animate({
+        top: animTop,
+        opacity: 0.1
+    }, 1200, function () {
+        msgCount--;
+        _this2.$elem.remove();
+    });
+};
+var msgCount = 0;
+exports.pop = function (msg) {
+    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+    if (!msg) {
+        return;
+    }
+    options.text = msg;
+    var msg = new Msg(options);
+    msg.show();
+    return msg;
+};
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ })
 ],[36]);

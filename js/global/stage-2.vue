@@ -10,11 +10,13 @@
 
 <script>
 import playerUtil from 'util/player.js';
+import Msg from 'comp/msg.js';
+
 var docElem = document.documentElement;
 var methods = {};
 // 收集
 methods.collect = function (list) {
-	// playerUtil.collect(this.getCurPlayer(), list);
+	playerUtil.collect(this.getCurPlayer(), list);
 };
 // 收集结束
 methods.afterCollect = function () {
@@ -26,6 +28,15 @@ methods.getCurPlayer = function () {
 // 切换玩家
 methods.turnPlayer = function () {
 	this.curPlayer = 3 - this.curPlayer;
+	let position = 'top ';
+	if (this.curPlayer === 1) {
+		position += 'left';
+	} else {
+		position += 'right';
+	}
+	Msg.pop(`P${this.curPlayer}的回合`, {
+		position
+	});
 };
 var computed = {};
 computed.p1Status = function () {
@@ -40,6 +51,11 @@ computed.p2Status = function () {
 };
 var mounted = function () {
 	this.curPlayer = 1;
+	setTimeout(() => {
+		Msg.pop('游戏开始，玩家1行动', {
+			position: 'left bottom'
+		});
+	}, 800);
 };
 let destroyed = function () {
 };

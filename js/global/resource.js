@@ -2,10 +2,16 @@ var config = require('global/config');
 var canvasComp = require('comp/canvas.js');
 var canvasUtil = require('util/canvas.js');
 let TYPES = [
-    'icon',
+    'coin',
     'sword',
     'hp'
 ];
+
+let TYPES_TEXT_MAP = {
+    coin: '金币',
+    sword: '刀',
+    hp: '血瓶'
+};
 
 let imageCanvasHolder = {};
 let randtype = function () {
@@ -15,7 +21,7 @@ let randtype = function () {
 let getItemSrc = (type) => {
     return config.imgPath + '/items/' + type + '.png';
 };
-
+exports.TYPES_TEXT_MAP = TYPES_TEXT_MAP;
 exports.imageCanvasHolder = imageCanvasHolder;
 exports.getItemSrc = getItemSrc;
 exports.randtype = randtype;
