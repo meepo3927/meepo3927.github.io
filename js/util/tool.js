@@ -107,7 +107,7 @@ define([], function () {
             var type = toStr.call(obj[i]);
             if (type === '[object Array]') {
                 target[i] = extend(target[i] || [], obj[i]);
-            } else if (type === '[object Object]') {
+            } else if (type === '[object Object]' && obj[i].constructor  === Object) {
                 target[i] = extend(target[i], obj[i]);
             } else {
                 target[i] = obj[i];

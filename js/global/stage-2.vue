@@ -1,34 +1,34 @@
 <template>
 <div class="stage-2">
 	<div class="head clearfix">
-		<player-board class="board" :data="p1" :status="p1Status"/>
-		<player-board class="board" :data="p2" :status="p2Status"/>
+		<player-board class="board" :data="p1data" :status="p1Status"/>
+		<player-board class="board" :data="p2data" :status="p2Status"/>
 	</div>
 	<vue-canvas @collect="collect" @after-collect="afterCollect" />
 </div>
 </template>
 
 <script>
-import playerUtil from 'util/player.js';
+import Player from 'comp/player.js';
 import Msg from 'comp/msg.js';
 
 var docElem = document.documentElement;
 var methods = {};
 // 收集
 methods.collect = function (list) {
-	playerUtil.collect(this.getCurPlayer(), list);
+	this.getCurPlayer().collect(list);
 };
 // 收集结束
 methods.afterCollect = function () {
 	this.turnPlayer();
 };
+// 当前玩家
 methods.getCurPlayer = function () {
 	return this['p' + this.curPlayer];
 };
 // 切换玩家
 methods.turnPlayer = function () {
 	this.curPlayer = 3 - this.curPlayer;
-
 };
 var computed = {};
 computed.p1Status = function () {
@@ -52,10 +52,21 @@ var mounted = function () {
 let destroyed = function () {
 };
 let dataFunc = function () {
+	this.p1 = new Player({
+		id: 1
+	});
+	this.p2 = new Player({
+		id: 2,
+		enemy: this.p1
+	});
+	this.p1.setOption({
+		enemy: this.p2
+	});
+
 	var o = {
 		curPlayer: 0,
-		p1: playerUtil.getDefaultProperty(),
-		p2: playerUtil.getDefaultProperty()
+		p1data: this.p1.data,
+		p2data: this.p2.data
 	};
 	return o;
 };

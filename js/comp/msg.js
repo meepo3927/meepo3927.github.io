@@ -45,7 +45,7 @@ proto.show = function () {
     this.$elem.animate({
         top: animTop,
         opacity: 0.1
-    }, 1200, () => {
+    }, 1500, () => {
         msgCount--;
         this.$elem.remove();
     });

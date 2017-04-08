@@ -4,13 +4,13 @@
     <div class="avatar-box">
         <div class="level">LV.1</div>
         <img src="images/class/warrior.jpg" alt="">
-        <div class="exp-bar">
+        <div class="exp-bar" :style="{width: expBarWidth}">
         </div>
     </div>
     <!-- 状态 -->
     <div class="status-box">
         <div class="x-1 m-row ">
-            <div class="col-1 hp">生命：100 / 100</div>
+            <div class="col-1 hp">生命：{{hp}} / {{maxHp}}</div>
             
         </div>
         <div class="x-2 m-row ">
@@ -30,8 +30,17 @@ computed.on = function () {
 computed.myData = function () {
     return this.data || {};
 };
+computed.hp = function () {
+    return this.myData.hp || 0;
+};
+computed.maxHp = function () {
+    return this.myData.maxHp || 0;
+};
 computed.gold = function () {
-    return this.myData.gold;
+    return this.myData.gold || 0;
+};
+computed.expBarWidth = function () {
+    return this.myData.exp + '%';
 };
 var mounted = function () {};
 let destroyed = function () {};
