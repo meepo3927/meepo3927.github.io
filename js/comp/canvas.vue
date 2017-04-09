@@ -43,6 +43,7 @@ methods.touchStart = function (e) {
     if (this.isTouching) {
         return false;
     }
+    LOG('zizoupao')
     this.isTouching = true;
     this.touchMove(e);
 };
@@ -91,7 +92,7 @@ methods.touchEnd = function (e) {
     this.drawline();
     // this.startDraw();
 };
-
+methods.cancel = function () {};
 // 画线
 methods.drawline = function () {
     // 先清除line画布

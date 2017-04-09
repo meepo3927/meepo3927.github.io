@@ -3426,6 +3426,91 @@ textarea.input-text {
   right: 50%;
   text-align: right;
 }
+.table {
+  width: 100%;
+}
+.table th,
+.table td {
+  padding: 12px 14px;
+}
+.table thead > tr > th {
+  background-color: #000;
+  color: #fff;
+  font-size: 20px;
+}
+.table tbody > tr {
+  background-color: #474747;
+}
+.table tbody > tr > td {
+  color: inherit;
+  font-size: 18px;
+}
+.table tbody > tr:nth-of-type(odd) {
+  background-color: #474747;
+}
+.table tbody > tr:nth-of-type(odd):hover {
+  background-color: #2e2e2e;
+}
+.table tbody > tr:nth-of-type(even) {
+  background-color: #1f1f1f;
+}
+.table tbody > tr:nth-of-type(even):hover {
+  background-color: #050505;
+}
+.color-level {
+  color: #999966;
+}
+.color-hp {
+  color: #FF0000 !important;
+}
+.color-gold {
+  color: #FFFF33 !important;
+}
+.color-mana {
+  color: #0099FF !important;
+}
+.color-exp {
+  color: #66FF33 !important;
+}
+.color-dk {
+  color: #c41e3b !important;
+}
+.color-warrior {
+  color: #c69b6d !important;
+}
+.color-warlock {
+  color: #9382c9 !important;
+}
+.color-shaman {
+  color: #2359ff !important;
+}
+.color-rogue {
+  color: #fff468 !important;
+}
+.color-priest {
+  color: #f0ebe0 !important;
+}
+.color-paladin {
+  color: #f48cba !important;
+}
+.color-mage {
+  color: #68ccef !important;
+}
+.color-hunter {
+  color: #aad372 !important;
+}
+.color-mage {
+  color: #68ccef !important;
+}
+.color-druid {
+  color: #ff7c0a !important;
+}
+.color-dh {
+  color: #990066 !important;
+}
+.color-monk {
+  color: #008467 !important;
+}
 [v-cloak] {
   display: none;
 }

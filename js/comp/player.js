@@ -4,9 +4,25 @@ var Msg = require('comp/msg.js');
 var tool = require('util/tool');
 const TYPES_MAP = Resource.TYPES_MAP;
 const COLOR = config.color;
+const classNameMap = {
+    warrior: '战士',
+    warlock: '术士',
+    shaman: '萨满',
+    rogue: '盗贼',
+    priest: '牧师',
+    paladin: '圣骑士',
+    mage: '法师',
+    hunter: '猎人',
+    druid: '德鲁伊',
+    dk: '死亡骑士',
+    dh: '恶魔猎手'
+};
 
 function Player(options = {}) {
+    let classId = options.classId;
     this.data = {
+        classId,
+        className: classNameMap[classId],
         level: 1,
         hp: 100,
         maxHp: 100,

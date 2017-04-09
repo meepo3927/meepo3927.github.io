@@ -1,9 +1,9 @@
 <template>
 <div class="player-board m-row" :class="{on: on}">
     <!-- 头像 -->
-    <div class="avatar-box">
+    <div class="avatar-box" @click="$emit('avatar-click')">
         <div class="level">LV.1</div>
-        <img src="images/class/warrior.jpg" alt="">
+        <img :src="avatarUrl" alt="">
         <div class="exp-bar" :style="{width: expBarWidth}">
         </div>
     </div>
@@ -24,6 +24,9 @@
 <script>
 var methods = {};
 var computed = {};
+computed.avatarUrl = function () {
+    return `images/class/${this.myData.classId}.jpg`;
+};
 computed.on = function () {
     return this.status ? this.status.on : false;
 };

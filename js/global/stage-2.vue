@@ -1,16 +1,22 @@
 <template>
 <div class="stage-2">
 	<div class="head clearfix">
-		<player-board class="board" :data="p1data" :status="p1Status"/>
-		<player-board class="board" :data="p2data" :status="p2Status"/>
+		<player-board class="board" :data="p1data" :status="p1Status"
+			@avatar-click="showPlayerProperty(1)" />
+		<player-board class="board" :data="p2data" :status="p2Status"
+			@avatar-click="showPlayerProperty(2)" />
 	</div>
 	<vue-canvas @collect="collect" @after-collect="afterCollect" />
+
+	<player-layer :data="p1data" v-show="layerVisible === 1" id="1" />
+	<player-layer :data="p2data" v-show="layerVisible === 2" id="2" />
 </div>
 </template>
 
 <script>
 import Player from 'comp/player.js';
 import Msg from 'comp/msg.js';
+import Cover from 'util/cover.js';
 
 var docElem = document.documentElement;
 var methods = {};
@@ -29,6 +35,15 @@ methods.getCurPlayer = function () {
 // 切换玩家
 methods.turnPlayer = function () {
 	this.curPlayer = 3 - this.curPlayer;
+};
+// 属性面板
+methods.showPlayerProperty = function (index) {
+	this.cover = new Cover();
+	this.cover.elem.onclick = () => {
+		this.cover.remove();
+		this.layerVisible = 0;
+	};
+	this.layerVisible = index;
 };
 var computed = {};
 computed.p1Status = function () {
@@ -53,10 +68,12 @@ let destroyed = function () {
 };
 let dataFunc = function () {
 	this.p1 = new Player({
-		id: 1
+		id: 1,
+		classId: 'warrior'
 	});
 	this.p2 = new Player({
 		id: 2,
+		classId: 'dk',
 		enemy: this.p1
 	});
 	this.p1.setOption({
@@ -65,6 +82,7 @@ let dataFunc = function () {
 
 	var o = {
 		curPlayer: 0,
+		layerVisible: 0,
 		p1data: this.p1.data,
 		p2data: this.p2.data
 	};
@@ -79,7 +97,8 @@ export default {
 	destroyed,
 	components: {
 		'vue-canvas': require('comp/canvas.vue'),
-		'player-board': require('comp/player-board.vue')
+		'player-board': require('comp/player-board.vue'),
+		'player-layer': require('comp/player-layer.vue')
 	}
 };
 </script>

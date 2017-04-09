@@ -193,7 +193,7 @@ if (typeof DEBUG !== 'undefined' && DEBUG) {
   ) }
 }
 
-var listToStyles = __webpack_require__(39)
+var listToStyles = __webpack_require__(40)
 
 /*
 type StyleObject = {
@@ -415,7 +415,7 @@ function applyToTag (styleElement, obj) {
 
 var config = __webpack_require__(0);
 var canvasComp = __webpack_require__(1);
-var canvasUtil = __webpack_require__(19);
+var canvasUtil = __webpack_require__(20);
 var TYPES = ['coin', 'sword', 'hp'];
 
 var TYPES_TEXT_MAP = {
@@ -2668,7 +2668,7 @@ exports.load = function (callback) {
     });
   }), n.fn.size = function () {
     return this.length;
-  }, n.fn.andSelf = n.fn.addBack, "function" == "function" && __webpack_require__(40) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+  }, n.fn.andSelf = n.fn.addBack, "function" == "function" && __webpack_require__(41) && !(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
     return n;
   }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));var Lc = a.jQuery,
@@ -2676,7 +2676,7 @@ exports.load = function (callback) {
     return a.$ === n && (a.$ = Mc), b && a.jQuery === n && (a.jQuery = Lc), n;
   }, (typeof b === "undefined" ? "undefined" : _typeof(b)) === U && (a.jQuery = a.$ = n), n;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(43)(module)))
 
 /***/ }),
 /* 7 */
@@ -2685,7 +2685,7 @@ exports.load = function (callback) {
 var config = __webpack_require__(0);
 var Resource = __webpack_require__(5);
 var Canvas = __webpack_require__(1);
-var Tween = __webpack_require__(17);
+var Tween = __webpack_require__(18);
 var ROW = config.MAX_ROW;
 var CellHeight = Canvas.cellHeight;
 var CellWidth = Canvas.cellWidth;
@@ -2921,13 +2921,13 @@ exports.pop = function (msg) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill__ = __webpack_require__(15);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_polyfill___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_polyfill__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_jquery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_jquery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue__ = __webpack_require__(19);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_mlayer___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_mlayer__);
 /* harmony reexport (default from non-hamory) */ __webpack_require__.d(__webpack_exports__, "a", function() { return __WEBPACK_IMPORTED_MODULE_2_vue___default.a; });
 /* unused harmony reexport $ */
@@ -2936,7 +2936,7 @@ exports.pop = function (msg) {
 
 
 // Vue扩展
-__WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__webpack_require__(14));
+__WEBPACK_IMPORTED_MODULE_2_vue___default.a.use(__webpack_require__(15));
 
 
 window.LOG = function () {
@@ -3144,13 +3144,13 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 
 /* styles */
-__webpack_require__(35)
+__webpack_require__(36)
 
 var Component = __webpack_require__(3)(
   /* script */
-  __webpack_require__(23),
+  __webpack_require__(24),
   /* template */
-  __webpack_require__(31),
+  __webpack_require__(32),
   /* scopeId */
   "data-v-219774e9",
   /* cssModules */
@@ -3182,13 +3182,13 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(36)
+__webpack_require__(37)
 
 var Component = __webpack_require__(3)(
   /* script */
-  __webpack_require__(24),
+  __webpack_require__(25),
   /* template */
-  __webpack_require__(32),
+  __webpack_require__(33),
   /* scopeId */
   "data-v-21a58c6a",
   /* cssModules */
@@ -3481,6 +3481,132 @@ exports.queue = queue;
 
 /***/ }),
 /* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Resource = __webpack_require__(5);
+var config = __webpack_require__(0);
+var Msg = __webpack_require__(8);
+var tool = __webpack_require__(21);
+var TYPES_MAP = Resource.TYPES_MAP;
+var COLOR = config.color;
+var classNameMap = {
+    warrior: '战士',
+    warlock: '术士',
+    shaman: '萨满',
+    rogue: '盗贼',
+    priest: '牧师',
+    paladin: '圣骑士',
+    mage: '法师',
+    hunter: '猎人',
+    druid: '德鲁伊',
+    dk: '死亡骑士',
+    dh: '恶魔猎手'
+};
+
+function Player() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    var classId = options.classId;
+    this.data = {
+        classId: classId,
+        className: classNameMap[classId],
+        level: 1,
+        hp: 100,
+        maxHp: 100,
+        gold: 0,
+        mana: 0,
+        exp: 0
+    };
+    this.options = {};
+    this.setOption(options);
+}
+var proto = Player.prototype;
+proto.setOption = function (options) {
+    this.options = tool.extend(this.options, options);
+    if (this.options.id) {
+        this.id = this.options.id;
+    }
+    if (this.options.enemy) {
+        this.enemy = this.options.enemy;
+    }
+};
+/**
+ * 收集
+ */
+proto.collect = function (list) {
+    var countMap = {};
+    list.forEach(function (cell) {
+        var type = cell.type;
+        countMap[type] = countMap[type] ? countMap[type] + 1 : 1;
+    });
+
+    var allCount = 0;
+    for (var type in countMap) {
+        var num = countMap[type];
+        allCount += num;
+        // 获得金币
+        if (type === 'coin') {
+            this.addGold(num);
+        }
+        // 刀
+        if (type === 'sword') {
+            this.attack(num);
+        }
+    }
+    this.addExp(allCount);
+};
+/**
+ * 增加金币
+ */
+proto.addGold = function (num) {
+    this.data.gold += num;
+    var text = Resource.TYPES_TEXT_MAP.coin;
+    this.showMyMsg('+' + num + text, {
+        color: COLOR.gold
+    });
+};
+/**
+ * 增加经验
+ */
+proto.addExp = function (num) {
+    this.data.exp += num;
+};
+/**
+ * 进行攻击
+ */
+proto.attack = function (num) {
+    var damage = num * 1; // 攻击力
+    this.enemy.beAttacked(damage);
+};
+/**
+ * 被攻击
+ */
+proto.beAttacked = function (damage) {
+    // 减伤.
+    this.minusHP(damage);
+};
+/**
+ * 减少HP
+ */
+proto.minusHP = function (val) {
+    if (val < 0) {
+        return false;
+    }
+    this.data.hp -= val;
+    this.showMyMsg('-' + val + 'hp', {
+        color: COLOR.hp
+    });
+};
+proto.showMyMsg = function (msg, options) {
+    var position = this.id === 1 ? 'left' : 'right';
+    var mOptions = tool.extend({ position: position }, options);
+    Msg.pop(msg, mOptions);
+};
+
+module.exports = Player;
+
+/***/ }),
+/* 15 */
 /***/ (function(module, exports) {
 
 var Plugin = {};
@@ -3501,7 +3627,7 @@ Plugin.install = function (Vue, options) {
 module.exports = Plugin;
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports) {
 
 /**
@@ -3619,7 +3745,7 @@ if (typeof Array.prototype.indexOf != "function") {
 }
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -4117,7 +4243,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports) {
 
 /*
@@ -4301,7 +4427,7 @@ var Tween = {
 Math.tween = Tween;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -6295,10 +6421,10 @@ Math.tween = Tween;
     }return Ns.call(this, e, t);
   }, Be.compile = Gr, Be;
 });
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(41)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(42)))
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports) {
 
 
@@ -6315,1015 +6441,7 @@ exports.getImageCanvas = function (img, w, h) {
 };
 
 /***/ }),
-/* 20 */,
 /* 21 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_comp_canvas__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell__ = __webpack_require__(7);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_cell__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells__ = __webpack_require__(13);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_comp_cells__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_global_config__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_global_resource__);
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-var COL = __WEBPACK_IMPORTED_MODULE_3_global_config___default.a.MAX_COL;
-var ROW = __WEBPACK_IMPORTED_MODULE_3_global_config___default.a.MAX_ROW;
-
-var noop = function noop() {};
-var docElem = document.documentElement;
-var methods = {};
-methods.bind = function () {
-    this.$refs.mainCanvas.addEventListener('contextmenu', this, true);
-    this.$refs.mainCanvas.addEventListener('mousedown', this, true);
-    docElem.addEventListener('mousemove', this, true);
-    this.$refs.mainCanvas.addEventListener('mouseup', this, true);
-};
-methods.handleMousedown = function (e) {
-    this.touchStart(e);
-};
-methods.handleMousemove = function (e) {
-    this.touchMove(e);
-};
-methods.handleMouseup = function (e) {
-    this.touchEnd(e);
-};
-methods.handleContextmenu = function (e) {
-    e.preventDefault();
-    return false;
-};
-
-// 交互开始(按下)
-methods.touchStart = function (e) {
-    if (this.isTouching) {
-        return false;
-    }
-    this.isTouching = true;
-    this.touchMove(e);
-};
-methods.touchMove = function (e) {
-    if (!this.isTouching) {
-        return false;
-    }
-    if (e.target.tagName.toLowerCase() !== 'canvas') {
-        return this.touchEnd();
-    }
-    var x = e.clientX;
-    var y = e.clientY;
-    var canvasRect = this.mainCanvas.getBoundingClientRect();
-    x -= canvasRect.left;
-    y -= canvasRect.top;
-
-    var cell = __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.getCellByPoint(x, y);
-
-    if (__WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.tryPush(cell)) {
-        this.drawline();
-    }
-};
-methods.touchEnd = function (e) {
-    if (!this.isTouching) {
-        return false;
-    }
-
-    this.isTouching = false;
-    var collect = true;
-    if (!e) {
-        collect = false;
-    }
-
-    // 收集成功
-    if (collect && __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.isQueueCollectable()) {
-        this.$emit('collect', __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue);
-        this.$nextTick(function () {
-            this.$emit('after-collect');
-        });
-        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.removeQueueCells();
-    }
-
-    // 清除并绘画
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.clearQueue();
-    this.drawline();
-    // this.startDraw();
-};
-
-// 画线
-methods.drawline = function () {
-    // 先清除line画布
-    __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(this.lineContext);
-    // 类型
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.drawByType();
-    if (__WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.length) {
-        // 在队列中的cell
-        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.forEach(function (cell) {
-            cell.renderInQueue();
-        });
-        // 线条
-        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.drawQueuePath();
-    }
-};
-// 开始绘画
-methods.startDraw = function () {
-    var _this = this;
-
-    __WEBPACK_IMPORTED_MODULE_4_global_resource___default.a.load(function () {
-        _this.clearTimer();
-        _this.draw();
-    });
-};
-methods.clearTimer = function () {
-    if (this.drawTimer) {
-        cancelAnimationFrame(this.drawTimer);
-        this.drawTimer = null;
-    }
-};
-methods.draw = function () {
-    var _this2 = this;
-
-    if (this.stoped) {
-        return false;
-    }
-    var cxt = this.mainContext;
-    __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(cxt);
-    var continueDraw = false;
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
-        if (cell.draw()) {
-            continueDraw = true;
-        }
-    });
-    // if (continueDraw) {
-    this.drawTimer = window.requestAnimationFrame(function () {
-        _this2.draw();
-    });
-    return true;
-};
-
-methods.initSize = function (elem) {
-    var _Canvas$calSize = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.calSize(),
-        h = _Canvas$calSize.h,
-        w = _Canvas$calSize.w;
-
-    elem.height = h;
-    elem.width = w;
-    elem.style.marginLeft = -(w / 2) + 'px';
-};
-methods.initContext = function () {};
-var computed = {};
-var mounted = function mounted() {
-    this.bind();
-    this.initSize(this.$refs.mainCanvas);
-    this.initSize(this.$refs.lineCanvas);
-    this.mainCanvas = this.$refs.mainCanvas;
-    this.mainContext = this.$refs.mainCanvas.getContext('2d');
-
-    this.lineContext = this.$refs.lineCanvas.getContext('2d');
-    this.initContext();
-    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.init({
-        mainContext: this.mainContext,
-        lineContext: this.lineContext
-    });
-    this.startDraw();
-};
-var destroyed = function destroyed() {
-    this.stoped = true;
-};
-var dataFunc = function dataFunc() {
-    var o = {};
-    return o;
-};
-/* harmony default export */ __webpack_exports__["default"] = {
-    data: dataFunc,
-    methods: methods,
-    computed: computed,
-    props: [],
-    mounted: mounted,
-    destroyed: destroyed,
-    components: {}
-};
-
-/***/ }),
-/* 22 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-var methods = {};
-var computed = {};
-computed.on = function () {
-    return this.status ? this.status.on : false;
-};
-computed.myData = function () {
-    return this.data || {};
-};
-computed.hp = function () {
-    return this.myData.hp || 0;
-};
-computed.maxHp = function () {
-    return this.myData.maxHp || 0;
-};
-computed.gold = function () {
-    return this.myData.gold || 0;
-};
-computed.expBarWidth = function () {
-    return this.myData.exp + '%';
-};
-var mounted = function mounted() {};
-var destroyed = function destroyed() {};
-var dataFunc = function dataFunc() {
-    var o = {};
-    return o;
-};
-/* harmony default export */ __webpack_exports__["default"] = {
-    data: dataFunc,
-    methods: methods,
-    computed: computed,
-    props: ['data', 'status'],
-    mounted: mounted,
-    destroyed: destroyed,
-    components: {}
-};
-
-/***/ }),
-/* 23 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-
-var methods = {};
-var computed = {};
-var mounted = function mounted() {};
-var destroyed = function destroyed() {};
-var dataFunc = function dataFunc() {
-	var o = {};
-	return o;
-};
-/* harmony default export */ __webpack_exports__["default"] = {
-	data: dataFunc,
-	methods: methods,
-	computed: computed,
-	props: [],
-	mounted: mounted,
-	destroyed: destroyed,
-	components: {}
-};
-
-/***/ }),
-/* 24 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_player_js__ = __webpack_require__(44);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_player_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_comp_player_js__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_msg_js__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_msg_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_msg_js__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-var docElem = document.documentElement;
-var methods = {};
-// 收集
-methods.collect = function (list) {
-	this.getCurPlayer().collect(list);
-};
-// 收集结束
-methods.afterCollect = function () {
-	this.turnPlayer();
-};
-// 当前玩家
-methods.getCurPlayer = function () {
-	return this['p' + this.curPlayer];
-};
-// 切换玩家
-methods.turnPlayer = function () {
-	this.curPlayer = 3 - this.curPlayer;
-};
-var computed = {};
-computed.p1Status = function () {
-	return {
-		on: this.curPlayer === 1
-	};
-};
-computed.p2Status = function () {
-	return {
-		on: this.curPlayer === 2
-	};
-};
-var mounted = function mounted() {
-	this.curPlayer = 1;
-	setTimeout(function () {
-		__WEBPACK_IMPORTED_MODULE_1_comp_msg_js___default.a.pop('游戏开始，玩家1行动', {
-			position: 'left bottom'
-		});
-	}, 800);
-};
-var destroyed = function destroyed() {};
-var dataFunc = function dataFunc() {
-	this.p1 = new __WEBPACK_IMPORTED_MODULE_0_comp_player_js___default.a({
-		id: 1
-	});
-	this.p2 = new __WEBPACK_IMPORTED_MODULE_0_comp_player_js___default.a({
-		id: 2,
-		enemy: this.p1
-	});
-	this.p1.setOption({
-		enemy: this.p2
-	});
-
-	var o = {
-		curPlayer: 0,
-		p1data: this.p1.data,
-		p2data: this.p2.data
-	};
-	return o;
-};
-/* harmony default export */ __webpack_exports__["default"] = {
-	data: dataFunc,
-	methods: methods,
-	computed: computed,
-	props: [],
-	mounted: mounted,
-	destroyed: destroyed,
-	components: {
-		'vue-canvas': __webpack_require__(29),
-		'player-board': __webpack_require__(30)
-	}
-};
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.board[data-v-21a58c6a] {\n  width: 50%;\n  float: left;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-// imports
-
-
-// module
-exports.push([module.i, "\n.player-board.on .avatar-box img[data-v-27efa117] {\n  border-color: #fff;\n}\n.avatar-box[data-v-27efa117] {\n  position: relative;\n  line-height: 0;\n  font-size: 0;\n}\n.avatar-box img[data-v-27efa117] {\n  border: 1px solid #333;\n  width: 44px;\n  height: 44px;\n  display: block;\n}\n.avatar-box .exp-bar[data-v-27efa117] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  height: 4px;\n  width: 0;\n  background-color: #66FF33;\n  -webkit-transition: width .3s ease;\n  -o-transition: width .3s ease;\n  -moz-transition: width .3s ease;\n  transition: width .3s ease;\n}\n.level[data-v-27efa117] {\n  position: absolute;\n  left: 3px;\n  top: 3px;\n  font-size: 12px;\n}\n", ""]);
-
-// exports
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(2)();
-// imports
-
-
-// module
-exports.push([module.i, "", ""]);
-
-// exports
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(38)
-
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(21),
-  /* template */
-  __webpack_require__(34),
-  /* scopeId */
-  "data-v-746c0e35",
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\comp\\canvas.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] canvas.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-746c0e35", Component.options)
-  } else {
-    hotAPI.reload("data-v-746c0e35", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(37)
-
-var Component = __webpack_require__(3)(
-  /* script */
-  __webpack_require__(22),
-  /* template */
-  __webpack_require__(33),
-  /* scopeId */
-  "data-v-27efa117",
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\comp\\player-board.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] player-board.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-27efa117", Component.options)
-  } else {
-    hotAPI.reload("data-v-27efa117", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "stage-1"
-  }, [_c('button', {
-    staticClass: "btn",
-    on: {
-      "click": function($event) {
-        _vm.$emit('start')
-      }
-    }
-  }, [_vm._v("Start")])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-219774e9", module.exports)
-  }
-}
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "stage-2"
-  }, [_c('div', {
-    staticClass: "head clearfix"
-  }, [_c('player-board', {
-    staticClass: "board",
-    attrs: {
-      "data": _vm.p1data,
-      "status": _vm.p1Status
-    }
-  }), _vm._v(" "), _c('player-board', {
-    staticClass: "board",
-    attrs: {
-      "data": _vm.p2data,
-      "status": _vm.p2Status
-    }
-  })], 1), _vm._v(" "), _c('vue-canvas', {
-    on: {
-      "collect": _vm.collect,
-      "after-collect": _vm.afterCollect
-    }
-  })], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-21a58c6a", module.exports)
-  }
-}
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "player-board m-row",
-    class: {
-      on: _vm.on
-    }
-  }, [_c('div', {
-    staticClass: "avatar-box"
-  }, [_c('div', {
-    staticClass: "level"
-  }, [_vm._v("LV.1")]), _vm._v(" "), _c('img', {
-    attrs: {
-      "src": "images/class/warrior.jpg",
-      "alt": ""
-    }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "exp-bar",
-    style: ({
-      width: _vm.expBarWidth
-    })
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "status-box"
-  }, [_c('div', {
-    staticClass: "x-1 m-row "
-  }, [_c('div', {
-    staticClass: "col-1 hp"
-  }, [_vm._v("生命：" + _vm._s(_vm.hp) + " / " + _vm._s(_vm.maxHp))])]), _vm._v(" "), _c('div', {
-    staticClass: "x-2 m-row "
-  }, [_c('div', {
-    staticClass: "col-1 mana"
-  }, [_vm._v("魔法：10")]), _vm._v(" "), _c('div', {
-    staticClass: "col-2 gold"
-  }, [_vm._v("金币：" + _vm._s(_vm.gold))])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-27efa117", module.exports)
-  }
-}
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "canvas-holder"
-  }, [_c('canvas', {
-    ref: "mainCanvas"
-  }), _vm._v(" "), _c('canvas', {
-    ref: "lineCanvas",
-    staticClass: "line-canvas"
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-746c0e35", module.exports)
-  }
-}
-
-/***/ }),
-/* 35 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(25);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("681a9c70", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-219774e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-219774e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 36 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(26);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("d150fe58", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-21a58c6a\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-21a58c6a\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(27);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("09f975d4", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-27efa117\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./player-board.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-27efa117\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./player-board.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 38 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(28);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(4)("2eb6d99d", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-746c0e35\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue", function() {
-     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-746c0e35\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
-/* 39 */
-/***/ (function(module, exports) {
-
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-module.exports = function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports) {
-
-/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
-module.exports = __webpack_amd_options__;
-
-/* WEBPACK VAR INJECTION */}.call(exports, {}))
-
-/***/ }),
-/* 41 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 42 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
-
-/***/ }),
-/* 43 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util_detect__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util_detect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util_detect__);
-
-
-var methods = {};
-methods.init = function () {
-    this.stage = 2;
-};
-methods.start = function () {
-    this.stage = 2;
-};
-var computed = {};
-computed.className = function () {
-    var env = this.env;
-    var os = 'os-' + (env.os.phone ? 'phone' : env.os.tablet ? 'tablet' : 'pc');
-    return [os];
-};
-var mounted = function mounted() {
-    this.$nextTick(this.init);
-};
-window.Index = new __WEBPACK_IMPORTED_MODULE_0_common__["a" /* Vue */]({
-    el: '#main',
-    mounted: mounted,
-    computed: computed,
-    methods: methods,
-    data: {
-        env: __WEBPACK_IMPORTED_MODULE_1_util_detect___default()(),
-        stage: 0
-    },
-    components: {
-        'stage-1': __webpack_require__(11),
-        'stage-2': __webpack_require__(12)
-    }
-});
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Resource = __webpack_require__(5);
-var config = __webpack_require__(0);
-var Msg = __webpack_require__(8);
-var tool = __webpack_require__(45);
-var TYPES_MAP = Resource.TYPES_MAP;
-var COLOR = config.color;
-
-function Player() {
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    this.data = {
-        level: 1,
-        hp: 100,
-        maxHp: 100,
-        gold: 0,
-        mana: 0,
-        exp: 0
-    };
-    this.options = {};
-    this.setOption(options);
-}
-var proto = Player.prototype;
-proto.setOption = function (options) {
-    this.options = tool.extend(this.options, options);
-    if (this.options.id) {
-        this.id = this.options.id;
-    }
-    if (this.options.enemy) {
-        this.enemy = this.options.enemy;
-    }
-};
-/**
- * 收集
- */
-proto.collect = function (list) {
-    var countMap = {};
-    list.forEach(function (cell) {
-        var type = cell.type;
-        countMap[type] = countMap[type] ? countMap[type] + 1 : 1;
-    });
-
-    var allCount = 0;
-    for (var type in countMap) {
-        var num = countMap[type];
-        allCount += num;
-        // 获得金币
-        if (type === 'coin') {
-            this.addGold(num);
-        }
-        // 刀
-        if (type === 'sword') {
-            this.attack(num);
-        }
-    }
-    this.addExp(allCount);
-};
-/**
- * 增加金币
- */
-proto.addGold = function (num) {
-    this.data.gold += num;
-    var text = Resource.TYPES_TEXT_MAP.coin;
-    this.showMyMsg('+' + num + text, {
-        color: COLOR.gold
-    });
-};
-/**
- * 增加经验
- */
-proto.addExp = function (num) {
-    this.data.exp += num;
-};
-/**
- * 进行攻击
- */
-proto.attack = function (num) {
-    var damage = num * 1; // 攻击力
-    this.enemy.beAttacked(damage);
-};
-/**
- * 被攻击
- */
-proto.beAttacked = function (damage) {
-    // 减伤.
-    this.minusHP(damage);
-};
-/**
- * 减少HP
- */
-proto.minusHP = function (val) {
-    if (val < 0) {
-        return false;
-    }
-    this.data.hp -= val;
-    this.showMyMsg('-' + val + 'hp', {
-        color: COLOR.hp
-    });
-};
-proto.showMyMsg = function (msg, options) {
-    var position = this.id === 1 ? 'left' : 'right';
-    var mOptions = tool.extend({ position: position }, options);
-    Msg.pop(msg, mOptions);
-};
-
-module.exports = Player;
-
-/***/ }),
-/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -7462,5 +6580,1249 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = ty
 }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 
+/***/ }),
+/* 22 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_comp_canvas__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_cell___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_cell__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_comp_cells___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_comp_cells__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_global_config___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_global_config__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_global_resource___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_global_resource__);
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+var COL = __WEBPACK_IMPORTED_MODULE_3_global_config___default.a.MAX_COL;
+var ROW = __WEBPACK_IMPORTED_MODULE_3_global_config___default.a.MAX_ROW;
+
+var noop = function noop() {};
+var docElem = document.documentElement;
+var methods = {};
+methods.bind = function () {
+    this.$refs.mainCanvas.addEventListener('contextmenu', this, true);
+    this.$refs.mainCanvas.addEventListener('mousedown', this, true);
+    docElem.addEventListener('mousemove', this, true);
+    this.$refs.mainCanvas.addEventListener('mouseup', this, true);
+};
+methods.handleMousedown = function (e) {
+    this.touchStart(e);
+};
+methods.handleMousemove = function (e) {
+    this.touchMove(e);
+};
+methods.handleMouseup = function (e) {
+    this.touchEnd(e);
+};
+methods.handleContextmenu = function (e) {
+    e.preventDefault();
+    return false;
+};
+
+// 交互开始(按下)
+methods.touchStart = function (e) {
+    if (this.isTouching) {
+        return false;
+    }
+    LOG('zizoupao');
+    this.isTouching = true;
+    this.touchMove(e);
+};
+methods.touchMove = function (e) {
+    if (!this.isTouching) {
+        return false;
+    }
+    if (e.target.tagName.toLowerCase() !== 'canvas') {
+        return this.touchEnd();
+    }
+    var x = e.clientX;
+    var y = e.clientY;
+    var canvasRect = this.mainCanvas.getBoundingClientRect();
+    x -= canvasRect.left;
+    y -= canvasRect.top;
+
+    var cell = __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.getCellByPoint(x, y);
+
+    if (__WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.tryPush(cell)) {
+        this.drawline();
+    }
+};
+methods.touchEnd = function (e) {
+    if (!this.isTouching) {
+        return false;
+    }
+
+    this.isTouching = false;
+    var collect = true;
+    if (!e) {
+        collect = false;
+    }
+
+    // 收集成功
+    if (collect && __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.isQueueCollectable()) {
+        this.$emit('collect', __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue);
+        this.$nextTick(function () {
+            this.$emit('after-collect');
+        });
+        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.removeQueueCells();
+    }
+
+    // 清除并绘画
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.clearQueue();
+    this.drawline();
+    // this.startDraw();
+};
+methods.cancel = function () {};
+// 画线
+methods.drawline = function () {
+    // 先清除line画布
+    __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(this.lineContext);
+    // 类型
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.drawByType();
+    if (__WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.length) {
+        // 在队列中的cell
+        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.queue.forEach(function (cell) {
+            cell.renderInQueue();
+        });
+        // 线条
+        __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.drawQueuePath();
+    }
+};
+// 开始绘画
+methods.startDraw = function () {
+    var _this = this;
+
+    __WEBPACK_IMPORTED_MODULE_4_global_resource___default.a.load(function () {
+        _this.clearTimer();
+        _this.draw();
+    });
+};
+methods.clearTimer = function () {
+    if (this.drawTimer) {
+        cancelAnimationFrame(this.drawTimer);
+        this.drawTimer = null;
+    }
+};
+methods.draw = function () {
+    var _this2 = this;
+
+    if (this.stoped) {
+        return false;
+    }
+    var cxt = this.mainContext;
+    __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.clear(cxt);
+    var continueDraw = false;
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.each(function (cell, row, col) {
+        if (cell.draw()) {
+            continueDraw = true;
+        }
+    });
+    // if (continueDraw) {
+    this.drawTimer = window.requestAnimationFrame(function () {
+        _this2.draw();
+    });
+    return true;
+};
+
+methods.initSize = function (elem) {
+    var _Canvas$calSize = __WEBPACK_IMPORTED_MODULE_0_comp_canvas___default.a.calSize(),
+        h = _Canvas$calSize.h,
+        w = _Canvas$calSize.w;
+
+    elem.height = h;
+    elem.width = w;
+    elem.style.marginLeft = -(w / 2) + 'px';
+};
+methods.initContext = function () {};
+var computed = {};
+var mounted = function mounted() {
+    this.bind();
+    this.initSize(this.$refs.mainCanvas);
+    this.initSize(this.$refs.lineCanvas);
+    this.mainCanvas = this.$refs.mainCanvas;
+    this.mainContext = this.$refs.mainCanvas.getContext('2d');
+
+    this.lineContext = this.$refs.lineCanvas.getContext('2d');
+    this.initContext();
+    __WEBPACK_IMPORTED_MODULE_2_comp_cells___default.a.init({
+        mainContext: this.mainContext,
+        lineContext: this.lineContext
+    });
+    this.startDraw();
+};
+var destroyed = function destroyed() {
+    this.stoped = true;
+};
+var dataFunc = function dataFunc() {
+    var o = {};
+    return o;
+};
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: dataFunc,
+    methods: methods,
+    computed: computed,
+    props: [],
+    mounted: mounted,
+    destroyed: destroyed,
+    components: {}
+};
+
+/***/ }),
+/* 23 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var methods = {};
+var computed = {};
+computed.avatarUrl = function () {
+    return 'images/class/' + this.myData.classId + '.jpg';
+};
+computed.on = function () {
+    return this.status ? this.status.on : false;
+};
+computed.myData = function () {
+    return this.data || {};
+};
+computed.hp = function () {
+    return this.myData.hp || 0;
+};
+computed.maxHp = function () {
+    return this.myData.maxHp || 0;
+};
+computed.gold = function () {
+    return this.myData.gold || 0;
+};
+computed.expBarWidth = function () {
+    return this.myData.exp + '%';
+};
+var mounted = function mounted() {};
+var destroyed = function destroyed() {};
+var dataFunc = function dataFunc() {
+    var o = {};
+    return o;
+};
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: dataFunc,
+    methods: methods,
+    computed: computed,
+    props: ['data', 'status'],
+    mounted: mounted,
+    destroyed: destroyed,
+    components: {}
+};
+
+/***/ }),
+/* 24 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+
+var methods = {};
+var computed = {};
+var mounted = function mounted() {};
+var destroyed = function destroyed() {};
+var dataFunc = function dataFunc() {
+	var o = {};
+	return o;
+};
+/* harmony default export */ __webpack_exports__["default"] = {
+	data: dataFunc,
+	methods: methods,
+	computed: computed,
+	props: [],
+	mounted: mounted,
+	destroyed: destroyed,
+	components: {}
+};
+
+/***/ }),
+/* 25 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_player_js__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_comp_player_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_comp_player_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_msg_js__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_comp_msg_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_comp_msg_js__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_util_cover_js__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_util_cover_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_util_cover_js__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+var docElem = document.documentElement;
+var methods = {};
+// 收集
+methods.collect = function (list) {
+	this.getCurPlayer().collect(list);
+};
+// 收集结束
+methods.afterCollect = function () {
+	this.turnPlayer();
+};
+// 当前玩家
+methods.getCurPlayer = function () {
+	return this['p' + this.curPlayer];
+};
+// 切换玩家
+methods.turnPlayer = function () {
+	this.curPlayer = 3 - this.curPlayer;
+};
+// 属性面板
+methods.showPlayerProperty = function (index) {
+	var _this = this;
+
+	this.cover = new __WEBPACK_IMPORTED_MODULE_2_util_cover_js___default.a();
+	this.cover.elem.onclick = function () {
+		_this.cover.remove();
+		_this.layerVisible = 0;
+	};
+	this.layerVisible = index;
+};
+var computed = {};
+computed.p1Status = function () {
+	return {
+		on: this.curPlayer === 1
+	};
+};
+computed.p2Status = function () {
+	return {
+		on: this.curPlayer === 2
+	};
+};
+var mounted = function mounted() {
+	this.curPlayer = 1;
+	setTimeout(function () {
+		__WEBPACK_IMPORTED_MODULE_1_comp_msg_js___default.a.pop('游戏开始，玩家1行动', {
+			position: 'left bottom'
+		});
+	}, 800);
+};
+var destroyed = function destroyed() {};
+var dataFunc = function dataFunc() {
+	this.p1 = new __WEBPACK_IMPORTED_MODULE_0_comp_player_js___default.a({
+		id: 1,
+		classId: 'warrior'
+	});
+	this.p2 = new __WEBPACK_IMPORTED_MODULE_0_comp_player_js___default.a({
+		id: 2,
+		classId: 'dk',
+		enemy: this.p1
+	});
+	this.p1.setOption({
+		enemy: this.p2
+	});
+
+	var o = {
+		curPlayer: 0,
+		layerVisible: 0,
+		p1data: this.p1.data,
+		p2data: this.p2.data
+	};
+	return o;
+};
+/* harmony default export */ __webpack_exports__["default"] = {
+	data: dataFunc,
+	methods: methods,
+	computed: computed,
+	props: [],
+	mounted: mounted,
+	destroyed: destroyed,
+	components: {
+		'vue-canvas': __webpack_require__(30),
+		'player-board': __webpack_require__(31),
+		'player-layer': __webpack_require__(47)
+	}
+};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.board[data-v-21a58c6a] {\n  width: 50%;\n  float: left;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.player-board.on .avatar-box img[data-v-27efa117] {\n  border-color: #fff;\n}\n.avatar-box[data-v-27efa117] {\n  position: relative;\n  line-height: 0;\n  font-size: 0;\n}\n.avatar-box img[data-v-27efa117] {\n  border: 1px solid #333;\n  width: 44px;\n  height: 44px;\n  display: block;\n}\n.avatar-box .exp-bar[data-v-27efa117] {\n  position: absolute;\n  bottom: 0;\n  left: 0;\n  height: 4px;\n  width: 0;\n  background-color: #66FF33;\n  -webkit-transition: width .3s ease;\n  -o-transition: width .3s ease;\n  -moz-transition: width .3s ease;\n  transition: width .3s ease;\n}\n.level[data-v-27efa117] {\n  position: absolute;\n  left: 3px;\n  top: 3px;\n  font-size: 12px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+// imports
+
+
+// module
+exports.push([module.i, "", ""]);
+
+// exports
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(39)
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(22),
+  /* template */
+  __webpack_require__(35),
+  /* scopeId */
+  "data-v-746c0e35",
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\comp\\canvas.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] canvas.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-746c0e35", Component.options)
+  } else {
+    hotAPI.reload("data-v-746c0e35", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(38)
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(23),
+  /* template */
+  __webpack_require__(34),
+  /* scopeId */
+  "data-v-27efa117",
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\comp\\player-board.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] player-board.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-27efa117", Component.options)
+  } else {
+    hotAPI.reload("data-v-27efa117", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "stage-1"
+  }, [_c('button', {
+    staticClass: "btn",
+    on: {
+      "click": function($event) {
+        _vm.$emit('start')
+      }
+    }
+  }, [_vm._v("Start")])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-219774e9", module.exports)
+  }
+}
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "stage-2"
+  }, [_c('div', {
+    staticClass: "head clearfix"
+  }, [_c('player-board', {
+    staticClass: "board",
+    attrs: {
+      "data": _vm.p1data,
+      "status": _vm.p1Status
+    },
+    on: {
+      "avatar-click": function($event) {
+        _vm.showPlayerProperty(1)
+      }
+    }
+  }), _vm._v(" "), _c('player-board', {
+    staticClass: "board",
+    attrs: {
+      "data": _vm.p2data,
+      "status": _vm.p2Status
+    },
+    on: {
+      "avatar-click": function($event) {
+        _vm.showPlayerProperty(2)
+      }
+    }
+  })], 1), _vm._v(" "), _c('vue-canvas', {
+    on: {
+      "collect": _vm.collect,
+      "after-collect": _vm.afterCollect
+    }
+  }), _vm._v(" "), _c('player-layer', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.layerVisible === 1),
+      expression: "layerVisible === 1"
+    }],
+    attrs: {
+      "data": _vm.p1data,
+      "id": "1"
+    }
+  }), _vm._v(" "), _c('player-layer', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.layerVisible === 2),
+      expression: "layerVisible === 2"
+    }],
+    attrs: {
+      "data": _vm.p2data,
+      "id": "2"
+    }
+  })], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-21a58c6a", module.exports)
+  }
+}
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "player-board m-row",
+    class: {
+      on: _vm.on
+    }
+  }, [_c('div', {
+    staticClass: "avatar-box",
+    on: {
+      "click": function($event) {
+        _vm.$emit('avatar-click')
+      }
+    }
+  }, [_c('div', {
+    staticClass: "level"
+  }, [_vm._v("LV.1")]), _vm._v(" "), _c('img', {
+    attrs: {
+      "src": _vm.avatarUrl,
+      "alt": ""
+    }
+  }), _vm._v(" "), _c('div', {
+    staticClass: "exp-bar",
+    style: ({
+      width: _vm.expBarWidth
+    })
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "status-box"
+  }, [_c('div', {
+    staticClass: "x-1 m-row "
+  }, [_c('div', {
+    staticClass: "col-1 hp"
+  }, [_vm._v("生命：" + _vm._s(_vm.hp) + " / " + _vm._s(_vm.maxHp))])]), _vm._v(" "), _c('div', {
+    staticClass: "x-2 m-row "
+  }, [_c('div', {
+    staticClass: "col-1 mana"
+  }, [_vm._v("魔法：10")]), _vm._v(" "), _c('div', {
+    staticClass: "col-2 gold"
+  }, [_vm._v("金币：" + _vm._s(_vm.gold))])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-27efa117", module.exports)
+  }
+}
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "canvas-holder"
+  }, [_c('canvas', {
+    ref: "mainCanvas"
+  }), _vm._v(" "), _c('canvas', {
+    ref: "lineCanvas",
+    staticClass: "line-canvas"
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-746c0e35", module.exports)
+  }
+}
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(26);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("681a9c70", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-219774e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-219774e9\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-1.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(27);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("d150fe58", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-21a58c6a\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-21a58c6a\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./stage-2.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(28);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("09f975d4", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-27efa117\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./player-board.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-27efa117\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./player-board.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(29);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("2eb6d99d", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-746c0e35\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-746c0e35\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./canvas.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports) {
+
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+module.exports = function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports) {
+
+/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {/* globals __webpack_amd_options__ */
+module.exports = __webpack_amd_options__;
+
+/* WEBPACK VAR INJECTION */}.call(exports, {}))
+
+/***/ }),
+/* 42 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 43 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_common__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util_detect__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_util_detect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_util_detect__);
+
+
+var methods = {};
+methods.init = function () {
+    this.stage = 2;
+};
+methods.start = function () {
+    this.stage = 2;
+};
+var computed = {};
+computed.className = function () {
+    var env = this.env;
+    var os = 'os-' + (env.os.phone ? 'phone' : env.os.tablet ? 'tablet' : 'pc');
+    return [os];
+};
+var mounted = function mounted() {
+    this.$nextTick(this.init);
+};
+window.Index = new __WEBPACK_IMPORTED_MODULE_0_common__["a" /* Vue */]({
+    el: '#main',
+    mounted: mounted,
+    computed: computed,
+    methods: methods,
+    data: {
+        env: __WEBPACK_IMPORTED_MODULE_1_util_detect___default()(),
+        stage: 0
+    },
+    components: {
+        'stage-1': __webpack_require__(11),
+        'stage-2': __webpack_require__(12)
+    }
+});
+
+/***/ }),
+/* 45 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var methods = {};
+var computed = {};
+computed.my = function () {
+    return this.data || {};
+};
+computed.hptext = function () {
+    return this.my.hp + ' / ' + this.my.maxHp;
+};
+computed.classNameColor = function () {
+    return 'color-' + this.my.classId;
+};
+var mounted = function mounted() {};
+var destroyed = function destroyed() {};
+var dataFunc = function dataFunc() {
+    var o = {};
+    return o;
+};
+/* harmony default export */ __webpack_exports__["default"] = {
+    data: dataFunc,
+    methods: methods,
+    computed: computed,
+    props: ['data', 'id'],
+    mounted: mounted,
+    destroyed: destroyed,
+    components: {}
+};
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(2)();
+// imports
+
+
+// module
+exports.push([module.i, "\n.player-layer[data-v-24775a02] {\n  background-color: #000;\n  color: #fff;\n  width: 82%;\n  height: 84%;\n  -webkit-box-shadow: 0 0 5px #eee;\n  box-shadow: 0 0 5px #eee;\n  -webkit-border-radius: 10px;\n  border-radius: 10px;\n  padding: 10px;\n}\n.player-layer table[data-v-24775a02] {\n  font-size: 18px;\n}\n.player-layer table td.col-1[data-v-24775a02] {\n  width: 120px;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(49)
+
+var Component = __webpack_require__(3)(
+  /* script */
+  __webpack_require__(45),
+  /* template */
+  __webpack_require__(48),
+  /* scopeId */
+  "data-v-24775a02",
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\js\\comp\\player-layer.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] player-layer.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-24775a02", Component.options)
+  } else {
+    hotAPI.reload("data-v-24775a02", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "player-layer center-layer"
+  }, [_c('table', {
+    staticClass: "table"
+  }, [_c('thead', [_c('tr', [_c('th', {
+    staticClass: "col-1 tal"
+  }, [_vm._v("P" + _vm._s(_vm.id) + "属性")])])]), _vm._v(" "), _c('tbody', [_c('tr', [_c('td', {
+    staticClass: "col-1"
+  }, [_vm._v("职业：")]), _vm._v(" "), _c('td', {
+    staticClass: "col-2",
+    class: [_vm.classNameColor],
+    domProps: {
+      "textContent": _vm._s(_vm.my.className)
+    }
+  })]), _vm._v(" "), _c('tr', {
+    staticClass: "color-level"
+  }, [_c('td', {
+    staticClass: "col-1"
+  }, [_vm._v("等级：")]), _vm._v(" "), _c('td', {
+    staticClass: "col-2",
+    domProps: {
+      "textContent": _vm._s(_vm.my.level)
+    }
+  })]), _vm._v(" "), _c('tr', {
+    staticClass: "color-exp"
+  }, [_c('td', {
+    staticClass: "col-1"
+  }, [_vm._v("经验：")]), _vm._v(" "), _c('td', {
+    staticClass: "col-2"
+  }, [_vm._v(_vm._s(_vm.my.exp) + "%")])]), _vm._v(" "), _c('tr', {
+    staticClass: "color-hp"
+  }, [_c('td', {
+    staticClass: "col-1"
+  }, [_vm._v("生命：")]), _vm._v(" "), _c('td', {
+    staticClass: "col-2",
+    domProps: {
+      "textContent": _vm._s(_vm.hptext)
+    }
+  })]), _vm._v(" "), _c('tr', {
+    staticClass: "color-gold"
+  }, [_c('td', {
+    staticClass: "col-1"
+  }, [_vm._v("金币：")]), _vm._v(" "), _c('td', {
+    staticClass: "col-2",
+    domProps: {
+      "textContent": _vm._s(_vm.my.gold)
+    }
+  })]), _vm._v(" "), _c('tr', {
+    staticClass: "color-mana"
+  }, [_c('td', {
+    staticClass: "col-1"
+  }, [_vm._v("魔法：")]), _vm._v(" "), _c('td', {
+    staticClass: "col-2",
+    domProps: {
+      "textContent": _vm._s(_vm.my.mana)
+    }
+  })])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-24775a02", module.exports)
+  }
+}
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(46);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(4)("22750d3f", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-24775a02\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./player-layer.vue", function() {
+     var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?{\"id\":\"data-v-24775a02\",\"scoped\":true,\"hasInlineConfig\":true}!../../node_modules/less-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./player-layer.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
+ * 遮罩层
+ */
+
+!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+    var zIndex = 3000;
+    var opacity = 0.6;
+    function Cover() {
+        var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+        var elem = document.createElement('div');
+        elem.className = '';
+        elem.style.display = 'none';
+        elem.style.width = '100%';
+        elem.style.height = '100%';
+        elem.style.backgroundColor = '#000';
+        elem.style.position = 'fixed';
+        elem.style.top = '0';
+        elem.style.left = '0';
+        elem.style.right = '0';
+        elem.style.bottom = '0';
+        elem.style.zIndex = options.zIndex || zIndex;
+        elem.style.opacity = options.opacity || opacity;
+        elem.style.filter = 'alpha(opacity=' + 100 * opacity + ')';
+        if (options.className) {
+            elem.className += options.className;
+        }
+        document.body.appendChild(elem);
+        this.elem = elem;
+        this.options = options;
+        this.init();
+    }
+    var proto = Cover.prototype;
+    proto.init = function () {
+        // 默认显示
+        if (this.options.show !== false) {
+            this.show();
+        }
+    };
+    proto.show = function () {
+        this.elem.style.display = 'block';
+    };
+    proto.hide = function () {
+        this.elem.style.display = 'none';
+    };
+    proto.remove = function () {
+        document.body.removeChild(this.elem);
+    };
+
+    return Cover;
+}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+
 /***/ })
-],[43]);
+],[44]);
