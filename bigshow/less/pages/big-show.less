@@ -1,0 +1,309 @@
+html.page-bigshow-2 {
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: visible;
+	* {
+		font-size: 100%;
+		vertical-align: baseline;
+	}
+}
+body.page-bigshow-2 {
+	height: 100%;
+	//background: url("@{my-img-path}/bg.png") no-repeat center center;
+	background: url("@{my-img-path}/bg2.jpg") no-repeat center center;
+	background-size: 300% 300%;
+	@my-img-path: "@{imgPath}bigshow";
+	@body-left: 30px;
+	@body-right: @body-left + 30px;
+	@body-bottom: 20px;
+
+	@top-1: 120px;
+
+	@panel-title-color:    #fff;
+	@panel-subtitle-color: rgb(46, 219, 255);
+
+	@panel-gap: 12px;
+
+	@rline-right: @body-right - 30px;
+
+	@chart-bottom-color: #051650;
+
+	.v-logo {
+		position: fixed;
+		left: @body-left;
+		top: 25px;
+	}
+	.v-time {
+		position: fixed;
+		right: @rline-right;
+		top: 37px;
+	}
+	.top-gif {
+		position: fixed;
+		z-index: 5;
+		left: 50%;
+		top: 50px;
+		width: 800px;
+		margin-left: -400px;
+		height: 70px;
+		z-index: 80;
+
+		background-image: url("@{my-img-path}/title_bg.gif");
+		background-size: 100%;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	.top-bg-2 {
+		position: fixed;
+		left: @body-left;
+		right: @body-left;
+		top: 90px;
+		
+		height: 16px;
+		background-image: url("@{my-img-path}/bg_2.png");
+		background-size: 100%;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
+	.m-panel {
+		z-index: 5;
+		border: none;
+		background-color: rgba(0, 0, 0, 0);
+		background-image: url("@{my-img-path}/panel_bg.png");
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		padding: 8px;
+		& > h2 {
+			color: @panel-title-color;
+			font-size: 18px;
+			font-weight: normal;
+			height: 30px;
+		}
+		& > h6 {
+			color: @panel-subtitle-color;
+			font-size: 12px;
+		}
+	}
+
+	@rank-list-width: 280px;
+
+	.rank-list {
+		z-index: 5;
+		position: fixed;
+		top: @top-1;
+		left: @body-left;
+		width: @rank-list-width;
+		// height: 760px;
+		bottom: @body-bottom;
+		overflow: hidden;
+		
+		.x-list {
+			margin-top: 12px;
+		}
+		.x-item {
+			margin-bottom: 12px;
+			position: relative;
+		}
+		.line-1 {
+			display: flex;
+			font-size: 12px;
+			align-items: center;
+			height: 32px;
+
+			transform-style: preserve-3d;
+			transform-origin: 50% 50% 0px;
+
+			transition: transform 500ms cubic-bezier(0.15, 0.52, 0.5, 0.9);
+			&.a-rotate {
+				transform: rotateX(-90deg);
+				transition: transform 500ms cubic-bezier(0.55, 0.18, 0.92, 0.46);
+			}
+
+			& > .x-index {
+				color: #1397ff;
+				padding-right: 14px;
+			}
+			& > .x-text {
+				flex: auto;
+				color: #fff;
+				white-space: nowrap;
+				overflow: hidden;
+				& > div {
+					transform: translateX(0px);
+					&.a-marquee {
+						transition: transform 6000ms linear;
+					}
+				}
+			}
+		}
+		.line-2 {
+			height: 4px;
+			background: rgb(19, 112, 251);
+			display: inline-block;
+			overflow: hidden;
+			position: absolute;
+			bottom: 0px;
+			left: 0px;
+			width: 100%;
+			& > .light {
+				position: absolute;
+				top: 0px;
+				width: 70px;
+				height: 2px;
+				background: radial-gradient(rgb(40, 248, 255) 5%, rgba(0, 0, 0, 0) 80%);
+				transform: translateX(-70px);
+			}
+			&.active > .light {
+				transform: translateX(180px);
+				transition: transform 450ms ease-in-out;
+			}
+		}
+		.line-3 {
+			height: 2px;
+			background: rgb(13, 57, 146);
+			width: 100%;
+			display: block;
+			overflow: hidden;
+			position: relative;
+			
+		}
+	}
+
+	@globe-width: 1020px;
+	@globe-height: 700px;
+	.v-globe {
+		position: fixed;
+		left: @body-left + @rank-list-width + @panel-gap;
+		top: @top-1;
+
+		width: @globe-width;
+		height: @globe-height;
+		/*
+		width: 100%;
+		height: 100%;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 1;
+		*/
+	}
+
+	@right-chart-height:  180px;
+	// @right-chart-height:  221px;
+	@right-chart-width:   510px;
+	@right-chart-gap:  @panel-gap - 2;
+	.m-right-chart {
+		border-bottom: 1px solid @chart-bottom-color;
+	}
+	.m-right-chart > .v-chart {
+		width: 100%;
+		height: 80%;
+	}
+
+	@chart-in-out-width:  @right-chart-width;
+	@chart-in-out-height: @right-chart-height;
+	.chart-in-out {
+		position: fixed;
+		right: @body-right;
+		top: @top-1;
+
+		width: @chart-in-out-width;
+		height: @chart-in-out-height;
+	}
+	@chart-realtime-user-top: @top-1 + @chart-in-out-height + @right-chart-gap;
+	@chart-realtime-user-height: @right-chart-height;
+	@chart-realtime-user-width:  @right-chart-width;
+	.chart-realtime-user {
+		position: fixed;
+		right: @body-right;
+		top: @chart-realtime-user-top;
+
+		width: @chart-realtime-user-width;
+		height: @chart-realtime-user-height;
+	}
+	@chart-stay-time-top: @chart-realtime-user-top
+		 + @chart-realtime-user-height
+		 + @right-chart-gap;
+
+	@chart-stay-time-height: @right-chart-height;
+	@chart-stay-time-width:  @right-chart-width;
+	.chart-stay-time {
+		position: fixed;
+
+		right: @body-right;
+		top: @chart-stay-time-top;
+
+		width: @chart-stay-time-width;
+		height: @chart-stay-time-height;
+	}
+
+	@chart-all-type-1-top: @chart-stay-time-top
+		+ @chart-stay-time-height
+		+ @right-chart-gap;
+	@chart-all-type-width:  @right-chart-width;
+	@chart-all-type-height: @right-chart-height;
+	.chart-all-type-1 {
+		position: fixed;
+
+		right: @body-right;
+		top: @chart-all-type-1-top;
+
+		width: @chart-all-type-width;
+		height: @chart-all-type-height;
+	}
+
+	@chart-all-type-2-top: @chart-all-type-1-top
+		+ @chart-all-type-height
+		+ @right-chart-gap;
+	.chart-all-type-2 {
+		position: fixed;
+
+		right: @body-right;
+		top: @chart-all-type-2-top;
+
+		width: @chart-all-type-width;
+		height: @chart-all-type-height;
+	}
+
+	@chart-pie-width: 330px;
+	@chart-pie-height: 240px;
+
+	@chart-pie-1-left: @body-left + @rank-list-width + @panel-gap;
+	@chart-pie-2-left: @chart-pie-1-left + @chart-pie-width + @panel-gap;
+	@chart-pie-3-left: @chart-pie-2-left + @chart-pie-width + @panel-gap;
+	.chart-pie-1,
+	.chart-pie-2,
+	.chart-pie-3 {
+		position: fixed;
+		height: @chart-pie-height;
+		width: @chart-pie-width;
+		bottom: @body-bottom;
+
+		border-bottom: 1px solid @chart-bottom-color;
+		.v-chart {
+			height: 76%;
+			width: 100%;
+		}
+	}
+	.chart-pie-1 {
+		left: @chart-pie-1-left;
+	}
+	.chart-pie-2 {
+		left: @chart-pie-2-left;
+	}
+	.chart-pie-3 {
+		left: @chart-pie-3-left;
+	}
+
+	.r-line {
+		position: fixed;
+		top: @top-1 - 3;
+		right: @rline-right;
+		width: 25px;
+		background: url("@{my-img-path}/right_line.png") no-repeat center top;
+		background-size: 100% 100%;
+		bottom: @body-bottom - 7px;
+	}
+}

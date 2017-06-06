@@ -1,24 +1,21 @@
 {
-  "name": "Dr",
+  "name": "meepo3927.github.io",
   "version": "1.0.0",
-  "description": "Dungeon raid",
-  "main": "gulpfile.js",
+  "description": "meepo's demo",
+  "main": "index.html",
   "scripts": {
-    "start": "webpack --env=dev --color",
-    "build": "webpack --env=product --progress --color",
-    "push": "git add . && git cm 'push' && git push"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meepo3927/dr.git"
+    "url": "git+https://github.com/meepo3927/meepo3927.github.io.git"
   },
-  "keywords": [],
-  "author": "",
+  "author": "guoye",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/meepo3927/dr/issues"
+    "url": "https://github.com/meepo3927/meepo3927.github.io/issues"
   },
-  "homepage": "https://github.com/meepo3927/dr#readme",
+  "homepage": "https://github.com/meepo3927/meepo3927.github.io#readme",
   "devDependencies": {
     "babel-core": "^6.23.1",
     "babel-loader": "^6.4.0",
