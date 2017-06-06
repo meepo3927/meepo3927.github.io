@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dr</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <link rel="stylesheet" href="css/less.min.css?">
+    <!--[if lte IE 8]>
+    <script src="js/global/ie8overlay.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="page-index" id="main" v-cloak :class="className">
+    <div is="stage-1" v-if="stage === 1" @start="start"></div>
+    <div is="stage-2" v-if="stage === 2" ref="stage2"></div>
+</div><!-- page-index -->
+</body>
+</html>
+<script src="dist/commons.js?"></script>
+<script src="dist/index.js?"></script>
