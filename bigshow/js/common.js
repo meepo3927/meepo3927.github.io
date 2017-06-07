@@ -3,20 +3,11 @@ import 'lib/ie8';
 import config from 'global/config';
 import Vue from 'vue';
 import $ from 'jquery';
-// jquery 扩展
-import 'velocity';
 // vue 扩展
-import centerlayer from 'comp/center-layer.vue';
-import chosen from 'comp/chosen.vue';
-import Vuex from 'vuex';
 import 'extend/vue.marquee.js';
-import layout from 'comp/common/page-layout.vue';
 
-Vue.use(Vuex);
 // Reg Vue Component
-Vue.component('center-layer', centerlayer);
-Vue.component('vue-chosen', chosen);
-Vue.component('page-layout', layout);
+
 Vue.use(require('extend/vue.eventhandler.js'));
 let global = window.global || {};
 let basePath = global.basePath || '';
