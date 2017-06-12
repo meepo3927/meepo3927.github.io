@@ -580,6 +580,7 @@ window.Index = new Vue({
                 r(require('comp/attraction_analysis_layer.vue'));
             });
         },
+        'amap': require('comp/map/amap.vue'),
         // 页尾
         'page-footer': require('comp/footer.vue'),
         // 测试

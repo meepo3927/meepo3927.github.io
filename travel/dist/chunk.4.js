@@ -1,6 +1,45 @@
 webpackJsonp([4],{
 
-/***/ 144:
+/***/ 101:
+/***/ (function(module, exports, __webpack_require__) {
+
+
+/* styles */
+__webpack_require__(222)
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(169),
+  /* template */
+  __webpack_require__(209),
+  /* scopeId */
+  "data-v-f06578ba",
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\travel\\js\\comp\\attraction_realtime_big.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] attraction_realtime_big.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-f06578ba", Component.options)
+  } else {
+    hotAPI.reload("data-v-f06578ba", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+
+/***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
 
 var mounted = function mounted() {
@@ -56,12 +95,12 @@ module.exports = {
     deactivated: deactivated,
     mounted: mounted,
     destroyed: destroyed,
-    mixins: [__webpack_require__(146)]
+    mixins: [__webpack_require__(151)]
 };
 
 /***/ }),
 
-/***/ 146:
+/***/ 151:
 /***/ (function(module, exports) {
 
 // 依赖vue.eventhandler.js
@@ -86,7 +125,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 147:
+/***/ 152:
 /***/ (function(module, exports) {
 
 var mounted = function mounted() {};
@@ -129,10 +168,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ 148:
+/***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Cover = __webpack_require__(149);
+var Cover = __webpack_require__(154);
 var mounted = function mounted() {
     this._cover = new Cover();
 };
@@ -166,7 +205,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 149:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -224,7 +263,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 150:
+/***/ 155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -279,7 +318,7 @@ var dataFunc = function dataFunc() {
 
 /***/ }),
 
-/***/ 151:
+/***/ 156:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -294,18 +333,18 @@ exports.push([module.i, "\n.close-btn-box[data-v-1f529e94] {\n  position: absolu
 
 /***/ }),
 
-/***/ 152:
+/***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(154)
+__webpack_require__(159)
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(150),
+  __webpack_require__(155),
   /* template */
-  __webpack_require__(153),
+  __webpack_require__(158),
   /* scopeId */
   "data-v-1f529e94",
   /* cssModules */
@@ -333,7 +372,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 153:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -387,13 +426,13 @@ if (false) {
 
 /***/ }),
 
-/***/ 154:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(151);
+var content = __webpack_require__(156);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -414,7 +453,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 156:
+/***/ 161:
 /***/ (function(module, exports) {
 
 var refreshInterval = 60;
@@ -492,7 +531,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 164:
+/***/ 169:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -632,8 +671,8 @@ methods.render3 = function () {
 
     var chart = this.getMyChart(this.$refs.three, options);
     __webpack_require__.e/* require.ensure */(0/* duplicate */).then((function () {
-        __webpack_require__(142);
-        __webpack_require__(143);
+        __webpack_require__(147);
+        __webpack_require__(148);
         _this3.realRender3(chart);
     }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
@@ -695,7 +734,7 @@ var dataFunc = function dataFunc() {
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: dataFunc,
     watch: watch,
-    mixins: [__webpack_require__(146), __webpack_require__(148), __webpack_require__(144), __webpack_require__(156), __webpack_require__(147)],
+    mixins: [__webpack_require__(151), __webpack_require__(153), __webpack_require__(149), __webpack_require__(161), __webpack_require__(152)],
     methods: methods,
     computed: computed,
     props: [],
@@ -704,14 +743,14 @@ var dataFunc = function dataFunc() {
     beforeDestroy: beforeDestroy,
     destroyed: destroyed,
     components: {
-        'close-box': __webpack_require__(152)
+        'close-box': __webpack_require__(157)
     }
 });
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(3)))
 
 /***/ }),
 
-/***/ 182:
+/***/ 187:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -726,7 +765,7 @@ exports.push([module.i, "\n.my-chart[data-v-f06578ba] {\n  height: 100%;\n  padd
 
 /***/ }),
 
-/***/ 204:
+/***/ 209:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -854,13 +893,13 @@ if (false) {
 
 /***/ }),
 
-/***/ 217:
+/***/ 222:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(182);
+var content = __webpack_require__(187);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -878,45 +917,6 @@ if(false) {
  // When the module is disposed, remove the <style> tags
  module.hot.dispose(function() { update(); });
 }
-
-/***/ }),
-
-/***/ 98:
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/* styles */
-__webpack_require__(217)
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(164),
-  /* template */
-  __webpack_require__(204),
-  /* scopeId */
-  "data-v-f06578ba",
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\wamp\\www\\meepo3927.github.io\\travel\\js\\comp\\attraction_realtime_big.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] attraction_realtime_big.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-f06578ba", Component.options)
-  } else {
-    hotAPI.reload("data-v-f06578ba", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
 
 /***/ })
 

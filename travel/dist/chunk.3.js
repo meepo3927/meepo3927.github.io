@@ -1,17 +1,17 @@
 webpackJsonp([3],{
 
-/***/ 102:
+/***/ 105:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(216)
+__webpack_require__(221)
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(170),
+  __webpack_require__(175),
   /* template */
-  __webpack_require__(203),
+  __webpack_require__(208),
   /* scopeId */
   "data-v-ca443942",
   /* cssModules */
@@ -39,7 +39,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 144:
+/***/ 149:
 /***/ (function(module, exports, __webpack_require__) {
 
 var mounted = function mounted() {
@@ -95,12 +95,12 @@ module.exports = {
     deactivated: deactivated,
     mounted: mounted,
     destroyed: destroyed,
-    mixins: [__webpack_require__(146)]
+    mixins: [__webpack_require__(151)]
 };
 
 /***/ }),
 
-/***/ 146:
+/***/ 151:
 /***/ (function(module, exports) {
 
 // 依赖vue.eventhandler.js
@@ -125,7 +125,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 147:
+/***/ 152:
 /***/ (function(module, exports) {
 
 var mounted = function mounted() {};
@@ -168,10 +168,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ 148:
+/***/ 153:
 /***/ (function(module, exports, __webpack_require__) {
 
-var Cover = __webpack_require__(149);
+var Cover = __webpack_require__(154);
 var mounted = function mounted() {
     this._cover = new Cover();
 };
@@ -205,7 +205,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 149:
+/***/ 154:
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -263,7 +263,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/**
 
 /***/ }),
 
-/***/ 150:
+/***/ 155:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -318,7 +318,7 @@ var dataFunc = function dataFunc() {
 
 /***/ }),
 
-/***/ 151:
+/***/ 156:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -333,18 +333,18 @@ exports.push([module.i, "\n.close-btn-box[data-v-1f529e94] {\n  position: absolu
 
 /***/ }),
 
-/***/ 152:
+/***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
 
 /* styles */
-__webpack_require__(154)
+__webpack_require__(159)
 
 var Component = __webpack_require__(1)(
   /* script */
-  __webpack_require__(150),
+  __webpack_require__(155),
   /* template */
-  __webpack_require__(153),
+  __webpack_require__(158),
   /* scopeId */
   "data-v-1f529e94",
   /* cssModules */
@@ -372,7 +372,7 @@ module.exports = Component.exports
 
 /***/ }),
 
-/***/ 153:
+/***/ 158:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -426,13 +426,13 @@ if (false) {
 
 /***/ }),
 
-/***/ 154:
+/***/ 159:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(151);
+var content = __webpack_require__(156);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
@@ -453,7 +453,7 @@ if(false) {
 
 /***/ }),
 
-/***/ 156:
+/***/ 161:
 /***/ (function(module, exports) {
 
 var refreshInterval = 60;
@@ -531,7 +531,7 @@ module.exports = {
 
 /***/ }),
 
-/***/ 170:
+/***/ 175:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -757,7 +757,7 @@ var dataFunc = function dataFunc() {
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: dataFunc,
     watch: watch,
-    mixins: [__webpack_require__(148), __webpack_require__(144), __webpack_require__(156), __webpack_require__(147)],
+    mixins: [__webpack_require__(153), __webpack_require__(149), __webpack_require__(161), __webpack_require__(152)],
     created: created,
     methods: methods,
     computed: computed,
@@ -765,13 +765,13 @@ var dataFunc = function dataFunc() {
     mounted: mounted,
     destroyed: destroyed,
     components: {
-        'close-box': __webpack_require__(152)
+        'close-box': __webpack_require__(157)
     }
 });
 
 /***/ }),
 
-/***/ 181:
+/***/ 186:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(0)(undefined);
@@ -786,7 +786,7 @@ exports.push([module.i, "\n.my-chart[data-v-ca443942] {\n  height: 100%;\n}\n.x-
 
 /***/ }),
 
-/***/ 203:
+/***/ 208:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -894,13 +894,13 @@ if (false) {
 
 /***/ }),
 
-/***/ 216:
+/***/ 221:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(181);
+var content = __webpack_require__(186);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM

@@ -80,7 +80,6 @@ var func = function (env) {
 		jquery$: 'lib/jquery-2.1.1.min.js',
 		vue$: 'lib/vue.min.js',
 		vuex$: 'lib/vuex-2.3.1.js',
-		// vue$: 'lib/vue.js',
 		velocity$: 'lib/velocity.min.js',
 
 		// 工具,插件
@@ -162,6 +161,9 @@ var func = function (env) {
 		plugins: plugins,
 		resolve: {
 			alias: alias
+		},
+		externals: {
+			AMap: 'AMap'
 		},
 		stats: printOption,
 		watch: watch,
