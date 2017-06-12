@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" class="page-index-html">
+<head>
+    <meta charset="UTF-8">
+    <title>智慧旅游</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <link rel="stylesheet" href="css/less.min.css?v">
+    <!--[if lte IE 8]>
+    <script src="js/global/ie8overlay.js"></script>
+    <![endif]-->
+</head>
+<body class="page-index">
+<div id="main">
+    <iframe :src="arcgisUrl" frameborder="0" class="gis-iframe" scrolling="no"
+            ref="gisIframe"></iframe>
+    <!-- 搜索 -->
+    <div is="location-search" @select="onPlaceSelected($event)" ref="locationSearch"></div>
+    <div is="table-layer" :area="area" :auth="auth" @back="tableBack">
+        <!-- 数据table -->
+        <table :is="tableComp"
+               :list="tablelist"
+               :data="attractionDetail"
+               :loading="view.loadingTable"
+               @row-click="rowClick($event)"></table>
+    </div>
+    <!-- loading -->
+    <div class="table-loading loading-1" v-show="view.loadingTable"></div>
+    <div is="right-navbar" @click="onRightNavbarClick($event)" 
+        :area="area"
+        :area-name="areaName"></div>
+    <!-- 选择城市 -->
+    <div is="city-select" v-show="view.rightComp === 'city-select'"
+         :area="area"
+         :auth="auth"
+         @close="onCitySelectClose"
+         @select="onCitySelect($event)"></div>
+    <!-- 实时监控 -->
+    <div :is="realtimeChart" v-if="view.rightComp === 'realtime-chart'"
+         @open-big="onRealtimeChartOpenBig"
+         @close="onRealtimeChartClose"
+         ref="realtimeChart"
+         :area-name="areaName"></div>
+    <!-- 实时监控 - 放大 -->
+    <div :is="realtimeBig" 
+        @render-option="onRealtimeBigRenderOption"
+        @close="onRealtimeBigClose"
+        :area="area"></div>
+    <!-- 数据分析 -->
+    <div :is="analysisChart"
+         v-if="view.analysisVisible"
+         :area="area"
+         @close="view.analysisVisible = false"></div>
+    <div is="page-footer"></div>
+</div><!-- main -->
+</body>
+</html>
+<script>
+window.global = {
+    version: '1.1'
+};
+</script>
+<script src="js/main.js?v=1.0" entry="index"></script>

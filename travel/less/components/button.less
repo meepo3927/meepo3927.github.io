@@ -1,0 +1,57 @@
+@btn-default-radius: 4px;
+.btn {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	border: 1px solid;
+	white-space: nowrap;
+	padding: 4px 12px;
+	font-size: 13px;
+	line-height: 1.42857143;
+	border-radius: @btn-default-radius;
+
+	height: @btn-default-height;
+	border-color: #666;
+	@backgroundColor: #fff;
+	background-color: @backgroundColor;
+	color: #333;
+	&:hover {
+		background-color: darken(@backgroundColor, 10%);
+	}
+	&.active {
+		background-color: darken(@backgroundColor, 5%);
+		box-shadow: inset 0 0 8px #999;
+	}
+	&:active {
+		background-color: darken(@backgroundColor, 20%);
+	}
+}
+.btn.btn-default {
+	@default-bg-color: @theme-color;
+	&.active {
+		border-color: @default-bg-color;
+		color: #fff;
+		background-color: @default-bg-color;
+		box-shadow: inset 0 0 8px darken(@default-bg-color, 20%);
+	}
+}
+.btn-group {
+	font-size: 0;
+	display: inline-block;
+}
+.btn-group > .btn {
+	border-left-width: 0;
+	border-radius: 0;
+	&:nth-of-type(1) {
+		border-left-width: 1px;
+		border-top-left-radius: @btn-default-radius;
+		border-bottom-left-radius: @btn-default-radius;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	&:nth-last-of-type(1) {
+		border-top-right-radius: @btn-default-radius;
+		border-bottom-right-radius: @btn-default-radius;
+	}
+}

@@ -1,0 +1,91 @@
+@layer-padding: 20px;
+@layerLeft: @layer-padding;
+@layerRight: @layer-padding;
+@layerWidth-1: 360px;
+@layerWidth-2: 430px;
+@bar-height-1: 36px;
+
+@layerTop1: @layer-padding;
+@layerTop2: @layerTop1 + @bar-height-1 + 5px;
+
+@footer-height: 30px;
+
+// 图片路径
+@imgPath: "../images/";
+
+// 主题字体
+@font-size-base: @base-font-size;
+@line-height-base:        1.428571429; // 20/14
+@line-height-large:       1.3333333; // extra decimals for Win 8.1 Chrome
+@line-height-small:       1.5;
+
+@base-font-size: 13px;
+@title-font-size: 15px;
+
+// 主题颜色
+@theme-color: #3385FF;
+@themeColor: @theme-color;
+
+// 侧边导航
+@side-nav-bg:    #2f4050;
+@side-nav-width: 220px;
+
+
+// 链接颜色
+@link-color:  #337ab7;
+
+/**
+ * 按钮 Button
+ */
+@btn-default-height: 30px;
+@btn-base-padding-vertical: 4px;
+@btn-base-padding-horizontal: 12px;
+@btn-base-border-radius: 4px;
+
+@btn-border-color: @theme-color;
+@btn-default-bg: #fff;
+
+/**
+ * 表格 Table
+ */
+@table-padding-vertical: 8px;
+@table-padding-horizontal: 8px;
+@table-head-bg: #000;
+@table-head-color: #fff;
+@table-head-font-size: @title-font-size;
+
+@table-body-bg: @theme-color;
+@table-body-bg-odd: lighten(@theme-color, 8%);
+@table-body-bg-even: darken(@theme-color, 8%);
+@table-body-color: #fff;
+@table-body-font-size: @base-font-size;
+
+
+/**
+ * Form - layout
+ */
+@form-item-gap: 15px;
+/**
+ * Form - label
+ */
+@form-label-font-size: @font-size-base;
+@form-label-line-height: @line-height-base;
+/**
+ * Form - Input
+ */
+@input-border:         #ccc;
+@input-border-radius:  2px;
+@input-bg:             #fff;
+@input-line-height: @line-height-base;
+@input-padding-vertical:    4px;
+@input-padding-horizontal:  12px;
+
+@input-default-height: 30px;
+
+/**
+ * Select
+ */
+@select-font-size:          @font-size-base;
+@select-padding-vertical:   @input-padding-vertical;
+@select-padding-horizontal: @input-padding-horizontal;
+@select-border-radius:      @input-border-radius;
