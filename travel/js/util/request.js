@@ -4,10 +4,8 @@ import config from 'global/config';
 import Fetch from 'util/fetch.js';
 import URL from 'util/url.js';
 let global = window.global || {};
-let mock = false;
-if (config.dev) {
-    mock = true;
-}
+let mock = true;
+
 let local = false;
 if (URL.query().local === 'rlocal') {
     local = true;
@@ -17,7 +15,7 @@ let chartDataActionPrefix = '/flowmonitor';
 let analysisActionPrefix = '/flowanalysis';
 
 if (mock) {
-    ajaxPath = '/mock';
+    ajaxPath = './mock';
 } else if (local) {
     ajaxPath = config.root;
 }

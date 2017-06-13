@@ -2621,10 +2621,8 @@ function applyToTag (styleElement, obj) {
 
 
 var global = window.global || {};
-var mock = false;
-if (__WEBPACK_IMPORTED_MODULE_2_global_config___default.a.dev) {
-    mock = true;
-}
+var mock = true;
+
 var local = false;
 if (__WEBPACK_IMPORTED_MODULE_4_util_url_js___default.a.query().local === 'rlocal') {
     local = true;
@@ -2634,7 +2632,7 @@ var chartDataActionPrefix = '/flowmonitor';
 var analysisActionPrefix = '/flowanalysis';
 
 if (mock) {
-    ajaxPath = '/mock';
+    ajaxPath = './mock';
 } else if (local) {
     ajaxPath = __WEBPACK_IMPORTED_MODULE_2_global_config___default.a.root;
 }
@@ -17344,7 +17342,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "\n.comp-footer[data-v-51993acc] {\n  position: fixed;\n  background-color: rgba(30, 30, 30, 0.3);\n  left: 0;\n  bottom: 0;\n  height: 30px;\n  line-height: 30px;\n  padding: 0 10px;\n  font-size: 13px;\n}\n.comp-footer .x-copyright[data-v-51993acc] {\n  color: #fff;\n  margin-right: 8px;\n}\n.comp-footer .link-span[data-v-51993acc] {\n  border-left: 1px solid #386185;\n  padding: 0px 10px;\n  line-height: 20px;\n  display: inline-block;\n  vertical-align: -2px;\n}\n.comp-footer a[data-v-51993acc] {\n  color: #477BA9;\n  vertical-align: 2px;\n}\n", ""]);
+exports.push([module.i, "\n.comp-footer[data-v-51993acc] {\n  position: fixed;\n  background-color: rgba(30, 30, 30, 0.3);\n  right: 0;\n  bottom: 0;\n  height: 30px;\n  line-height: 30px;\n  padding: 0 10px;\n  font-size: 13px;\n}\n.comp-footer .x-copyright[data-v-51993acc] {\n  color: #fff;\n  margin-right: 8px;\n}\n.comp-footer .link-span[data-v-51993acc] {\n  border-left: 1px solid #386185;\n  padding: 0px 10px;\n  line-height: 20px;\n  display: inline-block;\n  vertical-align: -2px;\n}\n.comp-footer a[data-v-51993acc] {\n  color: #477BA9;\n  vertical-align: 2px;\n}\n", ""]);
 
 // exports
 

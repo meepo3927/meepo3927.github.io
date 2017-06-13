@@ -52,7 +52,7 @@ export default {
 .comp-footer {
 	position: fixed;
 	background-color: rgba(30, 30, 30, .3);
-	left: 0;
+	right: 0;
 	bottom: 0;
 	height: @height;
 	line-height: @height;
