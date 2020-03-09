@@ -238,22 +238,13 @@ exports.getAttractionAnalysisCommon = (path, id, startDate, endDate, user_id) =>
     let {param, action, newPath} = buildAnalysisCommonParam(path, {
         id, startDate, endDate, user_id
     });
-    param.scenery_id = id;
-    if (mock) {
-        return getJSON1(MOCK_PATH + `${newPath}.json`, param);
-    } else {
-        return getJSON1(config.root + action, param);
-    }
+    return getMockData(action);
 };
 exports.getCityAnalysisCommon = (path, id, startDate, endDate, user_id) => {
     let {param, action, newPath} = buildAnalysisCommonParam(path, {
         id, startDate, endDate, user_id
     });
-    param.scenery_city = id;
-    if (mock) {
-        return getJSON1(MOCK_PATH + `${newPath}.json`, param);
-    }
-    return getJSON1(config.root + action, param);
+    return getMockData(action);
 };
 // 地市 - 逗留时间
 exports.getCityAnalysisStayTime = (...args) => {

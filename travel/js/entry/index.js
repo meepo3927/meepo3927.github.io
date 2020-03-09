@@ -27,7 +27,8 @@ methods.onRealtimeChartClose = function () {
     this.showRealtimeChart();
 };
 methods.onRealtimeChartOpenBig = function () {
-    this.realtimeBig = this.area.level + '-realtime-big';
+    // this.realtimeBig = this.area.level + '-realtime-big';
+    this.realtimeBig = 'city-realtime-big';
 };
 methods.onRealtimeBigRenderOption = function (index, param) {
     // 实时监控 - 大窗和小窗交互 （已移除）
@@ -355,7 +356,7 @@ computed.isAttraction = function () {
 
 computed.analysisChart = function () {
     if (this.area.level === 'attraction' || this.area.level === 'city') {
-        return this.area.level + '-analysis-layer';
+        return 'city-analysis-layer';
     }
     return null;
 };
