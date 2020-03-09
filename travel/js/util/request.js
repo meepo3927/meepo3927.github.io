@@ -76,6 +76,7 @@ const getMockData = (key) => {
             }, Math.random() * 300 + 100);
         });
     }
+    LOG('getMockData:' + key);
     return Promise.reject({success: false, msg: '暂无数据'});
 };
 // 不走InnerGate
