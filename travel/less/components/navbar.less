@@ -1,0 +1,63 @@
+
+.right-navbar {
+
+	@bar-height: @bar-height-1;
+	@btn-height: 28px;
+	@d-border-color:  #fff;
+
+	position: fixed;
+	top: @layerTop1;
+	right: @layerRight;
+
+	height: @bar-height;
+	background-color: @bar-color;
+	font-size: 0;
+	white-space: nowrap;
+	padding-right: 20px;
+	box-shadow: 0 3px 3px #aaa;
+	&.o-hidden {
+		width: @layerWidth-2;
+		.area-name span {
+			max-width: 160px;
+		}
+	}
+	& > a {
+		display: inline-block;
+		height: @btn-height;
+		margin-top: (@bar-height - @btn-height) / 2;
+		color: #fff;
+		line-height: @btn-height;
+		font-size: @title-font-size;
+		padding-left: 14px;
+		padding-right: 14px;
+
+		border-left: 1px solid @d-border-color;
+		&:first-child,
+		&.toggle-btn {
+			border-left: none;
+		}
+		&:hover {
+			color: #ddd;
+		}
+	}
+	.area-name {
+		& > span {
+			display: inline-block;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			vertical-align: -2px;
+		}
+		& > .fa {
+			vertical-align: -1px;
+		}
+	}
+	.toggle-btn {
+		position: absolute;
+		right: -5px;
+		top: 1px;
+		& > .fa {
+			font-size: 26px;
+		}
+	}
+
+}

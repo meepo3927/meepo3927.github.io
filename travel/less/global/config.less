@@ -1,0 +1,132 @@
+
+@layerLeft:      140px;
+@layerRight:     30px;
+// @layerLeft:      20px;
+// @layerRight:     20px;
+@layerWidth-1:   370px;
+@layerWidth-2:   470px;
+@bar-height-1:   40px;
+
+// @layerTop1: 70px;
+@layerTop1: 20px;
+@layerTop2: @layerTop1 + @bar-height-1 + 10px;
+
+@footer-height: 40px;
+
+// 主题字体
+@font-size-base:          @base-font-size;
+@line-height-base:        1.428571429; // 20/14
+@line-height-large:       1.3333333; // extra decimals for Win 8.1 Chrome
+@line-height-small:       1.5;
+
+@base-font-size: 13px;
+@title-font-size: 15px;
+
+// 主题颜色
+@theme-color: #3385FF;
+
+// Bar颜色
+@bar-color: #485765;
+
+// section head 背景颜色
+@section-head-bg:  #9CCA3A;
+
+// 浮层 图表 背景颜色
+@layer-chart-bg: #2F4050;
+
+@common-radius:  10px;
+
+// 侧边导航
+@side-nav-bg:    #2f4050;
+@side-nav-width: 160px;
+
+
+// 链接颜色
+@link-color:  #337ab7;
+
+/**
+ * 按钮 Button
+ */
+@btn-default-height: 30px;
+@btn-base-padding-vertical: 4px;
+@btn-base-padding-horizontal: 12px;
+@btn-base-border-radius: 4px;
+
+@btn-border-color: @theme-color;
+@btn-default-bg: #fff;
+
+@btn-big-height:  @input-big-height;
+@btn-big-border-radius:  8px;
+/**
+ * 表格 Table
+ */
+@table-padding-vertical: 12px;
+@table-padding-horizontal: 14px;
+@table-th-padding-vertical: @table-padding-vertical;
+@table-th-padding-horizontal: @table-padding-horizontal;
+
+@table-td-padding-vertical: @table-padding-vertical - 1px;
+@table-td-padding-horizontal: @table-padding-horizontal;
+
+@table-head-bg: @section-head-bg;
+@table-head-color: #fff;
+@table-head-font-size: @title-font-size;
+
+@table-body-bg: @theme-color;
+// @table-body-bg-odd: lighten(@theme-color, 8%);
+// @table-body-bg-even: darken(@theme-color, 8%);
+// @table-body-color: #fff;
+@table-body-bg-odd:  #fff;
+@table-body-bg-even: @table-body-bg-odd;
+@table-body-color: #333;
+@table-body-font-size: @base-font-size;
+@table-td-border-bottom: 1px solid #eee;
+
+@col-index-width:  58px;
+
+/**
+ * Form - layout
+ */
+@form-item-gap: 15px;
+/**
+ * Form - label
+ */
+@form-label-font-size: @font-size-base;
+@form-label-line-height: @line-height-base;
+/**
+ * Form - Input
+ */
+@input-border:         #ccc;
+@input-border-radius:  2px;
+@input-bg:             #fff;
+@input-line-height: @line-height-base;
+@input-padding-vertical:    4px;
+@input-padding-horizontal:  12px;
+
+@input-default-height: 30px;
+
+@input-big-height:  40px;
+
+/**
+ * Select
+ */
+@select-font-size:          @font-size-base;
+@select-padding-vertical:   @input-padding-vertical;
+@select-padding-horizontal: @input-padding-horizontal;
+@select-border-radius:      @input-border-radius;
+
+/**
+ * Chart
+ */
+@chart-layer-gap:  8px;
+
+/**
+ * report
+ */
+@report-slide-width:  1280px;
+@report-slide-height: 720px;
+@report-title-color:  #00B0F0;
+@report-title-size:   76px;
+@report-head-bg:      #30ABDF;
+@report-chart-pad:    5px;
+@report-box-pad:      10px;

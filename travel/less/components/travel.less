@@ -1,0 +1,61 @@
+.travel-panel-layout {
+	padding: 30px 40px 12px 70px;
+	
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	.x-left {
+		float: left;
+		width: 25%;
+		height: 100%;
+		position: relative;
+		h3 {
+			color: #fff;
+			text-align: center;
+			font-size: 18px;
+			font-weight: bold;
+			padding-top: 8px;
+		}
+		.table-box {
+			margin-top: 20px;
+			// border-radius: @common-radius;
+			overflow-x: hidden;
+			overflow-y: auto;
+			position: absolute;
+			width: 100%;
+			top: 25px;
+			bottom: 0;
+		}
+	}
+	.x-right {
+		float: left;
+		margin-left: 5%;
+		width: 69%;
+		height: 100%;
+	}
+	.period-select-box {
+		margin-bottom: 15px;
+		& > label {
+			color: #fff;
+			width: 80px;
+		}
+	}
+	iframe {
+		width: 100%;
+	}
+	iframe.type-1 {
+		height: 100%;
+	}
+	iframe.type-2 {
+		height: calc(~'85vh' - 260px);
+	}
+}
+.travel-table {
+	&.clickable td {
+		cursor: pointer;
+	}
+	tr.active > td {
+		font-weight: bold;
+		color: #000;
+	}
+}

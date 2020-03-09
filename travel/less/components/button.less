@@ -1,0 +1,101 @@
+@btn-default-radius: 4px;
+.btn-mixin() {
+	display: inline-block;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	white-space: nowrap;
+}
+.btn {
+	.btn-mixin();
+	padding: 4px 12px;
+	font-size: 13px;
+	line-height: 1.42857143;
+	border-radius: @btn-default-radius;
+	height: @btn-default-height;
+	border: 1px solid #666;
+	@backgroundColor: #fff;
+	background-color: @backgroundColor;
+	color: #333;
+	&:hover {
+		background-color: darken(@backgroundColor, 10%);
+	}
+	&.active {
+		background-color: #ddd;
+		box-shadow: inset 0 0 8px #999;
+	}
+	&[disabled] {
+		color: #aaa;
+		background-color: #eee;
+		border-color: #999;
+	}
+}
+.btn.btn-default {
+	@default-bg-color: @theme-color;
+	&.active {
+		border-color: @default-bg-color;
+		color: #fff;
+		background-color: @default-bg-color;
+		box-shadow: inset 0 0 8px darken(@default-bg-color, 20%);
+	}
+}
+@primary-color:  #8fc31f;
+@primary-active-color:  #AAD257;
+.btn-primary {
+	.btn-mixin();
+	background-color: @primary-color;
+	border: 1px solid @primary-color;
+	color: #fff;
+	&:hover,
+	&.active {
+		background-color: @primary-active-color;
+		border-color: @primary-active-color;
+	}
+}
+.btn-big {
+	.btn-mixin();
+	height: @btn-big-height;
+	padding: 4px 20px;
+	font-size: 16px;
+	background-color: #fff;
+	border: none;
+	border-radius: @btn-big-border-radius;
+	&:hover,
+	&.active {
+		background-color: #DDDDDD;
+	}
+}
+.btn-group {
+	font-size: 0;
+	display: inline-block;
+}
+.btn-group > .btn {
+	border-left-width: 0;
+	border-radius: 0;
+	&:nth-of-type(1) {
+		border-left-width: 1px;
+		border-top-left-radius: @btn-default-radius;
+		border-bottom-left-radius: @btn-default-radius;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	&:nth-last-of-type(1) {
+		border-top-right-radius: @btn-default-radius;
+		border-bottom-right-radius: @btn-default-radius;
+	}
+}
+.btn-group > .btn-big {
+	border-left: 1px solid #A6A6A6;
+	border-radius: 0;
+	&:nth-of-type(1) {
+		border-left-width: 0px;
+		border-top-left-radius: @btn-big-border-radius;
+		border-bottom-left-radius: @btn-big-border-radius;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	&:nth-last-of-type(1) {
+		border-top-right-radius: @btn-big-border-radius;
+		border-bottom-right-radius: @btn-big-border-radius;
+	}
+}

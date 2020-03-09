@@ -1,0 +1,123 @@
+div.city-select {
+
+	@border-color: #ccc;
+
+	position: fixed;
+	top: @layerTop2;
+	right: @layerRight;
+	width: @layerWidth-2;
+	z-index: 30;
+
+	background-color: #fff;
+	border: 1px solid @border-color;
+
+	// 容器
+	.city-section {
+		border-bottom: 1px solid @border-color;
+		padding-top: 10px;
+		& > label {
+			width: 10%;
+			display: inline-block;
+			margin-top: 5px;
+			margin-left: 15px;
+			font-size: @title-font-size;
+			vertical-align: top;
+		}
+		& > .city-list {
+			width: 85%;
+			display: inline-block;
+		}
+	}
+}
+div.city-select > .x-wrapper {
+	@link-hover-color: #999;
+	position: relative;
+	// 标题
+	& > h4 {
+		background-color: @section-head-bg;
+		font-size: 14px;
+		height: 40px;
+		line-height: 40px;
+		color: #fff;
+		padding-left: 15px;
+	}
+	// 关闭按钮
+	.layer-close-btn {
+		position: absolute;
+		right: 4px;
+		top: 5px;
+		color: #fff;
+		font-size: 20px;
+		padding: 4px 10px;
+		&:hover {
+			color: #ddd;
+		}
+	}
+	// 城市列表,地市列表
+	.city-list {
+		padding: 6px 3px;
+		li {
+			float: left;
+			margin-bottom: 9px;
+		}
+		li a {
+			font-size: @title-font-size;
+			color: #333;
+			margin-right: 12px;
+			&:hover {
+				color: @link-hover-color;
+			}
+		}
+		li.active a {
+			font-weight: bold;
+		}
+	}
+	// 景区列表
+	.attraction-section {
+		padding: 16px 0px 5px 16px;
+		color: #666;
+		max-height: 450px;
+		overflow: auto;
+		& > li {
+			a {
+				color: #333;
+				font-size: @title-font-size;
+			}
+			a:hover {
+				color: @link-hover-color;
+			}
+			& > label {
+				float: left;
+				width: 106px;
+				.x-char {
+					display: inline-block;
+					width: 25px;
+					font-size: @title-font-size + 6;
+					color: #ccc;
+					font-weight: 700;
+					vertical-align: top;
+					margin-top: -3px;
+				}
+			}
+			& > ul {
+				width: 324px;
+				float: left;
+				display: block;
+				margin-bottom: 10px;
+				margin-top: 0px;
+			}
+			& > ul > li {
+				margin-bottom: 8px;
+				float: left;
+				min-width: 50%;
+				a {
+					font-size: @base-font-size;
+					line-height: @base-font-size + 3px;
+				}
+				&.active a {
+					font-weight: bold;
+				}
+			}
+		}
+	}
+}

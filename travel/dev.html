@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="page-index-html">
+<head>
+    <meta charset="UTF-8">
+    <title>中国移动内蒙古分公司智慧旅游大数据平台</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <link rel="stylesheet" href="../bundle/vendor.css" />
+    <!--[if lte IE 8]>
+    <script src="dist/ie8overlay.js"></script>
+    <![endif]-->
+</head>
+<body class="page-index">
+<div id="main">
+    <side-navbar active-name="景区大数据"></side-navbar>
+    <iframe :src="arcgisUrl" frameborder="0" class="gis-iframe" scrolling="no"
+        ref="gisIframe"
+        v-show="!view.gisFakeVisible"></iframe>
+    <img :src="gisFakeImage" class="gis-fake-iframe"
+        v-show="view.gisFakeVisible" />
+    <!-- 搜索 -->
+    <div is="location-search" @select="onPlaceSelected($event)" ref="locationSearch"></div>
+    <div is="table-layer" :area="area" :auth="auth" @back="tableBack">
+        <!-- 数据table -->
+        <table :is="tableComp"
+               :list="tablelist"
+               :data="attractionDetail"
+               :loading="view.loadingTable"
+               @row-click="rowClick($event)"></table>
+    </div>
+    <!-- loading -->
+    <div class="table-loading " v-show="view.loadingTable">
+        <div class="loading-bar"></div>
+    </div>
+    <div is="right-navbar" @click="onRightNavbarClick($event)" 
+        :area="area"
+        :area-name="areaName"></div>
+    <!-- 选择城市 -->
+    <div is="city-select" v-show="view.rightComp === 'city-select'"
+         :area="area"
+         :auth="auth"
+         @close="onCitySelectClose"
+         @select="onCitySelect($event)"></div>
+    <!-- 实时监控 -->
+    <div :is="realtimeChart" v-if="view.rightComp === 'realtime-chart'"
+         @open-big="onRealtimeChartOpenBig"
+         @close="onRealtimeChartClose"
+         ref="realtimeChart"
+         :area-name="areaName"></div>
+    <!-- 实时监控 - 放大 -->
+    <div :is="realtimeBig" 
+        @render-option="onRealtimeBigRenderOption"
+        @close="onRealtimeBigClose"
+        :area="area"></div>
+    <!-- 数据分析 -->
+    <div :is="analysisChart"
+         v-if="view.analysisVisible"
+         :area="area"
+         @close="closeAnalysisChart"></div>
+    <!-- 出省游客分析 -->
+    <div is="city-leave-province-layer"
+        v-if="view.cityLeaveProvinceVisible"
+        :area="area"
+        @close="view.cityLeaveProvinceVisible = false"></div>
+    <!-- logo -->
+    <div class="footer-logo">
+        <img src="images/logo.png" alt="">
+    </div>
+    <div is="page-footer" ></div>
+</div><!-- main -->
+</body>
+</html>
+<script>
+window.global = {
+    version: '0307_1800563982554',
+    city: '400',
+    user_id: 'demo',
+    // city: '482',
+    // user_id: '8220180925102849',
+    timestamp: '1555074911311',
+    signature: 'C96D0E0E4EE9EA0E457844863B5CDA5F0C269A57'
+};
+
+</script>
+<script src="./bundle/dll.js"></script>
+<script src="./dist/commons.js"></script>
+<script src="./dist/index.js"></script>

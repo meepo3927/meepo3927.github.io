@@ -1,0 +1,30 @@
+.page-hot-areas {
+	background: url("../../images/star_bg.png") no-repeat center top;
+	background-size: cover;
+
+	@my-img-path:  "../../images/bigshow";
+	@panel-top:    1.45rem;
+	@panel-subtitle-color: rgb(46, 219, 255);
+	@my-font-size:  .46rem;
+	@my-font-mtop:  .18rem;
+	.main-title {
+		// color: @panel-title-color;
+		color: @panel-subtitle-color;
+		font-size: @my-font-size;
+		font-weight: normal;
+		padding-top: @my-font-mtop;
+		text-align: center;
+	}
+	.m-panel {
+		position: absolute;
+		top: @panel-top;
+		left: 0;
+		right: 0;
+		bottom: .1rem;
+		background-color: rgba(0, 0, 0, 0);
+		background-image: url("@{my-img-path}/panel_bg.png");
+		background-repeat: no-repeat;
+		background-size: 100% 100%;
+		padding: 10px 0;
+	}
+}

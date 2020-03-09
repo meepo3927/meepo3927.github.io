@@ -1,0 +1,344 @@
+@report-style-back-width:  40px;
+@report-style-back-height: 416px;
+@report-back-position-x: (@report-left-block-width - @report-style-back-width) / 2;
+@report-back-position-y: (@report-slide-height - @report-style-back-height) / 2;
+.page-report {
+    .only-style-default,
+    .only-style-1,
+    .only-style-2,
+    .only-style-3 {
+        display: none;
+    }
+}
+.page-report.style-default {
+    .only-style-default {
+        display: block;
+    }
+}
+.page-report.style-1 {
+    @style-color:   #00B050;
+    .only-style-1 {
+        display: block;
+    }
+    .report-slide-box {
+        background-color: #fff;
+    }
+    // 封面
+    .chart-slide.front-cover {
+        background: url("@{report-image-path}/report_1/front_cover.png") no-repeat 0 0;
+        background-size: @report-slide-width 468px;
+        @top-1:   510px;
+        @left-1:  580px;
+        h1 {
+            margin-top: 0;
+            color: @style-color;
+            font-size: 54px;
+            position: absolute;
+            top: @top-1;
+            left: @left-1;
+        }
+        &.dim-city h1 {
+            font-size: 44px;
+        }
+        p {
+            margin-top: 0;
+            color: #7F7F7F;
+            font-size: 30px;
+            position: absolute;
+            top: @top-1 + 62px;
+            left: @left-1 - 8px;
+            text-align: left;
+            font-weight: bold;
+            line-height: 1.6;
+        }
+        .v-logo {
+            position: absolute;
+            top: @top-1 - 25px;
+            left: 138px;
+        }
+    }
+    // 说明页
+    .report-slide-box.intro {
+        background: url("@{report-image-path}/report_1/intro_1.png") no-repeat center 30px;
+        background-size: 1152px 162px;
+        h1 {
+            margin-top: 70px;
+            color: @style-color;
+        }
+        ul {
+            margin-top: 40px;
+        }
+        .src-1 {
+            position: absolute;
+            right: 30px;
+            bottom: 35px;
+            height: 120px;
+        }
+    }
+    // 图表页 左
+    .chart-slide > .left-block {
+        background: url("@{report-image-path}/report_1/left_dot.png") no-repeat;
+        background-position: @report-back-position-x @report-back-position-y;
+        background-size: @report-style-back-width @report-style-back-height;
+        background-color: #D9D9D9;
+        box-shadow: 3px 0 3px #aaa;
+    }
+    // 图表页 标题
+    .chart-slide > .right-wrapper > .x-head {
+        background: url("@{report-image-path}/report_1/chart_head_back.png") no-repeat 0 0;
+        background-size: 100% 100%;
+        box-shadow: 3px 3px 4px #AAA;
+    }
+    // 中间说明
+    .chart-slide.mid-intro {
+        background: url("@{report-image-path}/report_1/intro_1.png") no-repeat center 300px;
+        background-size: 75% 135px;
+        h2 {
+            margin-top: 400px;
+            margin-left: 200px;
+            color: @style-color;
+        }
+        .src-1 {
+            position: absolute;
+            top: 460px;
+            left: 840px;
+            width: 140px;
+        }
+    }
+    // 尾
+    .chart-slide.back-cover {
+        background: url("@{report-image-path}/report_1/back.png") no-repeat 50px 0;
+        background-size: 1080px 100%;
+    }
+}
+.page-report.style-2 {
+    @style-color:  #E60000;
+    .only-style-2 {
+        display: block;
+    }
+    // 封面
+    .chart-slide.front-cover {
+        background: url("@{report-image-path}/report_2/front_cover.jpg") no-repeat 0 0;
+        background-size: 100% 100%;
+        h1 {
+            color: #EAE64C;
+        }
+        p {
+            position: absolute;
+            text-align: right;
+            color: #fff;
+            font-weight: bold;
+            font-size: 34px;
+            right: 302px;
+            bottom: 128px;
+            line-height: 1.4;
+        }
+        .b-logo {
+            position: absolute;
+            width: 286px;
+            top: 18px;
+            left: 22px;
+        }
+    }
+    // 说明
+    .report-slide-box.intro {
+        background: url("@{report-image-path}/report_2/intro_1.png") no-repeat 95% 10px;
+        background-size: 345px 293px;
+        h1 {
+            color: @style-color;
+            font-size: 64px;
+            margin-top: 20px;
+            margin-bottom: 80px;
+            font-weight: normal;
+        }
+        .src-2 {
+            position: absolute;
+            height: 66px;
+            right: 44px;
+            bottom: 18px;
+        }
+    }
+    // 图表页 左
+    .chart-slide > .left-block {
+        background: url("@{report-image-path}/report_2/left_dot.png") no-repeat;
+        background-size: @report-style-back-width @report-style-back-height;
+        background-position: @report-back-position-x @report-back-position-y;
+        background-color: #D9D9D9;
+        box-shadow: 3px 0 3px #aaa;
+    }
+    // 图表页 标题
+    .chart-slide > .right-wrapper > .x-head {
+        background: url("@{report-image-path}/report_1/chart_head_back.png") no-repeat 0 0;
+        background-size: 100% 100%;
+        box-shadow: 3px 3px 4px #AAA;
+    }
+    // 中间说明
+    .chart-slide.mid-intro {
+        background: url("@{report-image-path}/report_2/intro_1.png") no-repeat 100px 30px;
+        background-color: #fff;
+        h2 {
+            color: @style-color;
+            position: absolute;
+            right: 100px;
+            bottom: 240px;
+        }
+        .img-2 {
+            position: absolute;
+            right: 100px;
+            bottom: 60px;
+            height: 60px;
+        }
+    }
+    // 尾
+    .chart-slide.back-cover {
+        @size-x: 980px;
+        @size-y: 122px;
+        @position-x:  (@report-slide-width - @size-x) / 2;
+        @position-y:  (@report-slide-height - @size-y) / 2;
+        background: url("@{report-image-path}/report_2/back.png") no-repeat;
+        background-position: @position-x @position-y;
+        background-color: #D02D00;
+        background-size: @size-x @size-y;
+        .b-logo {
+            position: absolute;
+            width: 286px;
+            top: 18px;
+            left: 22px;
+        }
+    }
+}
+.page-report.style-3 {
+    @style-color:  #0070C0;
+    .only-style-3 {
+        display: block;
+    }
+    .report-slide-box {
+        background-color: #fff;
+    }
+    // 封面
+    .chart-slide.front-cover {
+        background: url("@{report-image-path}/report_3/front_cover.jpg") no-repeat 0 0;
+        background-size: 100% 100%;
+        h1 {
+            color: @style-color;
+            position: absolute;
+            top: 180px;
+            right: 96px;
+            font-size: 68px;
+        }
+        p {
+            text-align: right;
+            position: absolute;
+            top: 300px;
+            right: 100px;
+            border-top: 3px solid #A6A6A6;
+            width: 740px;
+            padding-top: 36px;
+            font-weight: bold;
+            font-size: 44px;
+            color: #404040;
+            line-height: 1.4;
+        }
+        .b-logo {
+            position: absolute;
+            width: 286px;
+            top: 18px;
+            left: 22px;
+        }
+    }
+    // 说明
+    .report-slide-box.intro {
+        padding: 30px;
+        background: url("@{report-image-path}/report_3/intro_1.jpg") no-repeat 95% 92%;
+        background-size: 290px 192px;
+        & > h1 {
+            color: #fff;
+            background-color: @style-color;
+            border-radius: 50px;
+            width: 240px;
+            height: 90px;
+            line-height: 90px;
+            text-align: center;
+            font-size: 54px;
+            position: absolute;
+            top: 40px;
+            left: 140px;
+            z-index: 5;
+        }
+        & > ul {
+            padding: 20px 30px 30px 35px;
+            border: 2px solid @style-color;
+            border-radius: 24px;
+            height: 600px;
+        }
+    }
+    // 图表页 左
+    .chart-slide > .left-block {
+        //background-color: #1D6DC4;
+        display: none;
+    }
+    .chart-slide > .right-wrapper {
+        margin-left: 0;
+    }
+    // 图表 标题 
+    .chart-slide > .right-wrapper > .x-head {
+        background: url("@{report-image-path}/report_3/title_1.png") no-repeat 0 0;
+        margin: -15px -15px 10px -15px;
+        padding: 18px 0 0 62px;
+        height: 76px;
+        color: @style-color;
+        h6 {
+            font-size: 28px;
+        }
+        .v-hide-btn {
+            color: @style-color;
+            margin-top: -30px;
+            margin-right: 10px;
+        }
+    }
+    // 中间说明
+    .chart-slide.mid-intro {
+        padding: 0;
+        .l-block {
+            background-color: @style-color;
+            color: #fff;
+            width: 390px;
+            height: 100%;
+            padding-top: 308px;
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+        }
+        h2 {
+            color: @style-color;
+            position: absolute;
+            margin: 0;
+            top: 300px;
+            right: 200px;
+        }
+    }
+    // 尾
+    .chart-slide.back-cover {
+        background: url("@{report-image-path}/report_3/front_cover.jpg") no-repeat 0 0;
+        background-size: 100% 100%;
+        .b-logo {
+            position: absolute;
+            width: 286px;
+            top: 18px;
+            left: 22px;
+        }
+        h4, h3 {
+            color: @style-color;
+            position: absolute;
+            right: 80px;
+        }
+        h4 {
+            top: 306px;
+            font-size: 62px;
+        }
+        h3 {
+            bottom: 218px;
+            font-size: 68px;
+        }
+    }
+}

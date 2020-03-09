@@ -1,0 +1,63 @@
+.realtime-monitor {
+	position: fixed;
+	top: @layerTop2;
+	right: @layerRight;
+	width: @layerWidth-2;
+	background-color: #fff;
+	& > .x-wrapper {
+		position: relative;
+		h4 {
+			border-bottom: 1px solid #ccc;
+		}
+		.max-btn {
+			position: absolute;
+			right: 40px;
+			top: 4px;
+			font-size: 20px;
+		}
+		.layer-close-btn {
+			position: absolute;
+			right: 10px;
+			top: 2px;
+		}
+	}
+}
+.realtime-layer-chart() {
+	padding-top: 10px;
+	height: 580px;
+}
+.city-realtime-chart-1 {
+	.realtime-layer-chart();
+}
+.city-realtime-chart-2 {
+	margin-top: 8px;
+	.realtime-layer-chart();
+}
+.attraction-realtime-chart-1 {
+	.realtime-layer-chart();
+}
+.attraction-realtime-chart-2 {
+	margin-top: 8px;
+	.realtime-layer-chart();
+}
+.analysis-layer .option-list {
+	margin-top: 0;
+	li {
+		padding: 12px 10px;
+		cursor: pointer;
+		color: #fff;
+		& > .fa {
+			width: 10%;
+			vertical-align: top;
+			font-size: 16px;
+		}
+		& > span {
+			width: 80%;
+			font-size: 14px;
+			display: inline-block;
+		}
+	}
+	li.active {
+		color: #333;
+	}
+}

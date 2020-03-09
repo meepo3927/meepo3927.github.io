@@ -1,0 +1,104 @@
+@search-bg-color: #8fc31f;
+.table-search-form {
+	font-size: 0;
+	margin-bottom: 10px;
+}
+.table-search-form > input[type=text] {
+	border-radius: 0;
+}
+.table-search-form > button {
+	background-color: @search-bg-color;
+	border: 1px solid @search-bg-color;
+	font-size: 14px;
+	padding: 5px 8px;
+	height: 30px;
+	color: #fff;
+}
+
+#attraction_table {
+	& > thead > tr > th,
+	& > tbody > tr > td {
+		background-color: #fff;
+	}
+	.col-1 {
+		width: 50px;
+		text-align: center;
+	}
+	.col-2 {
+		width: 150px;
+	}
+	.col-3 {}
+	.col-5 {
+		width: 90px;
+	}
+	.show-children-btn {
+		font-size: 18px;
+		line-height: 0;
+		display: inline-block;
+	}
+	.children-tr > td {
+		padding: 0;
+	}
+	.col-scenery-name {
+		.btn {
+			height: @input-default-height;
+			line-height: 1.1;
+			vertical-align: top;
+		}
+	}
+}
+.attraction-table > thead > tr > th,
+.attraction-table > tbody > tr > td {
+	background-color: #fff;
+}
+
+.station-table {
+	border-top: none;
+	& > thead > tr > th {
+		color: #666;
+		text-align: left;
+		border-top: none;
+
+	}
+	& > thead > tr > th,
+	& > tbody > tr > td {
+		font-size: 12px;
+	}
+	.col-op {
+		width: 90px;
+	}
+	.modify-btn {
+		font-size: 13px;
+	}
+}
+.page-manage-attraction {
+	.iframe-layer {
+		position: relative;
+		height: 100%;
+	}
+	.iframe-layer > h4 {
+		font-size: 24px;
+		color: #333;
+	}
+	.iframe-layer > .iframe-wrapper {
+		position: absolute;
+		width: 100%;
+		top: 32px;
+		bottom: 6px;
+		left: 0;
+		right: 0;
+	}
+	.iframe-layer > .iframe-wrapper iframe {
+		height: 100%;
+		width: 100%;
+	}
+	.arc-iframe {
+		border: none;
+		width: 100%;
+		height: 500px;
+	}
+}
+.scenery-gis-layer {
+	background-color: #fff;
+	border-radius: 8px;
+}
