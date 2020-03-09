@@ -5,6 +5,8 @@ const Fetch = require('util/fetch.js');
 const URL = require('util/url.js');
 const MDate = require('lib/mdate.js');
 const localCache = require('util/localCache.js');
+const MockData = require('util/mock.js');
+
 
 let mock = config.dev ? true : false;
 let local = (URL.query().local === 'rlocal') ? true : false;
@@ -65,8 +67,20 @@ const getJSON3 = (path, param = {}, mockSubfix = '') => {
         return getJSON1(config.root + path, param);
     }
 };
+const getMockData = (key) => {
+    if (MockData[key]) {
+        return new Promise((resolve) => {
+            const result = MockData[key];
+            setTimeout(() => {
+                resolve(result.data || result);
+            }, Math.random() * 300 + 100);
+        });
+    }
+    return Promise.reject({success: false, msg: '暂无数据'});
+};
 // 不走InnerGate
 const getActionJSON = (action, param = {}, mockSubfix) => {
+    return getMockData(action);
     if (mock) {
         let mockAction = action;
         if (mockSubfix) {
@@ -93,11 +107,7 @@ const REST = (path, param = [], mockSubfix = '') => {
     }
 };
 const getREST = (path, param = [], mockSubfix = '') => {
-    if (mock) {
-        let subfix = mockSubfix ? ('_' + mockSubfix) : '';
-        LOG('getRESTParam:', param);
-        return getJSON1(MOCK_PATH + path + subfix + '.json');
-    }
+    return getMockData(path);
     if (Array.isArray(param)) {
         let p = param.join('/');
         if (p) {
@@ -446,7 +456,8 @@ exports.getCityTableData = () => {
 };
 // 获取城市列表客流数据 (for table)
 exports.getAttractionList = (cityId) => {
-    return getREST('/realtime/current/get', [cityId], 'city');
+    return getMockData('/realtime/current/get_city');
+    // return getREST('/realtime/current/get', [cityId], 'city');
 };
 // 获取城市列表客流数据 (for hot areas)
 exports.getHotAreas = (cityId) => {

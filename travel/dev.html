@@ -13,11 +13,7 @@
 <body class="page-index">
 <div id="main">
     <side-navbar active-name="景区大数据"></side-navbar>
-    <iframe :src="arcgisUrl" frameborder="0" class="gis-iframe" scrolling="no"
-        ref="gisIframe"
-        v-show="!view.gisFakeVisible"></iframe>
-    <img :src="gisFakeImage" class="gis-fake-iframe"
-        v-show="view.gisFakeVisible" />
+    <img :src="gisFakeImage" class="gis-fake-iframe" />
     <!-- 搜索 -->
     <div is="location-search" @select="onPlaceSelected($event)" ref="locationSearch"></div>
     <div is="table-layer" :area="area" :auth="auth" @back="tableBack">
@@ -62,10 +58,6 @@
         v-if="view.cityLeaveProvinceVisible"
         :area="area"
         @close="view.cityLeaveProvinceVisible = false"></div>
-    <!-- logo -->
-    <div class="footer-logo">
-        <img src="images/logo.png" alt="">
-    </div>
     <div is="page-footer" ></div>
 </div><!-- main -->
 </body>
