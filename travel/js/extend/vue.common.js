@@ -9,7 +9,7 @@ const ebus = new EventBus();
 Plugin.install = function (Vue, options) {
     let methods = {};
     methods.getStaticUrl = function (path, param = '') {
-        let url = staticPath + '/views' + path + urlExt;
+        let url = staticPath + path + urlExt;
         if (param) {
             url += '?' + param;
         }

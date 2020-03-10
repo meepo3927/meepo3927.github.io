@@ -2,9 +2,9 @@
 <div class="login-box" n="~!@#$">
     <div>
         <div class="text-center">
-            <h2 class="font-bold">中国移动 | 智慧旅游</h2>
+            <h2 class="font-bold">东方万里 | 智慧旅游</h2>
         </div>
-        <form :action="fmAction" method="POST" @submit.prevent ref="form">
+        <form :action="fmAction" @submit.prevent ref="form">
             <div class="form-group">
                 <label>用户名：</label>
                 <input type="text" class="form-control" required
@@ -37,11 +37,7 @@
                 <button type="button" class="btn btn-primary" 
                     @click="onSubmitClick">登录</button>
             </div>
-            <div class="form-group login-link-box text-center">
-                <a :href="guideUrl" target="_blank">
-                    系统教程
-                </a>
-            </div>
+
         </form>
     </div>
 </div>
@@ -50,19 +46,19 @@
 <script>
 import URL from 'util/url.js';
 import AES from 'util/aes.js';
-
+import mlayer from 'mlayer';
 const I = '-';
 const Q = URL.query();
 const methods = {};
 methods.onSubmitClick = function () {
     if (!this.userName) {
-        return alert('请输入用户名');
+        return mlayer.msg('请输入用户名');
     }
     if (!this.password) {
-        return alert('请输入密码');
+        return mlayer.msg('请输入密码');
     }
     if (!this.checkCode) {
-        return alert('请输入验证码');
+        return mlayer.msg('请输入验证码');
     }
     this.submit();
 };
@@ -214,10 +210,7 @@ computed.encodedPassword = function () {
     }
 };
 computed.fmAction = function () {
-    return Config.basePath + '/user/login.action';
-};
-computed.guideUrl = function () {
-    return Config.basePath + '/Static_Full_Version/2.0/views/help';
+    return '/index.html';
 };
 computed.loginTip = function () {
     if (Q.msg) {
@@ -234,12 +227,6 @@ let watch = {};
 const created = function () {};
 const mounted = function () {
     this.particlesStart();
-    if (Config.dev) {
-        this.captchaSrc = '/images/checkCode.jpg';
-        AES.test();
-    } else {
-        this.captchaSrc = Config.basePath + '/checkCode.jpg';
-    }
 };
 const beforeDestroy = function () {};
 const dataFunc = function () {
@@ -247,7 +234,7 @@ const dataFunc = function () {
         userName: '',
         password: '',
         checkCode: '',
-        captchaSrc: ''
+        captchaSrc: '/images/checkCode.jpg'
     };
     return o;
 };

@@ -1,5 +1,5 @@
 <template>
-<div class="side-navbar" v-show="rootVisible">
+<div class="side-navbar">
 	<!-- entry -->
 	<a href="javascript:;" class="x-entry" >
 		<img :src="entryImgSrc" alt="">
@@ -8,7 +8,7 @@
 	<!-- list -->
 	<ul class="menu-list">
 		<li v-for="v in list" :class="{active: v.name === activeName}">
-			<a :href="v.url">
+			<a :href="v.url" @click="onClick(v.url)">
 				<i class="fa" :class="[v.icon]"></i>
 				<h5 v-text="v.name"></h5>
 			</a>
@@ -20,40 +20,33 @@
 
 <script>
 var methods = {};
-var computed = {};
-computed.rootVisible = function () {
-	if (this.vConfig.user.auth === 'all') {
-		return true;
+methods.onClick = function (url) {
+	if (url === 'javascript:;') {
+		return mlayer.msg('仅供演示');
 	}
-	if (this.vConfig.user.olen <= 3) {
-		return true;
-	}
-	return false;
 };
+var computed = {};
 computed.list = function () {
-	let mid = [];
-	if (this.vConfig.user.auth === 'all') {
-		mid.push({
-			icon: 'fa-mail-forward',
-			url: this.getStaticUrl('/enter_city'),
-			name: '来市游客分析'
-		});
-	}
+	let mid = [{
+		icon: 'fa-mail-forward',
+		url: 'javascript:;',
+		name: '来市游客分析'
+	}];
 	return [
 		{
 			icon: 'fa-map-marker',
-			url: this.getStaticUrl('/../index'),
+			url: '',
 			name: '景区大数据'
 		}
 	].concat(mid).concat([
 		{
 			icon: 'fa-mail-reply',
-			url: this.getStaticUrl('/leave_city'),
+			url: 'javascript:;',
 			name: '出省游客分析'
 		},
 		{
 			icon: 'fa-sign-out',
-			url: this.vlogoutUrl,
+			url: 'javascript:;',
 			name: '退出系统'
 		}
 	]);

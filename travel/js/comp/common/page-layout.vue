@@ -8,7 +8,7 @@
 
 		<div class="x-footer-block"></div>
 		<div class="x-footer">
-			<div class="pull-right">中国移动内蒙古分公司</div>
+			<div class="pull-right">东方万里内蒙古分公司</div>
 			<div class="copyright">
 				<strong>Copyright</strong> Teradata &copy; 2007-2016
 			</div>
