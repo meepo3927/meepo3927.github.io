@@ -516,6 +516,6 @@ module.exports = {
         require('mixins/pptx.js')
     ],
     components: {
-        'my-chart': require('comp/report/my-chart.vue')
+        'my-chart': require('comp/reporto/my-chart.vue')
     }
 };

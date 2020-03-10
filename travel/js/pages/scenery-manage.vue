@@ -27,8 +27,7 @@
 import {config, mlayer, request} from 'root';
 var methods = {};
 methods.showAdd = function () {
-	location.href = this.getStaticUrl('/modify_scenery');
-	// this.view.addFormVisible = true;
+	location.href = './modify_scenery.html';
 };
 methods.closeAdd = function () {
 	this.view.addFormVisible = false;

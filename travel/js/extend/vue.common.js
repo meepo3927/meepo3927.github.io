@@ -20,7 +20,7 @@ Plugin.install = function (Vue, options) {
     };
     let computed = {
         vImgPath: function () {
-            return imgPath;
+            return './images';
         },
         basePath: function () {
             return basePath;

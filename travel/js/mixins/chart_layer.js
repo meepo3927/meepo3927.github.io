@@ -73,11 +73,6 @@ module.exports = {
     components: {
         'pie-chart': require('comp/chart_layer/pie-chart.vue'),
         'horz-bar-chart': require('comp/chart_layer/horz-bar-chart.vue'),
-        'my-chart': require('comp/common/my-chart.vue'),
-        'word-cloud-chart': (r) => {
-            require.ensure([], () => {
-                r(require('comp/chart_layer/word-cloud-chart.vue'));
-            })
-        }
+        'my-chart': require('comp/common/my-chart.vue')
     }
 };

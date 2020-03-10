@@ -70,11 +70,7 @@ export default {
 	mounted,
 	beforeDestroy,
 	components: {
-		'vue-echarts': (r) => {
-			require.ensure([], () => {
-				r(require('comp/common/ECharts.vue'));
-			});
-		}
+		'vue-echarts': require('comp/common/ECharts.vue')
 	}
 };
 </script>

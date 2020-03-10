@@ -52,7 +52,7 @@ computed.list = function () {
 	]);
 };
 computed.entryImgSrc = function () {
-	return this.vImgPath + '/side_navbar_entry.png';
+	return './images/side_navbar_entry.png';
 };
 var watch = {};
 var mounted = function () {};

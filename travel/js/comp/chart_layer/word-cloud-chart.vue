@@ -45,7 +45,9 @@ export default {
 	props: ['data'],
 	mounted,
 	beforeDestroy,
-	components: {}
+	components: {
+		'my-chart': require('comp/common/my-chart.vue')
+	}
 };
 </script>
 

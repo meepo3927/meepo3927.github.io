@@ -4,7 +4,7 @@ var JS_DIR = path.resolve(__dirname, '../js');
 var DIST_PATH = path.resolve(__dirname, '../dist');
 var SERVER_PORT = 8899;
 var SERVER_DIR = path.resolve(__dirname, '../');
-var productionPublicPath = '/travel/dist/';
+var productionPublicPath = './';
 
 var alias = {
     // 目录

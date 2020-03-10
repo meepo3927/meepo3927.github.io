@@ -380,16 +380,6 @@ const getAnalysisToolbox = () => {
 };
 
 var exports = {};
-exports.echartsReady = function (fn) {
-    return new Promise(function (resolve) {
-        require.ensure([], function (require) {
-            // mlayer.msg('echartsReady');
-            var echarts = require('echarts');
-            fn && fn(echarts);
-            resolve(echarts);
-        });
-    });
-};
 // 实时监控 景区人流量监控
 exports.getHumanTrafficOption = (options = {}) => {
     let data = options.data || [];

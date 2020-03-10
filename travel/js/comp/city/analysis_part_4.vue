@@ -210,7 +210,9 @@ export default {
 		require('comp/chart_layer/net_prefer_mix.js')
 	],
 	beforeDestroy,
-	components: {}
+	components: {
+		'word-cloud-chart': require('comp/chart_layer/word-cloud-chart.vue')
+	}
 };
 </script>
 

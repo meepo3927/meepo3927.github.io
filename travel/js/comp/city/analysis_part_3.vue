@@ -34,6 +34,9 @@ import request from 'util/request';
 import chartUtil from 'util/chart';
 import MDate from 'lib/mdate.js';
 import config from 'global/config';
+import 'lib/geo/china.js';
+import 'lib/geo/neimenggu.js';
+import 'lib/geo/world.js';
 
 var DateUtil = MDate.Util;
 var methods = {};
@@ -105,13 +108,8 @@ methods.render4 = function () {
 	});
 };
 methods.fetchRender = function () {
-	require.ensure([], () => {
-		require('lib/geo/china.js');
-		require('lib/geo/neimenggu.js');
-		require('lib/geo/world.js');
-		var method = 'render' + this.level;
-		this[method] && this[method]();
-	});
+	var method = 'render' + this.level;
+	this[method] && this[method]();
 };
 methods.getRequestParam = function () {
     return [

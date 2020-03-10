@@ -421,29 +421,12 @@ window.Index = new Vue({
         'right-navbar': require('comp/index/right_navbar.vue'),
         // 选择城市
         'city-select': require('comp/index/city_select.vue'),
-        // 景区实时监控
-        // 'attraction-realtime': require('comp/attraction/realtime.vue'),
         // 景区实时监控 - 放大
-        'attraction-realtime-big': (r) => {
-            require.ensure([], () => {
-                r(require('comp/attraction/realtime_big.vue'));
-            });
-        },
-        // 城市实时监控
-        // 'city-realtime': require('comp/city/realtime.vue'),
+        'attraction-realtime-big': require('comp/attraction/realtime_big.vue'),
         // 城市实时监控 - 放大
-        'city-realtime-big': (r) => {
-            require.ensure([], () => {
-                r(require('comp/city/realtime_big.vue'));
-            });
-        },
+        'city-realtime-big': require('comp/city/realtime_big.vue'),
         // 城市 - 数据分析
-        'city-analysis-layer': (r) => {
-            require.ensure([], () => {
-                r(require('comp/city/analysis_layer.vue'));
-            });
-        },
-        
+        'city-analysis-layer': require('comp/city/analysis_layer.vue'),
         // 页尾
         'page-footer': require('comp/index/footer.vue')
     }

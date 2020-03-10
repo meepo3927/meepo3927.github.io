@@ -189,7 +189,7 @@ computed.heatmapFlag = function () {
     return RightBarStore.state.flag;
 };
 computed.gisFakeImage = function () {
-    return this.vImgPath + '/index/gis.png';
+    return './images/index/gis.png';
 };
 let watch = {};
 module.exports = {

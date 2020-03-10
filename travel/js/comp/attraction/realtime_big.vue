@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import 'lib/geo/china.js';
+import 'lib/geo/neimenggu.js';
 import chartUtil from 'util/chart';
 import request from 'util/request';
 
@@ -132,11 +134,8 @@ methods.render3 = function (options = {}) {
     if (options.mode !== 'refresh') {
         this.o = null;
     }
-    require.ensure([], () => {
-        require('lib/geo/china.js');
-        require('lib/geo/neimenggu.js');
-        this.realRender3();
-    });
+    
+    this.realRender3();
 };
 methods.realRender3 = function () {
     let p1 = request.getAttractionSource1(this.id);

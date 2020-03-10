@@ -112,9 +112,7 @@ methods.showChildren = function (item, e) {
 };
 // 编辑景区
 methods.beginEditAttraction = function (item) {
-    // item.modeEdit = true;
-    // LOG(item);
-    location.href = this.getStaticUrl('/modify_scenery', 'id=' + item.sceneryId);
+    location.href = './modify_scenery.html?id=' + item.sceneryId;
 };
 methods.remove = function (item) {
     if (!confirm('确定删除该景区以及所有基站信息吗？')) {

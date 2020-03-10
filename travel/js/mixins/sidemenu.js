@@ -15,19 +15,19 @@ computed.menulist = function () {
         {
             text: '首页',
             icon: 'fa-home',
-            url: this.getStaticUrl('/../index')
+            url: './index.html'
         }
     ];
     let mid = [{
         text: '景区管理',
         icon: 'fa-cog',
-        url: this.getStaticUrl('/scenery_manage')
+        url: './scenery_manage.html'
     }];
 
     mid.push({
         text: '生成报告',
         icon: 'fa-file-o',
-        url: this.getStaticUrl('/report')
+        url: './report.html'
     });
     mid.push({
         text: '退出系统',

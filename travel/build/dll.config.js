@@ -12,6 +12,9 @@ const vendors = [
     'slimScroll',
     'select2',
     'lib/mdate.js',
+    'lib/geo/china.js',
+    'lib/geo/neimenggu.js',
+    'lib/geo/world.js',
     'dll_less'
 ];
 const env = 'production';

@@ -42,7 +42,7 @@ methods.suggest = function () {
 };
 var computed = {};
 computed.manageUrl = function () {
-	return this.getStaticUrl('/scenery_manage');
+	return './scenery_manage.html';
 };
 // 全区权限
 computed.hasAllAuth = function () {

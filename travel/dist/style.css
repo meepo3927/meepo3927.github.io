@@ -835,7 +835,7 @@ iframe.size-100p {
   margin-top: -15px;
 }
 .mlayer-box .mlayer-box-inner > .mlayer-content.mlayer-content-iconmsg i.x-icon-1 {
-  background: url(/travel/dist/img/icon1_d00b551.png) no-repeat;
+  background: url(./img/icon1_d00b551.png) no-repeat;
 }
 .mlayer-box .mlayer-box-inner > .mlayer-content.mlayer-content-html,
 .mlayer-box .mlayer-box-inner > .mlayer-content.mlayer-content-confirm,
@@ -862,7 +862,7 @@ iframe.size-100p {
 .mlayer-box .mlayer-box-inner > .mlayer-content.mlayer-content-loading {
   height: 32px;
   width: 32px;
-  background: url(/travel/dist/img/loading_2_b33db15.gif) no-repeat;
+  background: url(./img/loading_2_b33db15.gif) no-repeat;
   background-size: 100% 100%;
   padding: 0;
 }
@@ -1270,7 +1270,7 @@ em.i-star {
 .loading-1 {
   width: 32px;
   height: 32px;
-  background: url(/travel/dist/img/loading_50c5e3e.gif) no-repeat center center;
+  background: url(./img/loading_50c5e3e.gif) no-repeat center center;
 }
 .loading-1.size-100p {
   width: 100%;
@@ -1292,7 +1292,7 @@ em.i-star {
   display: inline-block;
   width: 20px;
   height: 20px;
-  background: url(/travel/dist/img/loading_50c5e3e.gif) no-repeat center center;
+  background: url(./img/loading_50c5e3e.gif) no-repeat center center;
   background-size: 100% 100%;
   vertical-align: middle;
 }
@@ -1300,7 +1300,7 @@ em.i-star {
   display: inline-block;
   width: 94px;
   height: 18px;
-  background: url(/travel/dist/img/3_503b9e8.gif) no-repeat center center;
+  background: url(./img/3_503b9e8.gif) no-repeat center center;
   background-size: 100% 100%;
   vertical-align: middle;
   cursor: wait;
@@ -1325,7 +1325,7 @@ em.i-star {
 .loading-bar.style-1 {
   width: 146px;
   height: 16px;
-  background-image: url(/travel/dist/img/1_80cb7e9.gif) no-repeat center center;
+  background-image: url(./img/1_80cb7e9.gif) no-repeat center center;
 }
 .loading-bar.style-1.position-offset {
   margin-top: -8px;
@@ -1341,7 +1341,7 @@ em.i-star {
 .loading-bar.style-2 {
   width: 164px;
   height: 18px;
-  background-image: url(/travel/dist/img/2_2fbcfbf.gif) no-repeat center center;
+  background-image: url(./img/2_2fbcfbf.gif) no-repeat center center;
 }
 .loading-bar.style-2.position-offset {
   margin-top: -9px;
@@ -1357,7 +1357,7 @@ em.i-star {
 .loading-bar.style-3 {
   width: 164px;
   height: 18px;
-  background-image: url(/travel/dist/img/3_503b9e8.gif) no-repeat center center;
+  background-image: url(./img/3_503b9e8.gif) no-repeat center center;
 }
 .loading-bar.style-3.position-offset {
   margin-top: -9px;
@@ -1373,7 +1373,7 @@ em.i-star {
 .loading-bar.style-4 {
   width: 322px;
   height: 18px;
-  background-image: url(/travel/dist/img/4_36ce29d.gif) no-repeat center center;
+  background-image: url(./img/4_36ce29d.gif) no-repeat center center;
 }
 .loading-bar.style-4.position-offset {
   margin-top: -9px;
@@ -1390,7 +1390,7 @@ em.i-star {
   display: inline-block;
   width: 94px;
   height: 18px;
-  background: url(/travel/dist/img/3_503b9e8.gif) no-repeat center center;
+  background: url(./img/3_503b9e8.gif) no-repeat center center;
   background-size: 100% 100%;
   vertical-align: middle;
   cursor: wait;
@@ -2127,7 +2127,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   background-color: #fff;
 }
 .num-bar-2 .light > .x-wrapper {
-  background: url(/travel/dist/img/num_bar_bg_line_1aa0d11.png) repeat-x 0 0;
+  background: url(./img/num_bar_bg_line_1aa0d11.png) repeat-x 0 0;
 }
 .common-form-layer {
   background-color: #fff;
@@ -2479,7 +2479,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   background-color: #fff;
 }
 .page-report.style-1 .chart-slide.front-cover {
-  background: url(/travel/dist/img/front_cover_aeeded2.png) no-repeat 0 0;
+  background: url(./img/front_cover_aeeded2.png) no-repeat 0 0;
   background-size: 1280px 468px;
 }
 .page-report.style-1 .chart-slide.front-cover h1 {
@@ -2510,7 +2510,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   left: 138px;
 }
 .page-report.style-1 .report-slide-box.intro {
-  background: url(/travel/dist/img/intro_1_fbed089.png) no-repeat center 30px;
+  background: url(./img/intro_1_fbed089.png) no-repeat center 30px;
   background-size: 1152px 162px;
 }
 .page-report.style-1 .report-slide-box.intro h1 {
@@ -2527,7 +2527,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   height: 120px;
 }
 .page-report.style-1 .chart-slide > .left-block {
-  background: url(/travel/dist/img/left_dot_2407e7f.png) no-repeat;
+  background: url(./img/left_dot_2407e7f.png) no-repeat;
   background-position: 42px 152px;
   background-size: 40px 416px;
   background-color: #D9D9D9;
@@ -2535,13 +2535,13 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   box-shadow: 3px 0 3px #aaa;
 }
 .page-report.style-1 .chart-slide > .right-wrapper > .x-head {
-  background: url(/travel/dist/img/chart_head_back_9068bc7.png) no-repeat 0 0;
+  background: url(./img/chart_head_back_9068bc7.png) no-repeat 0 0;
   background-size: 100% 100%;
   -webkit-box-shadow: 3px 3px 4px #AAA;
   box-shadow: 3px 3px 4px #AAA;
 }
 .page-report.style-1 .chart-slide.mid-intro {
-  background: url(/travel/dist/img/intro_1_fbed089.png) no-repeat center 300px;
+  background: url(./img/intro_1_fbed089.png) no-repeat center 300px;
   background-size: 75% 135px;
 }
 .page-report.style-1 .chart-slide.mid-intro h2 {
@@ -2556,14 +2556,14 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   width: 140px;
 }
 .page-report.style-1 .chart-slide.back-cover {
-  background: url(/travel/dist/img/back_c5a0e2e.png) no-repeat 50px 0;
+  background: url(./img/back_c5a0e2e.png) no-repeat 50px 0;
   background-size: 1080px 100%;
 }
 .page-report.style-2 .only-style-2 {
   display: block;
 }
 .page-report.style-2 .chart-slide.front-cover {
-  background: url(/travel/dist/img/front_cover_149cc6b.jpg) no-repeat 0 0;
+  background: url(./img/front_cover_149cc6b.jpg) no-repeat 0 0;
   background-size: 100% 100%;
 }
 .page-report.style-2 .chart-slide.front-cover h1 {
@@ -2586,7 +2586,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   left: 22px;
 }
 .page-report.style-2 .report-slide-box.intro {
-  background: url(/travel/dist/img/intro_1_e71c318.png) no-repeat 95% 10px;
+  background: url(./img/intro_1_e71c318.png) no-repeat 95% 10px;
   background-size: 345px 293px;
 }
 .page-report.style-2 .report-slide-box.intro h1 {
@@ -2603,7 +2603,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   bottom: 18px;
 }
 .page-report.style-2 .chart-slide > .left-block {
-  background: url(/travel/dist/img/left_dot_fecc98f.png) no-repeat;
+  background: url(./img/left_dot_fecc98f.png) no-repeat;
   background-size: 40px 416px;
   background-position: 42px 152px;
   background-color: #D9D9D9;
@@ -2611,13 +2611,13 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   box-shadow: 3px 0 3px #aaa;
 }
 .page-report.style-2 .chart-slide > .right-wrapper > .x-head {
-  background: url(/travel/dist/img/chart_head_back_9068bc7.png) no-repeat 0 0;
+  background: url(./img/chart_head_back_9068bc7.png) no-repeat 0 0;
   background-size: 100% 100%;
   -webkit-box-shadow: 3px 3px 4px #AAA;
   box-shadow: 3px 3px 4px #AAA;
 }
 .page-report.style-2 .chart-slide.mid-intro {
-  background: url(/travel/dist/img/intro_1_e71c318.png) no-repeat 100px 30px;
+  background: url(./img/intro_1_e71c318.png) no-repeat 100px 30px;
   background-color: #fff;
 }
 .page-report.style-2 .chart-slide.mid-intro h2 {
@@ -2633,7 +2633,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   height: 60px;
 }
 .page-report.style-2 .chart-slide.back-cover {
-  background: url(/travel/dist/img/back_7ff9b57.png) no-repeat;
+  background: url(./img/back_7ff9b57.png) no-repeat;
   background-position: 150px 299px;
   background-color: #D02D00;
   background-size: 980px 122px;
@@ -2651,7 +2651,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   background-color: #fff;
 }
 .page-report.style-3 .chart-slide.front-cover {
-  background: url(/travel/dist/img/front_cover_3398c14.jpg) no-repeat 0 0;
+  background: url(./img/front_cover_3398c14.jpg) no-repeat 0 0;
   background-size: 100% 100%;
 }
 .page-report.style-3 .chart-slide.front-cover h1 {
@@ -2682,7 +2682,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
 }
 .page-report.style-3 .report-slide-box.intro {
   padding: 30px;
-  background: url(/travel/dist/img/intro_1_0a011f9.jpg) no-repeat 95% 92%;
+  background: url(./img/intro_1_0a011f9.jpg) no-repeat 95% 92%;
   background-size: 290px 192px;
 }
 .page-report.style-3 .report-slide-box.intro > h1 {
@@ -2714,7 +2714,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   margin-left: 0;
 }
 .page-report.style-3 .chart-slide > .right-wrapper > .x-head {
-  background: url(/travel/dist/img/title_1_f413223.png) no-repeat 0 0;
+  background: url(./img/title_1_f413223.png) no-repeat 0 0;
   margin: -15px -15px 10px -15px;
   padding: 18px 0 0 62px;
   height: 76px;
@@ -2749,7 +2749,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   right: 200px;
 }
 .page-report.style-3 .chart-slide.back-cover {
-  background: url(/travel/dist/img/front_cover_3398c14.jpg) no-repeat 0 0;
+  background: url(./img/front_cover_3398c14.jpg) no-repeat 0 0;
   background-size: 100% 100%;
 }
 .page-report.style-3 .chart-slide.back-cover .b-logo {
@@ -2773,7 +2773,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   font-size: 68px;
 }
 .page-hot-areas {
-  background: url(/travel/dist/img/star_bg_7970708.png) no-repeat center top;
+  background: url(./img/star_bg_7970708.png) no-repeat center top;
   background-size: cover;
 }
 .page-hot-areas .main-title {
@@ -2790,7 +2790,7 @@ div.city-select > .x-wrapper .attraction-section > li > ul > li.active a {
   right: 0;
   bottom: .1rem;
   background-color: rgba(0, 0, 0, 0);
-  background-image: url(/travel/dist/img/panel_bg_687001d.png);
+  background-image: url(./img/panel_bg_687001d.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
   padding: 10px 0;
