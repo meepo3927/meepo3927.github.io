@@ -3,7 +3,7 @@ var path = require('path');
 var JS_DIR = path.resolve(__dirname, '../js');
 var DIST_PATH = path.resolve(__dirname, '../dist');
 var SERVER_DIR = path.resolve(__dirname, '..');
-var productionPublicPath = './';
+var productionPublicPath = './dist/';
 var SERVER_PORT = 8013;
 var alias = {
     // 目录

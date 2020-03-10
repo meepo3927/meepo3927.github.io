@@ -8,6 +8,7 @@ let URL = require('util/url');
 let Fetch = require('util/fetch');
 let mock = !config.isProduction;
 let ajaxUrlBase = config.ajaxUrlBase;
+let MockData = require('util/mock.js');
 
 const handleResult = (result) => {
     if (!result || result.success === false) {
@@ -38,10 +39,25 @@ const fetch1 = (path, param) => {
     
     // return baseFetch(ajaxUrlBase + `${path}`, param);
 };
+const getMockData = (key) => {
+    if (MockData[key]) {
+        return new Promise((resolve) => {
+            const result = MockData[key];
+            setTimeout(() => {
+                resolve(result.data || result);
+            }, Math.random() * 300 + 100);
+        });
+    }
+    LOG('getMockData:' + key);
+    return Promise.reject({success: false, msg: '暂无数据'});
+};
 const fetch2 = (path, param) => {
+    return getMockData(path);
+    /*
     return fetch1(path, param).then((result) => {
         return handleResult2(result);
     });
+    */
 };
 const post = (path, param) => {
     let url = ajaxUrlBase + path + '.do';
