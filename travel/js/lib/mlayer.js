@@ -246,7 +246,7 @@ define(['jquery'], function ($) {
     Base.prototype.getCloseBtnHtml = function () {
         return [
             '<a href="javascript:;" class="x-close-btn">',
-                '<img src="' + (window.xPath || '') + 'images/mlayer/close.png" />',
+                '<img src="./images/mlayer/close.png" />',
             '</a>'
         ].join('');
     };
