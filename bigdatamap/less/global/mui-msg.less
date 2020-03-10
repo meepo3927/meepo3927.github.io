@@ -1,0 +1,60 @@
+@keyframes mui-msg-show-anim {
+    0% {
+        opacity: 0;
+        transform: scale(.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+@keyframes mui-msg-fixed-show-anim {
+    0% {
+        transform: scale(.2) translate(-50%, -50%);
+    }
+    100% {
+        transform: scale(1) translate(-50%, -50%);
+    }
+}
+.mui-msg-fixed,
+.mui-msg {
+    position: fixed;
+    z-index: @mui-msg-zIndex;
+    animation-fill-mode: both;
+    animation-duration: 0.3s;
+}
+.mui-msg-fixed {
+    top: 50%;
+    left: 50%;
+    transform-origin: 0 0;
+    transform: translate(-50%, -50%);
+    animation-name: mui-msg-fixed-show-anim;
+}
+.mui-msg {
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+    pointer-events: none;
+    animation-name: mui-msg-show-anim;
+    // fix jquery-ui
+    & ~ .ui-front {
+        z-index: @mui-msg-zIndex + 10;
+    }
+    &:after {
+        display: inline-block;
+        vertical-align: middle;
+        width: 0;
+        height: 100%;
+        content: '';
+        font-size: 0;
+    }
+}
+.mui-msg-content {
+    display: inline-block;
+    margin: auto;
+    pointer-events: auto;
+    position: relative;
+    vertical-align: middle;
+}

@@ -1,0 +1,27 @@
+{
+    "msg": "成功",
+    "data": [
+        {
+            "fzjh_value": 800,
+            "gridTypeDesc": "高价值区域",
+            "jzxs_value": 944,
+            "khxq_value": 633,
+            "klfg_value": 766
+        },
+        {
+            "fzjh_value": 589,
+            "gridTypeDesc": "中价值区域",
+            "jzxs_value": 666,
+            "khxq_value": 701,
+            "klfg_value": 653
+        },
+        {
+            "fzjh_value": 510,
+            "gridTypeDesc": "低价值区域",
+            "jzxs_value": 413,
+            "khxq_value": 500,
+            "klfg_value": 400
+        }
+    ],
+    "success": true
+}

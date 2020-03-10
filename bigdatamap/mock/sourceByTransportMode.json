@@ -1,0 +1,34 @@
+{
+    "success": true,
+    "data": [
+        {
+            "transDesc":"飞机",
+            "transData": [
+                {"cityId": 470, "userNum": 1899, "percent": 20},
+                {"cityId": 471, "userNum": 679,  "percent": 25},
+                {"cityId": 472, "userNum": 1090,  "percent": 25},
+                {"cityId": 474, "userNum": 333,  "percent": 30}
+            ]
+        },
+        {
+            "transDesc":"火车",
+            "transData": [
+                {"cityId": 470, "userNum": 1899, "percent": 20},
+                {"cityId": 472, "userNum": 1899, "percent": 20},
+                {"cityId": 473, "userNum": 679,  "percent": 25},
+                {"cityId": 474, "userNum": 1090,  "percent": 25},
+                {"cityId": 475, "userNum": 333,  "percent": 30}
+            ]
+        },
+        {
+            "transDesc":"汽车",
+            "transData": [
+                {"cityId": 470, "userNum": 1899, "percent": 20},
+                {"cityId": 476, "userNum": 3344, "percent": 20},
+                {"cityId": 471, "userNum": 679,  "percent": 25},
+                {"cityId": 478, "userNum": 1090,  "percent": 25},
+                {"cityId": 479, "userNum": 333,  "percent": 30}
+            ]
+        }
+    ]
+}

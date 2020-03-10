@@ -1,0 +1,22 @@
+
+.auto-complete-box {
+	@activeBgColor: @theme-color;
+	background-color: #fff;
+	position: absolute;
+	height: auto;
+	list-style: none;
+	border-radius: 0 0 5px 5px;
+	border: 1px solid #ccc;
+	overflow-x: hidden;
+	overflow-y: auto;
+	& > li {
+		padding: 12px;
+		cursor: pointer;
+		color: #333;
+		word-wrap: break-word;
+		word-break: break-all;
+	}
+	& > li:hover {
+		background-color: @activeBgColor;
+	}
+}

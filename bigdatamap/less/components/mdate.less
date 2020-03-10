@@ -1,0 +1,382 @@
+@charset "utf-8";
+
+.comp-mdate-box {
+    @main-color: #3385FF;
+    @text-hover-color: #fff;
+    @item-hover-color: lighten(@main-color, 5%);
+    @btn-hover-color: darken(@main-color, 15%);
+    @prev-next-color: #999;
+    @year-month-hover-color: #cdcdcd;
+    width: 298px;
+    height: auto;
+    border: 1px solid @main-color;
+    background-color: #fff;
+    font-family: 'MicroSoft yahei', Verdana, Arial;
+    font-size: 14px;
+    cursor: auto;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    div, ol, ul, li, p, span, em, i {
+        margin: 0;
+        padding: 0;
+    }
+    ol, ul, li {
+        list-style-type: none;
+    }
+    em, i {
+        font-style: normal;
+    }
+    &.normal {
+        position: absolute;
+        z-index: 19900420 + 99999;
+    }
+    &.inline {
+        position: relative;
+    }
+    &.show {
+        display: block;
+    }
+    @topBgColor: @main-color;
+    .x-box-head {
+        width: 100%;
+        background-color: @topBgColor;
+        color: #fff;
+        overflow: hidden;
+        text-align: center;
+    }
+    .x-head-year-month {
+        float: left;
+        height: 40px;
+        line-height: 40px;
+        span {
+            width: 70%;
+            padding: 0;
+            float: left;
+            text-align: center;
+            text-overflow: ellipsis;
+            display:block;
+            cursor: pointer;
+            line-height: inherit;
+            input {
+                width: 100%;
+                float: left;
+                padding: 0;
+                border: none;
+                background-color: transparent;
+                text-align: center;
+            }
+            &:hover {
+                color: @year-month-hover-color;
+                .tri-down:before {
+                    border-top-color: @year-month-hover-color;
+                }
+            }
+        }
+        .prev,
+        .next {
+            width: 15%;
+            height: 40px;
+            line-height: 45px;
+            float: left;
+            display: block;
+            text-align: center;
+            cursor: pointer;
+        }
+        .prev:hover,
+        .next:hover {
+            background-color: lighten(@topBgColor, 3%);
+        }
+        .prev:before,
+        .next:before {
+            width: 0;
+            height: 0;
+            display: inline-block;
+            border-width: 7px;
+            border-style: dashed;
+            border-color: transparent;
+            overflow: hidden;
+            content: "";
+        }
+        .prev:before {
+            margin: 0 9px 0 0;
+            border-right-style: solid;
+            border-right-color: #fff;
+        }
+        .next:before {
+            margin: 0 0 0 6px;
+            border-left-style: solid;
+            border-left-color: #fff;
+        }
+        .tri-down {
+            width:14px;
+            height:14px;
+            overflow: hidden;
+            display: inline-block;
+            position: relative;
+            vertical-align: middle;
+        }
+        .tri-down:before {
+            width: 0;
+            height: 0;
+            display: inline-block;
+            border-width: 5px;
+            border-style: dashed;
+            border-color: transparent;
+            overflow: hidden;
+            border-top-style: solid;
+            border-top-color: #fff;
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 2px;
+        }
+    }
+
+    // 选择年月按钮
+    .x-choose-year-panel,
+    .x-choose-month-panel {
+        width: 100%;
+        position: absolute;
+        left:0;
+        top:40px;
+        bottom:0;
+        background-color: #fff;
+        z-index:50;
+        ul {
+            width:100%;
+            height:210px;
+            overflow:auto;
+            li {
+                width: 33.3%;
+                float: left;
+                text-align: center;
+                cursor: pointer;
+                &:hover {
+                    background-color: @item-hover-color;
+                    color: @text-hover-color;
+                }
+                &.action {
+                    background-color: @main-color;
+                    color: #fff;
+                }
+                &.action:hover {
+                    background-color: @btn-hover-color;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .x-choose-year-panel {
+        ul li {
+            height: 40px;
+            line-height: 40px;
+        }
+    }
+    .x-choose-month-panel {
+        ul li {
+            height: 50px;
+            line-height: 50px;
+        }
+    }
+
+    // 选择年月panel
+    .x-year-month-panel {
+        p {
+            overflow: auto;
+            padding-top: 4px;
+        }
+        span {
+            width: 31%;
+            margin: 0 1.1%;
+            background-color: @main-color;
+            color: #fff;
+            display: block;
+            height: 28px;
+            line-height: 28px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        span.x-year-panel-prev,
+        span.x-year-panel-next {
+            background-color: @main-color;
+            color: #fff;
+            float: left;
+            font-size: 16px;
+            cursor: pointer;
+            &:hover {
+                background-color: @btn-hover-color;
+                color: #fff;
+            }
+        }
+        span.x-close-year-month-panel-btn {
+            background-color: @main-color;
+            color: #fff;
+            float: right;
+            font-size: 12px;
+            cursor: pointer;
+            &:hover {
+                background-color: @btn-hover-color;
+            }
+        }
+        span.x-month-confirm-btn {
+            cursor: pointer;
+        }
+    }
+    .x-year-month-ul {
+        height: 202px;
+        overflow: auto;
+        padding: 5px;
+        li {
+            width: 50%;
+            float: left;
+            text-align: center;
+            height: 32px;
+            line-height: 32px;
+        }
+        li:hover {
+            background-color: @item-hover-color;
+        }
+        li.disabled {
+            color: #bbb;
+        }
+        li.action,
+        li.action:hover {
+            background-color: @main-color;
+            color: #fff;
+        }
+    }
+
+    .x-week-list {
+        width: 100%;
+        overflow: auto;
+        li {
+
+        }
+        li.weeks {
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #ddd;
+        }
+    }
+    .x-day-list {
+        padding: 0 4px;
+        overflow: auto;
+        li {
+            cursor: pointer;
+            .marks {
+                width: 5px;
+                height: 5px;
+                background-color: #ff0000;
+                -webkit-border-radius: 50%;
+                border-radius: 50%;
+                position: absolute;
+                right: 2px;
+                top: 4px;
+            }
+        }
+        li:hover {
+            background-color: @item-hover-color;
+        }
+        li.red {
+            color: #ff0000;
+        }
+        li.action .marks {
+            background-color: #fff;
+        }
+        li.action,
+        li.action:hover {
+            background-color: @main-color;
+            color: #fff;
+        }
+        li.prevdate,
+        li.nextdate {
+            color: @prev-next-color;
+            &:hover {
+                color: #000;
+            }
+        }
+        li.disabled {
+            color: #bbb;
+        }
+        li.disabled:hover {
+            background-color: #fff;
+        }
+        li:nth-child(7n) {
+            border-right:none;
+        }
+    }
+    .x-week-list,
+    .x-day-list {
+        li {
+            width: 14.28%;
+            float: left;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+    }
+
+    // 底部
+    .x-box-foot {
+        height: 34px;
+        line-height: 34px;
+        padding: 0 3px 0 5px;
+        overflow: hidden;
+        background: #f5f5f5;
+        border-top: 1px solid #e5e5e5;
+        .x-foot-flex {
+            width: 50%;
+            float: left;
+            display: inline-block;
+            margin: 0;
+            padding-top: 3px;
+            overflow: hidden;
+            li {
+                width: 33.33%;
+                float: left;
+                text-align: center;
+                em {
+                    width: 70%;
+                    float: left;
+                    padding: 0;
+                    border: none;
+                    text-align: center;
+                    display: block;
+                    height: 26px;
+                    line-height: 26px;
+                }
+                i {
+                    width: 30%;
+                    float: left;
+                    height: 26px;
+                    line-height: 24px;
+                    font-style: normal;
+                    display: block;
+                    text-align: center;
+                }
+            }
+        }
+        .x-foot-btn-box {
+            text-align: center;
+            font-size: 12px;
+            span {
+                width: 31%;
+                float: right;
+                margin: 0 1.1%;
+                background-color: @main-color;
+                color: #fff;
+                display: block;
+                height: 28px;
+                line-height: 28px;
+                border-radius: 5px;
+                text-align: center;
+                cursor: pointer;
+                &:hover {
+                    background-color: @btn-hover-color;
+                }
+            }
+        }
+    }
+}
