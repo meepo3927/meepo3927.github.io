@@ -57,7 +57,7 @@ methods.onCitySelect = function (item) {
 };
 methods.onPlaceSelected = function (val) {
     var info = {};
-    info.id = val.placeId + '';
+    info.id = (val.placeId || val.placeID) + '';
     info.name = val.placeName || '';
     if (info.id.length === 3) {
         // 地市
@@ -443,12 +443,7 @@ window.Index = new Vue({
                 r(require('comp/city/analysis_layer.vue'));
             });
         },
-        // 景区 - 数据分析
-        'attraction-analysis-layer': (r) => {
-            require.ensure([], () => {
-                r(require('comp/attraction/analysis_layer.vue'));
-            });
-        },
+        
         // 页尾
         'page-footer': require('comp/index/footer.vue')
     }

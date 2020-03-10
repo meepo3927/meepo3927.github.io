@@ -563,14 +563,7 @@ exports.getAttractionById = (id) => {
 };
 // 搜索地市、景区
 exports.searchPlace = (keyword) => {
-    let userId = config.user.id;
-    if (mock) {
-        return getJSON1(MOCK_PATH + `/travel/place.json`, {
-            scenery_name: keyword,
-            user_id: userId
-        });
-    }
-    return getREST('/realtime/scenery/autocomplate', [userId, keyword]);
+    return getMockData('/autocomplate');
 };
 
 exports.fetch = (options = {}) => {

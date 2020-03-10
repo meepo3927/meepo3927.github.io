@@ -18,10 +18,17 @@ methods.fetch = function (id, callback) {
 	if (!id) {
 		return;
 	}
-	request.getAttractionsOfCity(id).then((result) => {
-		this.options = result;
-		callback && callback(this.options);
-	});
+	if (id.length >= 4) {
+		request.getAttractionById(id).then((result) => {
+			this.options = [result];
+			callback && callback(this.options);
+		});
+	} else {
+		request.getAttractionsOfCity(id).then((result) => {
+			this.options = result;
+			callback && callback(this.options);
+		});
+	}
 };
 var computed = {};
 var watch = {};
