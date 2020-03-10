@@ -5,11 +5,7 @@ const pro = context.pro;
 const getAngle = context.getAngle;
 
 const getImageUrl = function (path) {
-    let vImgPath = '/images';
-    if (config.isProduction) {
-        vImgPath = config.basePath + '/images';
-    }
-    return vImgPath + path;
+    return './images' + path;
 };
 const getOffsetY = () => {
     let mapElem = document.querySelector('.vue-bmap');
