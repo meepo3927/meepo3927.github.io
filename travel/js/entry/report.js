@@ -1,19 +1,6 @@
-const Vue = require('vue');
-let methods = {};
-
-let computed = {};
-
-let data = {
-};
-let mounted = function () {
-};
-var vm = new Vue({
+new Vue({
     el: '#main',
-    methods,
-    computed,
-    data,
-    mounted,
     components: {
-        'v-main': require('pages/report.vue')
+        'v-main': require('pages/reporto.vue')
     }
 });

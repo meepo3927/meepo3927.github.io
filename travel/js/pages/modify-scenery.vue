@@ -142,52 +142,18 @@
             </div>
         </div>
 
-        <!--
         <div class="form-item">
-            <label for="">上传景区头像：</label>
+            <label for="">上传景区图片：</label>
             <div class="x-right">
                 <file-upload filetype="image" />
             </div>
         </div>
-        -->
 
-        <!-- f -->
-        <div class="form-item " v-if="isModeEdit">
-            <label for="">基站信息：</label>
-            <div class="x-right ">
-                <button class="btn" type="button" @click="openlayer">圈选基站</button>
-            </div>
-        </div>
-
-        <!-- 基站列表 -->
-        <div class="table-box" v-if="stationlist">
-            <table class="table-2 station-table">
-                <thead>
-                    <tr>
-                        <th>LAC</th>
-                        <th>CELL</th>
-                        <th>基站名称</th>
-                        <th>操作</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(v, i) in stationlist">
-                        <td v-text="v.lacId"></td>
-                        <td v-text="v.cellId"></td>
-                        <td v-text="v.cellName"></td>
-                        <td>
-                            <a href="javascript:;" @click="removeStation(i)">删除</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
         <!-- 按钮 -->
         <div class="form-item ">
             <label for="" >&nbsp;</label>
             <div class="x-right">
-                <button class="btn" type="button" @click="submit"
-                    v-text="submitButtonText"></button>
+                <button class="btn" type="button" @click="submit">保存</button>
 
                 <button class="btn ml15" type="button" 
                     @click="reset">清空</button>
@@ -197,12 +163,7 @@
         </div>
     </form>
     <div class="loading-1 fixed" v-show="loadingVisible"></div>
-    <center-layer v-if="layerVisible" width="96%" height="94%" anim="true">
-        <div class="scenery-gis-layer">
-            <close-box @close="closelayer" />
-            <iframe :src="gisUrl" frameborder="0" class="size-100p"></iframe>
-        </div>
-    </center-layer>
+
 </div>
 </template>
 
@@ -217,31 +178,7 @@ let methods = {};
 methods.onCityChange = function () {
     this.updateArealist({autoSelect: true});
 };
-methods.openlayer = function () {
-    if (this.cover) {
-        this.cover.show();
-    } else {
-        this.cover = new Cover();
-    }
-    this.layerVisible = true;
-};
-methods.closelayer = function () {
-    this.layerVisible = false;
-    if (this.cover) {
-        this.cover.hide();
-    }
 
-    // 如果没圈选基站，提交会报错
-    if (this.stationlist) {
-        this.realSubmit({auto: true});
-    }
-};
-methods.removeStation = function (i) {
-    if (!confirm('确定删除该基站信息吗？')) {
-        return;
-    }
-    this.stationlist.splice(i, 1);
-};
 methods.reset = function () {
     let formHash = [
         'sceneryName',
@@ -274,9 +211,6 @@ methods.handleSuccess = function (data, c) {
         } else {
             mlayer.iconMsg('保存成功');
         }
-    } else if (isHandSubmit) {
-        // 下一步，自动打开gis浮层
-        this.openlayer();
     } else {
         mlayer.iconMsg('提交成功！');
     }
@@ -326,15 +260,6 @@ methods.getParam = function () {
     
     // 操作人ID
     r.operatorCode = this.vConfig.user.code;
-
-    // 基站信息
-    if (this.stationlist) {
-        r.locations = this.stationlist.map((v) => {
-            return v.lacId + '|' + v.cellId;
-        }).join(',');
-    } else {
-        r.locations = '';
-    }
     
     return r;
 };
@@ -346,11 +271,6 @@ methods.checkForm = function () {
     
     if (!this.form.sceneryName) {
         mlayer.msg('景区名称不能为空');
-        return false;
-    }
-
-    if (this.isModeEdit && !this.stationlist) {
-        mlayer.msg('请圈选基站');
         return false;
     }
 
@@ -472,26 +392,10 @@ methods.fill = function (o) {
     if (slackOpenDateOver) {
         this.form.slackOpenDateOver = recoverDate(slackOpenDateOver);
     }
-    if (o.locations && o.locations.length) {
-        this.stationlist = o.locations;
-    }
+    
     this.updateArealist({save: true});
 };
-methods.onGisReady = function () {
-    this.getSceneryInfoExtend().then((result) => {
-        if (result.locations) {
-            const data = result.locations.map(v => {
-                return {
-                    lacId: v.lacId,
-                    cellId: v.cellId,
-                    cellName: v.cellName,
-                    sceneryId: v.sceneryId
-                }
-            });
-            IframeUtil.send('render_lacCellIds', data);
-        }
-    });
-};
+
 const starOptions = ['A', 'AA', 'AAA', 'AAAA', 'AAAAA', '未评级'];
 const busiTypeOptions = [
     {text:'自然景观', value: 's01'},
@@ -527,9 +431,7 @@ computed.isModeCreate = function () {
 computed.isModeEdit = function () {
     return (this.mode === 'edit');
 };
-computed.submitButtonText = function () {
-    return this.isModeCreate ? '下一步' : '保存';
-};
+
 computed.cityName = function () {
     if (this.form.cityID && this.citylist) {
         for (let i = 0; i < this.citylist.length; i++) {
@@ -554,30 +456,10 @@ computed.myGisUrl = function () {
     ].join('');
 };
 let watch = {};
-watch.layerVisible = function (b) {
-    if (b === false) {
-        this.gisUrl = 'about:blank';
-        return;
-    }
-    request.fetchGisToken().then((data) => {
-        this.gisUrl = this.gisAddToken(this.myGisUrl, data);
-    }).catch(() => {
-        this.gisUrl = this.myGisUrl;
-    });
-};
 const created = function () {};
 const mounted = function () {
     window.VM = this;
-    IframeUtil.on('gis_ready', this.onGisReady);
-    IframeUtil.on('transfer_station_info', (data) => {
-        LOG('transfer:', data);
-        this.stationlist = data.map((v) => {
-            let [lacId, cellId, cellName] = v.split('|');
-            return {
-                lacId, cellId, cellName
-            };
-        });
-    });
+
     this.updateArealist();
     // 编辑
     if (this.id) {
@@ -613,7 +495,6 @@ const dataFunc = function () {
         citylist,
         arealist: null,
         stationlist: null,
-        layerVisible: false,
         loadingVisible: false,
         form: {
             cityID: '',
