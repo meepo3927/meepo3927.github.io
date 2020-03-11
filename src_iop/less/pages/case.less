@@ -1,0 +1,141 @@
+
+.create-activity-page {
+	.x-step-2,
+	.x-step-3,
+	.x-step-4,
+	.x-step-5 {
+		padding: 40px 30px;
+	}
+}
+
+.create-activity-step {
+	@leftPadding: 28px;
+	background-color: #fff;
+	padding: 50px @leftPadding 20px @leftPadding;
+	position: relative;
+	height: 154px;
+	.back-bar,
+	.inner-bar {
+		border-radius: 5px;
+	}
+	.back-bar {
+		margin-top: 10px;
+		height: 10px;
+		background-color: #EEEEEE;
+	}
+	.inner-bar {
+		height: 100%;
+		background-color: @themeColor;
+		width: 20%;
+	}
+	ul {
+		position: absolute;
+		left: 0;
+		top: 44px;
+		width: 100%;
+		padding-left: @leftPadding;
+		padding-right: @leftPadding;
+	}
+	.active-span {
+		background-color: @themeColor;
+	}
+	.default-span {
+		background-color: #C0C0C0;
+	}
+	.loop(@counter) when (@counter > 1) {
+		.loop((@counter - 1));    // next iteration
+		@width: (100% / @counter);
+		&.count-@{counter} > ul > li {
+			width: @width;
+		}
+		.loopInnerBar(1, @counter);
+	}
+	.loopInnerBar(@counter, @max) when(@counter <= @max) {
+		.loopInnerBar((@counter + 1), @max);
+		@width: (100% / @max);
+		&.count-@{max}.cur-@{counter} .inner-bar {
+			width: @width * @counter;
+		}
+	}
+	.loop(10);
+	ul > li {
+		display: inline-block;
+		text-align: center;
+		span {
+			.center-block();
+			.default-span();
+			border-radius: 50%;
+			border: 2px solid #fff;
+			display: block;
+			width: 40px;
+			height: 40px;
+			color: #fff;
+			line-height: 36px;
+			text-align: center;
+			font-weight: bold;
+			font-size: 14px;
+		}
+		p {
+			margin-top: 10px;
+			color: #666;
+			font-size: 16px;
+		}
+	}
+	ul > li.active {
+		span {
+			.active-span();
+		}
+		p {
+			color: @themeColor;
+		}
+	}
+}
+
+.create-activity-form {
+	.help-icon {
+		vertical-align: -10px;
+	}
+}
+.activity-step-2 {
+	& > h5 {
+		.text-muted;
+		font-size: 16px;
+	}
+	& > form {
+		min-height: 220px;
+		.x-row-1 .x-col-2 {
+			width: 470px;
+		}
+		.x-col-1 {
+			width: 160px;
+		}
+	}
+}
+.activity-step-3 {}
+.activity-step-4 {}
+.activity-step-5 {
+	.x-title {
+		border-bottom: 1px solid #C0C0C0;
+		padding-bottom: 5px;
+	}
+	.x-edit-btn {
+		float: right;
+		margin-top: 4px;
+		font-size: 16px;
+		span {
+			vertical-align: 2px;
+		}
+		i {
+			font-size: 19px;
+		}
+	}
+	& > ul {
+		.clearfix;
+		margin: 25px 5px 10px 1px;
+	}
+	& > ul > li {
+		margin-top: 15px;
+		width: 48%;
+		margin-left: 1%;
+	}
+}

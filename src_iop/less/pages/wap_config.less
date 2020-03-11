@@ -1,0 +1,263 @@
+#main.wap-config-page {
+	&:extend(.in-iframe-page);
+}
+.wap-config-form {
+	.common-config-form;
+	.form-control,
+	.v-chosen,
+	.v-upload .v-file-name > div {
+		width: @config-form-width-1;
+	}
+	@common-col2-width: 320px;
+	@common-col2-padding-right: 20px;
+	.row-2 .col-2 {
+		width: @common-col2-width;
+	}
+	.row-3 {
+		.col-2 {
+			width: @common-col2-width;
+		}
+		.col-3.type-2 {
+		}
+		.col-4.type-2 {
+			width: 180px;
+		}
+	}
+	.row-4 {
+		.col-2 {
+			width: @common-col2-width;
+		}
+		.col-3.type-1 {
+			width: 290px;
+		}
+		.col-3.type-2 {
+			width: 470px;
+		}
+	}
+	.row-4 .col-1 label,
+	.row-5 .col-1 label,
+	.row-6 .col-1 label,
+	.row-product .col-1 label {
+		line-height: @input-height-base;
+	}
+	.row-5 {
+		.col-2 {
+			width: @common-col2-width;
+		}
+		.col-3.type-1 {
+			width: @common-col2-width - 20px;
+		}
+	}
+	div.recommend-list {
+		.col-2 {
+			// width: @common-col2-width;
+			padding-right: 25px;
+		}
+		.col-3 {
+			padding-right: 25px;
+		}
+	}
+	ul.recommend-list {}
+	ul.recommend-list li {
+		margin-bottom: 15px;
+		display: block;
+		min-width: 740px;
+		& > * {
+			vertical-align: middle;
+		}
+		.item-name {
+			display: inline-block;
+			width: 180px;
+			margin-right: 15px;
+		}
+		.input-span {
+			display: inline-block;
+			margin-right: 15px;
+		}
+		.checkbox-inline {
+			
+		}
+	}
+	.instruction-input-box {
+		.i-col-1 {
+			width: @common-col2-width - 20px;
+		}
+	}
+
+	.input-text-multi {
+		height: 120px;
+	}
+}
+@wap-preview-width: 319px;
+@wap-preview-height: 532px;
+@wap-preview-padding-top: 65px;
+@wap-preview-padding-bottom: 61px;
+.wap-preview {
+	background: url("@{imgPath}/wap_config/mobile_bg.png") no-repeat 0 0;
+	position: absolute;
+	z-index: 2500;
+	top: 20px;
+	right: 20px;
+	width: @wap-preview-width;
+	height: @wap-preview-height;
+	padding: @wap-preview-padding-top 15px @wap-preview-padding-bottom 16px;
+}
+// 流量加 预览
+.wap-preview-wrapper {
+	@content-padding-h: 8px;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	&.cloned {
+		position: absolute;
+		z-index: -111;
+		left: 0;
+		top: 0;
+		width: @wap-preview-width - @content-padding-h * 2;
+		height: auto;
+		min-height: @wap-preview-height;
+		.x-body {
+			height: auto;
+			overflow-y: visible;
+			overflow-x: hidden;
+		}
+	}
+	.text-wrap() {
+		word-wrap: break-word;
+		word-break: break-all;
+	}
+	@title-height: 32px;
+	& > h1 {
+		background-color: #000;
+		text-align: center;
+		color: #fff;
+		margin: 0;
+		font-size: 16px;
+		height: @title-height;
+		line-height: @title-height;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+	.x-body {
+		height: @wap-preview-height - @title-height - @wap-preview-padding-top - @wap-preview-padding-bottom;
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+	.banner-template {
+		font-size: 32px;
+		font-weight: bold;
+		text-align: center;
+	}
+	.banner-text {
+		padding: 10px 5px;
+		font-size: 28px;
+		text-align: center;
+		line-height: 1.4;
+		font-weight: bold;
+		.text-wrap();
+	}
+	.banner-image {
+		img {
+			width: 100%;
+		}
+	}
+	.content-text {
+	}
+	.content-text > p {
+		.text-wrap();
+		background-color: #fff;
+		text-align: left;
+		margin: @content-padding-h;
+		padding: 8px;
+		line-height: 1.6;
+		border: 1px solid #999;
+	}
+	.content-image {
+		text-align: center;
+		a {
+			display: block;
+			padding: @content-padding-h;
+		}
+		img {
+			width: 100%;
+		}
+	}
+	.recommend-list {
+		& > li {
+			padding: @content-padding-h;
+		}
+		@recommend-item-height: 42px;
+		@border-color: #999;
+		& > li > .col-1 {
+			vertical-align: middle;
+			width: 68%;
+			border: 1px solid @border-color;
+			padding-left: @content-padding-h;
+			padding-right: @content-padding-h;
+			background-color: #fff;
+			& > div {
+				.text-wrap();
+				padding-top: 1px;
+				max-height: @recommend-item-height;
+				overflow: hidden;
+			}
+		}
+		& > li > .col-2 {
+			width: 32%;
+			height: @recommend-item-height;
+			padding-left: 8px;
+			a {
+				background-color: #fff;
+				padding-left: 10px;
+				padding-right: 10px;
+				display: inline-block;
+				border: 1px solid @border-color;
+				line-height: @recommend-item-height;
+				color: #000;
+				white-space: nowrap;
+			}
+		}
+	}
+	.instruction {
+		padding: @content-padding-h;
+		h4 {
+			font-weight: bold;
+			font-size: 18px;
+			margin-bottom: 5px;
+		}
+		p {
+			.text-wrap();
+			padding: @content-padding-h;
+			background-color: #E3C685;
+		}
+	}
+}
+
+// 详情
+.wap-config-detail {
+	padding: 15px;
+	.x-row {
+		margin-bottom: 12px;
+		.col-1 {
+			width: 150px;
+			text-align: right;
+			padding-right: 20px;
+		}
+		.col-1 > label {
+			
+			color: @form-label-color;
+		}
+		.o-image {
+			max-height: 200px;
+			max-width: 800px;
+		}
+	}
+}
+.dataplus-detail-page,
+.toolbar-detail-page,
+.ivr-detail-page {
+	background-color: #fff;
+}
+.dup-channel-btn {
+	font-size: 24px;
+}

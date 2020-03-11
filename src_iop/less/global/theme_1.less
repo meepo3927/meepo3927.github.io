@@ -1,0 +1,61 @@
+@labelFontSize: 16px;
+
+label {
+	font-weight: normal !important;
+	margin-bottom: 0 !important;
+}
+/**
+ * 表单样式重定义
+ */
+.form-horizontal .form-group-lg {
+	.form-control-static {
+		/**
+		 * 静态文字
+		 */
+		padding-left: 0;
+		font-size: 15px;
+		line-height: 1.8;
+	}
+	.control-label {
+		/**
+		 * label
+		 */
+		padding-top: 13px;
+		font-size: @labelFontSize;
+	}
+}
+.form-control.input-lg {
+	height: 44px;
+	font-size: 15px;
+}
+.form-group-lg {
+	.control-label {
+		/**
+		 * label标签
+		 */
+		font-size: @labelFontSize;
+	}
+	input.form-control,
+	select.form-control {
+		height: 44px;
+		font-size: 15px;
+	}
+	.radio-inline,
+	.checkbox-inline {
+		/**
+		 * label标签
+		 */
+		font-size: 15px;
+		padding-top: 14px;
+	}
+}
+/**
+ * 输入框，选择框
+ */
+input.form-control,
+// select.form-control,
+textarea.form-control {
+	background-color: #eee;
+	border: none;
+	box-shadow: none;
+}

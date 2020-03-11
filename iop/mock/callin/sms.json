@@ -1,0 +1,10 @@
+{
+    "msg": "成功",
+    "data": [
+        {
+            "smsID": "101",
+            "content": "测试模板"
+        }
+    ],
+    "success": true
+}

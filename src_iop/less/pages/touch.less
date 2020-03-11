@@ -1,0 +1,41 @@
+/**
+ * 触点波次配置
+ */
+.comp-touch-config {
+    @label-width-1:  148px;
+    @input-width-1:  calc(~'80vw - @{label-width-1}');
+    & > .btn-box {
+        margin-top: 20px;
+        margin-left: @label-width-1;
+    }
+    .col-label {
+        width: @label-width-1;
+        text-align: right;
+        padding-right: 15px;
+        color: #657180;
+    }
+    .col-input {
+        input[type=checkbox] {
+            margin: 0;
+            vertical-align: -2px;
+        }
+    }
+    .input-width-1 {
+        width: @input-width-1;
+    }
+    textarea.input-width-1 {
+        height: 90px;
+    }
+}
+.touch-detail {
+    @label-width-1:    148px;
+    @content-width-1:  calc(~'80vw - @{label-width-1}');
+    .col-label {
+        width: @label-width-1;
+        padding-right: 15px;
+        color: #657180;
+    }
+    .col-content {
+        width: @content-width-1;
+    }
+}

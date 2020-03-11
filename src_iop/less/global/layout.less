@@ -1,0 +1,86 @@
+/**
+ * 横向布局
+ * <div class="layout-row">
+ *     <div class="x-cell" style="width: 60px;">
+ *     <div class="x-cell" >
+ * </div>
+ */
+.layout-row {
+    display: table;
+    width: 100%;
+    &.w-auto {
+        width: auto;
+    }
+    .cell() {
+        display: table-cell;
+        vertical-align: top;
+    }
+    & > .x-cell {
+        .cell;
+    }
+    &.cell-ver-mid > .x-cell {
+        vertical-align: middle;
+    }
+    & > .x-cell.ver-b {
+        .cell;
+        vertical-align: baseline;
+    }
+    & > .x-cell.ver-mid {
+        .cell;
+        vertical-align: middle;
+    }
+}
+
+.m-row {
+    display: table;
+    width: 100%;
+    &.w-auto {
+        width: auto;
+    }
+    &.col-mid > div {
+        vertical-align: middle;
+    }
+    & > div {
+        display: table-cell;
+        vertical-align: top;
+    }
+    & > div.v-mid {
+        vertical-align: middle;
+    }
+    & > div.v-top {
+        vertical-align: top;
+    }
+}
+.m-row-mid {
+    .m-row;
+    & > div {
+        vertical-align: middle;
+    }
+}
+.m-row-auto {
+    .m-row;
+    width: auto;
+}
+.m-row-mid-auto,
+.m-row-auto-mid {
+    .m-row-mid;
+    width: auto;
+}
+
+.layout-flex {
+    display: flex;
+
+    &.flex-col {
+        flex-direction: column;
+    }
+    & > .flex-1 {
+        flex: 1;
+    }
+}
+
+html.html-100 {
+    height: 100%;
+    & > body {
+        height: 100%;
+    }
+}

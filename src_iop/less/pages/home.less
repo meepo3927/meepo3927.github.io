@@ -1,0 +1,66 @@
+.page-home {
+	.section-core {
+		margin-top: 5px;
+		.create-btn {
+			color: #333;
+			font-size: 18px;
+			float: right;
+			position: relative;
+			top: 26px;
+			i {
+				color: #F86B4F;
+				font-size: 24px;
+			}
+			span {
+				vertical-align: 2px;
+			}
+		}
+	}
+	.section-b > ul > li {
+		@color1: #5FAEE3;
+		@color2: #23D46D;
+		@color3: #F86B4F;
+		@color4: #666666;
+		& > .x-wrapper {
+			background-color: #fff;
+		}
+		& > .x-wrapper > .x-title {
+			background-repeat: no-repeat;
+			background-position: left top;
+			& > h1 {
+				width: 100%;
+				background-repeat: no-repeat;
+				background-position: right top;
+			}
+		}
+		&.li-1 > .x-wrapper > .x-title {
+			background-image: url("@{imgPath}/index/hot_1.png");
+			background-color: @color1;
+			& > h1 {
+				background-image: url("@{imgPath}/index/hot_circle_1.png");
+			}
+		}
+		&.li-2 > .x-wrapper > .x-title {
+			background-image: url("@{imgPath}/index/hot_2.png");
+			background-color: @color2;
+			& > h1 {
+				background-image: url("@{imgPath}/index/hot_circle_2.png");
+			}
+		}
+		&.li-3 > .x-wrapper > .x-title {
+			background-image: url("@{imgPath}/index/hot_3.png");
+			background-color: @color3;
+			& > h1 {
+				background-image: url("@{imgPath}/index/hot_circle_3.png");
+			}
+		}
+		&.li-4 > .x-wrapper > .x-title {
+			background-image: url("@{imgPath}/index/hot_4.png");
+			background-color: @color4;
+			& > h1 {
+				background-image: url("@{imgPath}/index/hot_circle_4.png");
+			}
+		}
+	}
+}
+

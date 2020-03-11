@@ -1,0 +1,240 @@
+html, body {
+    height: 100%;
+}
+html.sidemenu-ready {
+	background-color: @sideBgColor;
+	body {
+		background-color: transparent;
+	}
+}
+body {
+    background-color: #eee;
+	font-family: "Microsoft Yahei";
+    /*
+    scrollbar-base-color: rgba(0, 0, 0, .1);
+    scrollbar-shadow-color: #FFFFFF;
+    scrollbar-highlight-color: #FFFFFF;
+    scrollbar-3dlight-color: #FFFFFF;
+    scrollbar-darkshadow-color: #FFFFFF;
+    scrollbar-track-color: rgba(255, 255, 255, .1);
+    */
+}
+body.body-layout-page {
+    overflow: hidden;
+}
+#main > .x-main {
+	background-color: @bodyBgColor;
+	min-height: 100%;
+    min-width: @contentMinWidth;
+}
+/**
+ * 页面布局 - 1
+ */
+.shell-layout {
+    #main {
+        background-color: @sideBgColor;
+        height: 100%;
+    }
+    &.side-mini > .x-main {
+        margin-left: @leftWidthMini;
+    }
+    & > .x-left {
+        // position: absolute;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        min-height: 100%;
+        width: auto;
+        z-index: 1000;
+    }
+    & > .x-main {
+        margin-left: @leftWidthNormal;
+    }
+}
+@media (max-width: @mq-mid-width) {
+    .shell-layout {
+        &.side-mini > .x-main {
+            margin-left: @mid-left-width-mini;
+        }
+        & > .x-main {
+            margin-left: @mid-left-width-normal;
+        }
+    }
+}
+.page-layout-1 {
+    background-color: @bodyBgColor;
+}
+.m-container {
+    @plr: 15px;
+    padding: 15px @plr 25px @plr;
+    border-top: 1px solid #CBD0D5;
+    background-color: transparent;
+}
+.main-container {
+    line-height: 0;
+    font-size: 0;
+    // @head-height: @headerHeight + 3px;
+    // height: calc(~'100vh' - @head-height);
+    height: 100vh;
+}
+
+/**
+ * 左右结构文字
+ */
+.text-field {
+    display: inline-block;
+    vertical-align: middle;
+    label {
+        font-weight: normal;
+        display: inline-block;
+        width: 150px;
+        text-align: right;
+        font-size: 16px;
+    }
+    span {
+        color: #999;
+        font-size: 15px;
+    }
+}
+
+.in-iframe-page {
+    background-color: #fff;
+    height: auto;
+    min-height: 100%;
+}
+.page-title > h3 {
+    margin-top: 5px;
+}
+@config-form-width-1: 280px;
+@config-form-width-2: 280px;
+.common-config-form {
+    padding: 15px;
+    .col-1 {
+        width: 160px;
+        text-align: right;
+        padding-right: 20px;
+    }
+    .btn-group > button.active {
+        background-color: @btn-primary-bg;
+        color: @btn-primary-color;
+        border-color: @btn-primary-border;
+    }
+    div > label {
+        color: @form-label-color;
+    }
+}
+
+/**
+ * 帮助icon
+ */
+.help-icon {
+    display: inline-block;
+    font-size: 24px;
+}
+
+/**
+ * 通用颜色定义
+ */
+.color-red {
+    color: #ee0000;
+}
+.common-errmsg,
+.text-error {
+    color: #ff0000 !important;
+}
+
+.popover-content > .x-content {
+    em {
+        font-style: normal;
+        color: #ff0000;
+    }
+}
+// center-layer 内
+.clayer-inner {
+    background-color: #fff;
+    position: relative;
+    & > .clayer-close-btn {
+        font-size: 26px;
+        color: #333;
+        position: absolute;
+        top: 5px;
+        right: 7px;
+        font-weight: normal;
+        &:hover {
+            color: @theme-color;
+        }
+    }
+}
+.body-white-background {
+    background-color: #fff;
+}
+.channel-config-layer {
+    @input-width:      320px;
+    @textarea-height:  80px;
+    height: 100%;
+    & > h4 {
+        font-weight: bold;
+    }
+    & > .clearfix {
+        height: ~'calc(100% - 125px)';
+    }
+    .search-box {
+        position: relative;
+        button {
+            margin-left: 5px;
+            vertical-align: top;
+        }
+        .clear-btn {
+            position: absolute;
+            padding: 8px;
+            top: 1px;
+            left: 249px;
+            .fa-times {
+                color: #777;
+                font-size: 18px;
+            }
+            &:hover .fa-times {
+                color: #333;
+            }
+        }
+    }
+    .search-input {
+        display: inline-block;
+        width: 280px;
+    }
+    .tree-box {
+        height: 100%;
+        width: 49%;
+        overflow: auto;
+        float: left;
+        .text-empty {
+            padding: 5px;
+        }
+    }
+    .form-box {
+        margin-left: 1%;
+        width: 49%;
+        float: left;
+        .x-label {
+            width: 110px;
+            & > em {
+                color: #f00;
+                font-style: normal;
+            }
+        }
+        .form-control {
+            width: @input-width;
+        }
+        textarea.form-control {
+            height: @textarea-height;
+        }
+    }
+    .submit-btn-box {
+        text-align: right;
+    }
+}
+.common-tooltip-icon {
+    font-size: 20px;
+    color: #9A9A9A;
+}

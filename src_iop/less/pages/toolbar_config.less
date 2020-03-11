@@ -1,0 +1,15 @@
+#main.toolbar-config-page {
+	&:extend(.in-iframe-page);
+}
+
+.toolbar-config-form {
+	.common-config-form;
+	.form-control,
+	.v-chosen,
+	.v-upload .v-file-name > div {
+		width: @config-form-width-1;
+	}
+	.btn-box {
+		width: @config-form-width-1;
+	}
+}

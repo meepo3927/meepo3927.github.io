@@ -1,0 +1,72 @@
+
+/**
+ * input,select 宽度定义
+ */
+.input-size-tiny,
+select.select-size-tiny {
+	width: 100px !important;
+}
+
+.input-size-small,
+select.select-size-small {
+	width: 160px !important;
+}
+.input-size-default,
+select.select-size-default {
+	width: 220px !important;
+}
+/**
+ * 通用表单
+ */
+.common-form label {
+	font-weight: normal;
+	font-size: 16px;
+	text-align: right;
+}
+/**
+ * 表单内icon
+ */
+form {
+	.fa {
+		font-size: 20px;
+	}
+	.fa-info-circle {
+		/**
+		 * 灰色信息
+		 */
+		color: #9A9A9A;
+	}
+	.fa-check-circle {
+		/**
+		 * 绿色对勾
+		 */
+		color: #22D46D;
+	}
+	.icon-text-link {
+		i {
+			font-size: 18px;
+		}
+	}
+}
+.form-horizontal .form-group-lg {
+	.inline-icon {
+		margin-top: 11px;
+	}
+}
+
+label[for] {
+	cursor: pointer;
+}
+fieldset {
+	position: relative;
+}
+fieldset[disabled] {
+	-ms-pointer-events: none;
+	pointer-events: none;
+	&::before {
+		content: '';
+		position: absolute;
+		left: 0; right: 0; top: 0; bottom: 0;
+		background-color: rgba(0,0,0,.001);
+	}
+}

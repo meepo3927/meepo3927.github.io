@@ -1,0 +1,104 @@
+.m-table {
+	width: 100%;
+	& > thead > tr > th {
+		padding: 25px 20px;
+		border-bottom: 2px solid @themeColor;
+		font-size: 18px;
+		font-weight: normal;
+		.text-center {
+			text-align: center;
+		}
+	}
+	& > tbody > tr > td {
+		padding-left: 20px;
+		padding-right: 20px;
+		height: 52px;
+		font-size: 14px;
+		vertical-align: middle;
+		border: none;
+		.text-center {
+			text-align: center;
+		}
+	}
+	& > tfoot > tr > td {
+		padding: 15px;
+	}
+	@rowColor2: #F8F8F8;
+	& > tbody > tr {
+		&:nth-child(2n+1) {
+			background-color: @rowColor2;
+		}
+	}
+	&.m-hover {
+		& > tbody > tr:hover > td {
+			background-color: darken(@rowColor2, 8%);
+		}
+	}
+	// 时间列
+	th.col-datetime,
+	td.col-datetime {
+		width: 182px;
+	}
+	th.col-date,
+	td.col-date {
+		width: 120px;
+	}
+	// 第一列
+	td.col-1 a {
+		display: inline-block;
+		color: #95A0AA;
+		padding: 5px;
+		i {
+			font-size: 18px;
+		}
+	}
+	& > tbody > tr.child-tr > td {
+		padding: 0;
+		height: auto;
+	}
+}
+.m-table-2 {
+	.m-table;
+	& > thead > tr > th {
+		border-top: 2px solid @themeColor;
+		border-bottom: 1px solid #C0C0C0;
+		color: #333;
+		font-weight: normal;
+		font-size: 14px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+	}
+	& > tbody > tr > td {
+		color: #999;
+		border-top: none;
+		border-bottom: 1px solid #f1f1f1;
+	}
+}
+
+.table-panel {
+	.panel();
+	margin-bottom: 0;
+}
+.comp-table-footer {
+	.clearfix();
+	& > .x-info {
+		margin-left: 1px;
+		padding-top: 20px;
+		font-size: 14px;
+		color: #666;
+		span {
+			margin-left: 3px;
+			margin-right: 3px;
+		}
+	}
+	& > .x-paging {
+		float: right;
+		margin-right: 0px;
+	}
+}
+.tr-th-center > th {
+	text-align: center;
+}
+.tr-td-center > td {
+	text-align: center;
+}

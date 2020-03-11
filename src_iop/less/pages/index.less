@@ -1,0 +1,19 @@
+.shell-root-html {
+	overflow-y: hidden;
+}
+.shell {
+	line-height: 0;
+	font-size: 0;
+	@head-height: @headerHeight + 3px;
+	height: calc(~'100vh' - @head-height);
+	& > iframe {
+		height: 100%;
+	}
+}
+
+@media (max-width: @mq-mid-width) {
+	.shell {
+		@h: @mid-header-height + 3px;
+		height: calc(~'100vh' - @h);
+	}
+}

@@ -1,0 +1,8 @@
+{
+    "success": true,
+    "data": [
+        {"value": 46, "text": "实时在线-IVR"},
+        {"value": 47, "text": "实时在线-弹窗"},
+        {"value": 48, "text": "实时在线-官微"}
+    ]
+}

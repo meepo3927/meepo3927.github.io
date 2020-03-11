@@ -1,0 +1,9 @@
+{
+    "msg":"成功",
+    "data":[
+        {
+            "moduleUrl": "/entry.html#/eventlist"
+        }
+    ],
+    "success":true
+}
