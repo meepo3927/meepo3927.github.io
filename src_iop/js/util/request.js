@@ -84,7 +84,7 @@ const op = (url, data, method) => {
     return Fetch.getJSON(url, data, method);
 };
 const post = (url, data, headers = {}) => {
-    if (mock) {
+    if (mock || !location.host) {
         LOG('POST:', url, data);
         return new Promise((resolve, reject) => {
             resolve({success: true});

@@ -16,10 +16,7 @@
                     <option v-for="o in areaOptions" v-text="o.name"></option>
                 </select>
             </div>
-            <div class="pl10">
-                <a :href="addUrl" target="_blank" @click.stop
-                    class="ml10">添加热门区域</a>
-            </div>
+            
             <div class="pl15">
                 <button class="btn btn-primary" type="button"
                     @click="fetchRender">查询</button>
@@ -272,9 +269,7 @@ computed.ajaxParam = function () {
         areaName: this.areaName
     };
 };
-computed.addUrl = function () {
-    return Vue.getEntryUrl('/addhotarea')
-};
+
 let watch = {};
 const created = function () {};
 const mounted = function () {
