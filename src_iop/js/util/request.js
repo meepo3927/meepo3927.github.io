@@ -9,6 +9,7 @@ let config = require('config');
 let URL = require('util/url');
 let UtilAjax = require('util/ajax');
 let Fetch = require('util/fetch');
+let MockData = require('util/mock.js');
 
 const ajaxUrlBase = config.ajaxUrlBase;
 const mock = config.mock;
@@ -29,6 +30,18 @@ const fetch0 = (url, data) => {
         // error
         return Promise.reject(result);
     });
+};
+const getMockData = (key) => {
+    if (MockData[key]) {
+        return new Promise((resolve) => {
+            const result = MockData[key];
+            setTimeout(() => {
+                resolve(result.data || result);
+            }, Math.random() * 300 + 100);
+        });
+    }
+    LOG('getMockData:' + key);
+    return Promise.reject({success: false, msg: '暂无数据'});
 };
 const fetch1 = (url, data) => {
     return Fetch.getJSON(url, data).then((result) => {
@@ -157,7 +170,7 @@ exports.getAllEvents = function (p) {
     return fetch2(eventPath + '/getEventsList', tool.filterEmpty(p));
 };
 exports.getMenuOnce = Fetch.once(() => {
-    return exports.getMenu('common');
+    return getMockData('/getMenuCommon');
 });
 exports.getPath = (p) => {
     if (mock) {
