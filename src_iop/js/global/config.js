@@ -9,7 +9,7 @@ let mock = dev.isMock;
 let global = window.global || {};
 let basePath = mock ? ('') : (global.basePath || '/iop');
 let staticPath = mock ? (basePath) : (basePath + '/static');
-let imgPath = staticPath + '/images';
+let imgPath = './images';
 let ajaxUrlBase = mock ? (basePath + '/mock') : basePath;
 // 链接定义
 let pageUrlExt = mock ? 'html' : 'jsp';

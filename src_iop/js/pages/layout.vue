@@ -6,15 +6,6 @@
         <iframe frameborder="0" src="about:blank" ref="ifm"></iframe>
     </div>
 
-    <!-- 会话失效 -->
-    <center-layer v-if="sessionFail">
-        <div class="clayer-inner sesstion-fail-layer">
-            <h4>您的会话已失效，请重新登录</h4>
-            <div class="text-center mt15">
-                <button class="btn btn-primary" @click="closeWindow">关闭页面</button>
-            </div>
-        </div>
-    </center-layer>
 </div>
 </template>
 
@@ -64,25 +55,7 @@ methods.onAnchorClick = function (href) {
 methods.closeWindow = function () {
     window.close();
 };
-methods.checkUser = function () {
-    // let uid = cookie.get('iop_uid');
-    if (!Config.user.id) {
-        return this.showUserTip();
-    }
-    Request.getSessionUser().then((r) => {
-        let uid = r.userId;
-        if (!uid || uid != Config.user.id) {
-            this.showUserTip();
-        } else {
-            // 5分钟检查一次会话
-            this.checkUserTimer = setTimeout(this.checkUser, 5 * 60 * 1000);
-        }
-    });
-};
-methods.showUserTip = function () {
-    this.sessionFail = true;
-    document.title = '会话失效';
-};
+
 methods.printSrc = function () {
     LOG(this.$refs.ifm.src, this.$refs.ifm.getAttribute('src'));
 };
@@ -99,7 +72,6 @@ computed.sideMode = function () {
 const created = function () {};
 const mounted = function () {
     window.VM = this;
-    this.checkUser();
     iframeUtil.on('vAnchorClick', this.onAnchorClick);
 };
 const beforeDestroy = function () {
@@ -107,7 +79,6 @@ const beforeDestroy = function () {
 };
 const dataFunc = function () {
     let o = {
-        sessionFail: false
     };
     return o;
 };
