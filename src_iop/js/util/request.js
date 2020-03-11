@@ -57,10 +57,8 @@ const fetch1 = (url, data) => {
     });
 };
 const fetch2 = (path, param) => {
-    if (mock) {
-        return fetch1(ajaxUrlBase + `${path}.json`, param);
-    }
-    return fetch1(ajaxUrlBase + `${path}.action`, param);
+    return getMockData(path);
+    // return fetch1(ajaxUrlBase + `${path}.action`, param);
 };
 const fetch3 = (path, param) => {
     return fetch2(path, param).then((r) => {

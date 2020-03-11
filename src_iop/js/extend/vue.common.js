@@ -60,10 +60,7 @@ Plugin.install = function (Vue, options) {
     };
     Vue.getEntryUrl = (path) => {
         const hash = path ? ('#' + path) : '';
-        if (config.mock) {
-            return '/entry.html' + hash;
-        }
-        return config.basePath + '/views/entry.jsp' + hash;
+        return './entry.html' + hash;
     };
     Vue.$noticeAnchorClick = (url) => {
         // 无效的URL

@@ -221,4 +221,45 @@ Mock['/getMenuCommon'] = {
     "success": true
 };
 
+Mock['/notice/getPublicNotice'] = {
+    "msg":"成功",
+    "data":[{
+        "noticeContent":"新门户上线，后续新功能逐步发布！敬请关注！",
+        "beginDate":"2019-07-02","endDate":"2019-07-31",
+        "userId":"yanglq","noticeId":1,
+        "noticeTitle":"新门户上线，后续新功能逐步发布！",
+        "timestamp":0
+    }, {
+        "noticeContent":"公共告公共告公共告公共告v12919023892103809128309",
+        "beginDate":"2019-07-02","endDate":"2019-07-31",
+        "userId":"zhanghualei",
+        "noticeId":2,
+        "noticeTitle":"新门户上线，后续新功能逐步发布！222222222222222222222",
+        "timestamp":0
+    },{
+        "noticeContent":"新门户上线，后续新功能逐步发布！敬请关注！",
+        "beginDate":"2019-07-02","endDate":"2019-07-31",
+        "userId":"yanglq","noticeId":3,
+        "noticeTitle":"新门户上线，后续新功能逐步发布！",
+        "timestamp":0
+    }, {
+        "noticeContent":"公共告公共告公共告公共告v12919023892103809128309",
+        "beginDate":"2019-07-02","endDate":"2019-07-31",
+        "userId":"zhanghualei",
+        "noticeId":4,
+        "noticeTitle":"新门户上线，后续新功能逐步发布！222222222222222222222",
+        "timestamp":0
+    }],
+    "success":true
+};
+Mock['/firstPageNew/firstLineData'] = {"msg":"成功","data":{"evtRuleNum":967,"labelNum":1070,"evtTypeNum":9,"svcNum":1041},"success":true};
+Mock['/firstPageNew/getBranchData'] = {"msg":"成功","data":{"labelNum":130,"msisdnNum":21866071,"rateOfSuccess":0.01507,"svcNum":1026},"success":true};
+Mock['/firstPageNew/getHotMarketingCampaign'] = {"msg":"成功","data":[{"flag":1,"mpSubName":"花卡权益领取提醒短信","mpSubId":"IOP-3A3F","rateOfSuccess":50,"mpId":"IOP-1020E6","channelTitle":"短信"},{"flag":2,"mpSubName":"移动花卡免费权益领取短信提醒","mpSubId":"IOP-3BF7","rateOfSuccess":43.79,"mpId":"IOP-10222C","channelTitle":"短信"},{"flag":3,"mpSubName":"总部查网龄送流量活动方案0430-2-日租卡-3","mpSubId":"IOP-3AAA","rateOfSuccess":25.34,"mpId":"IOP-102111","channelTitle":"短厅"},{"flag":4,"mpSubName":"总部查网龄送流量活动0430-已扩容客户（4）","mpSubId":"IOP-3A99","rateOfSuccess":24.46,"mpId":"IOP-102106","channelTitle":"短厅"},{"flag":5,"mpSubName":"总部查网龄送流量活动0430-已扩容客户（5）-2","mpSubId":"IOP-3AA1","rateOfSuccess":24.17,"mpId":"IOP-102106","channelTitle":"短厅"},{"flag":6,"mpSubName":"总部查网龄送流量活动0430-已扩容客户（5）-1","mpSubId":"IOP-3AA0","rateOfSuccess":22.99,"mpId":"IOP-102106","channelTitle":"短厅"}],"success":true};
+Mock['/firstPageNew/getDistributionOfActivities'] = {"msg":"成功","data":[{"offerNewTypeCode":"2000","cityId":"400","actNum":233,"offerNewType":"流量产品","peopleNum":105489111},{"offerNewTypeCode":"1000","cityId":"400","actNum":230,"offerNewType":"资费套餐","peopleNum":18851122},{"offerNewTypeCode":"4000","cityId":"400","actNum":21,"offerNewType":"数字化服务","peopleNum":31935284},{"offerNewTypeCode":"3000","cityId":"400","actNum":17,"offerNewType":"家庭业务","peopleNum":14453461},{"offerNewTypeCode":"5000","cityId":"400","actNum":1,"offerNewType":"终端营销","peopleNum":375320}],"success":true};
+Mock['/firstPageNew/getDistributionOfContactor'] = {"msg":"成功","data":[{"cityId":"400","svcNum":19,"channelTitle":"营业前台"},{"cityId":"400","svcNum":181,"channelTitle":"一级电渠"},{"cityId":"400","svcNum":2,"channelTitle":"PCC（去签约）"},{"cityId":"400","svcNum":7,"channelTitle":"事件短信"},{"cityId":"400","svcNum":8,"channelTitle":"IVR"},{"cityId":"400","svcNum":22,"channelTitle":"短信"},{"cityId":"400","svcNum":4,"channelTitle":"自助终端"}],"success":true};
+Mock['/firstPageNew/getSendNumOfMessage'] = {"msg":"成功","data":[{"mpSubs":75791,"cityId":"400","mpType":"位置事件"},{"mpSubs":8453,"cityId":"400","mpType":"场景短信"},{"mpSubs":4,"cityId":"400","mpType":"APP事件"},{"mpSubs":2,"cityId":"400","mpType":"网站事件"},{"mpSubs":0,"cityId":"400","mpType":"非实时事件"},{"mpSubs":0,"cityId":"400","mpType":"实时事件"},{"mpSubs":0,"cityId":"400","mpType":"普通短信"}],"success":true};
+Mock['/firstPageNew/getMyIOPInfo'] = {"msg":"成功","data":{"evtRuleNum":34,"labelNum":0,"svcNumRunning":2,"alarmNum":0,"svcNumCreating":45},"success":true};
+
+// Mock[''] = 
+
 module.exports = Mock;
