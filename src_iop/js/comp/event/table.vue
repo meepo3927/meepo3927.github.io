@@ -23,11 +23,7 @@
 			<td class="text-center">
 				<a href="javascript:;" @click="showDetail(item)">查看</a>
 				<a :href="getEditUrl(item)" class="ml15" v-if="item.isOwner">修改</a>
-				<a href="javascript:;" class="ml15" v-if="item.isOwner && isActive(item)" 
-					@click="disableEvent(item)">失效</a>
-				<a href="javascript:;" class="ml15" v-if="item.isOwner && !isActive(item)" 
-					@click="enableEvent(item)">正常</a>
-
+				
 				<a :href="getCopyUrl(item)" class="ml15">复制</a>
 				<a href="javascript:;" class="ml15" v-if="item.isOwner" @click="deleteEvent(item)">删除</a>
 			</td>
@@ -51,27 +47,12 @@ methods.isActive = function (item) {
 	return item.isActive === '生效';
 };
 methods.getEditUrl = function (item) {
-	return this.getStaticUrl('/create_event', 'id=' + item.evtSetId);
+	return './create_event.html?id=' + item.evtSetId;
 };
 methods.getCopyUrl = function (item) {
-	return this.getStaticUrl('/create_event', 'id=' + item.evtSetId + '&mode=copy');
+	return './create_event.html?id=' + item.evtSetId + '&mode=copy';
 };
-methods.disableEvent = function (item) {
-	request.op(request.ajaxUrlBase + '/event/disableEventSet.action', {eventSetId: item.evtSetId}).then(() => {
-		mlayer.iconMsg('操作成功');
-		this.delayRefresh();
-	}, () => {
-		mlayer.msg(config.msg.opfail);
-	});
-};
-methods.enableEvent = function (item) {
-	request.op(request.ajaxUrlBase + '/event/enableEventSet.action', {eventSetId: item.evtSetId}).then(() => {
-		mlayer.iconMsg('操作成功');
-		this.delayRefresh();
-	}, () => {
-		mlayer.msg(config.msg.opfail);
-	});
-};
+
 methods.deleteEvent = function (item) {
 	if (!confirm(config.msg.confirmDelete)) {
 		return;

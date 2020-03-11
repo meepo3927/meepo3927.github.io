@@ -72,7 +72,7 @@
             <div class="col-2">
                 <ul v-if="labels" class="label-ul">
                     <li v-for="lb in labels" v-text="lb.name" 
-                        :data-id="lb.id" @click="linkToLabelPage(lb)"></li>
+                        :data-id="lb.id" ></li>
                 </ul>
             </div>
         </div>
@@ -124,12 +124,7 @@
         </div>
     </div>
     <div class="btn-box mt30">
-        <a :href="exportUrl" class="btn btn-primary mr15" target="_blank" @click.stop
-            v-if="dataReady">导出Excel</a>
-        <!--
-        <a :href="sampleDownloadUrl" class="btn btn-success mr15" target="_blank" @click.stop
-            v-if="dataReady">下载样本数据</a>
-        -->
+        
         <button class="btn btn-default" type="button" 
             @click="onCloseClick">关闭</button>
     </div>
@@ -165,13 +160,6 @@ methods.getPercent = function (n) {
     return n + '%';
 };
 methods.linkToLabelPage = function(label) {
-    let url = Config.labelLinkUrlPath + '?' + URL.buildQuery({
-        user_id: Config.user.id,
-        ticket: Config.ticket,
-        labelName: label.name
-    });
-    Tool.winOpen(url);
-    LOG(url);
 };
 let computed = {};
 computed.dataReady = function () {
@@ -311,7 +299,6 @@ export default {
         border-radius: 4px;
         margin-bottom: 10px;
 
-        cursor: pointer;
         background-color: #FF8000;
         color: #fff;
     }

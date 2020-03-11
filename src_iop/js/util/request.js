@@ -31,12 +31,12 @@ const fetch0 = (url, data) => {
         return Promise.reject(result);
     });
 };
-const getMockData = (key) => {
+const getMockData = (key, pure = false) => {
     if (MockData[key]) {
         return new Promise((resolve) => {
             const result = MockData[key];
             setTimeout(() => {
-                resolve(result.data || result);
+                pure ? resolve(result) : resolve(result.data || result);
             }, Math.random() * 300 + 100);
         });
     }
@@ -157,11 +157,7 @@ var adaptCaselist = (list) => {
     });
 };
 exports.getEventsList = (p) => {
-    let param = tool.filterEmpty(p);
-    if (mock) {
-        return fetch0(ajaxUrlBase + eventPath + `/getEventsList.json`, param);
-    }
-    return fetch0(ajaxUrlBase + eventPath + `/getEventsList.action`, param);
+    return getMockData('/event/getEventsList', true)
 };
 // 旧api，没有分页
 exports.getAllEvents = function (p) {
@@ -326,12 +322,7 @@ exports.getEventCoreConfig = () => {
     });
 };
 exports.getEventSetPageConfig = (id) => {
-    if (mock) {
-        return fetch2(eventPath + `/getEvtSetPageCfg_${id}`);
-    }
-    return fetch2(eventPath + '/getEvtSetPageCfg', {
-        evtSetId: id
-    })
+    return getMockData('/event/getEvtSetPageCfg')
 };
 exports.getEventDetail = (id) => {
     return fetch2(eventPath + '/getEvtSetList', {
@@ -537,14 +528,11 @@ exports.getStaticInfo = (keyName) => {
     return fetch1(ajaxUrlBase + '/realTimeOnline/getStaticInfo.action', param);
 };
 exports.getModelInfo = (param) => {
-    if (mock) {
-        if (param.modelId) {
-            return fetch1(ajaxUrlBase + '/modelInfo/selModelInfo.json', param);
-        } else {
-            return fetch1(ajaxUrlBase + '/modelInfo/selModelInfoAll.json', param);
-        }
+    if (param.modelId) {
+        return getMockData('/modelInfo/selModelInfo');
+    } else {
+        return getMockData('/modelInfo/selModelInfoAll');
     }
-    return fetch1(ajaxUrlBase + '/modelInfo/selModelInfo.action', param);
 };
 exports.getTouchConfigInfo = (p) => {
     const path = '/touchConfig/get';

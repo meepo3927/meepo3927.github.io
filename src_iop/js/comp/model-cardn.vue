@@ -20,7 +20,7 @@ const curDate = new Date();
 const DD = 24 * 3600 * 1000;
 let methods = {};
 methods.openUrl = function () {
-    let url = this.getStaticUrl('/model_single', 'id=' + this.v.modelId);
+    let url = './model_single.html?id=' + this.v.modelId;
     Tool.winOpen(url);
 };
 let computed = {};

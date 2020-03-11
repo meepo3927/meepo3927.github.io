@@ -8,7 +8,7 @@
     <div class="m-container">
         <page-title main="事件中心" ></page-title>
         <!-- 创建按钮 -->
-        <a :href="getStaticUrl('/create_event')" @click="onCreateClick"
+        <a href="./create_event.html" @click="onCreateClick"
              class="common-create-link fr mt35">
             <i class="fa fa-plus-square"></i>
             <span>新建事件</span>
@@ -53,7 +53,6 @@ import tool from 'util/tool.js';
 
 let methods = {};
 methods.onCreateClick = function () {
-    iframeUtil.send('create_event_click');
 };
 methods.showDetail = function (item) {
     let title = item.evtSetName;

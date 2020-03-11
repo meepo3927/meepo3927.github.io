@@ -127,21 +127,7 @@ methods.requestPath = function (item) {
         //跳转
         this.$emit('jump', item.moduleUrl);
         this.lastModuleUrl = item.moduleUrl;
-        // 记录菜单点击日志
-        return Request.getPath(item);
     }
-    // AJAX获取moduleUrl
-    return Request.getPath(item).then((data) => {
-        if (data.moduleUrl) {
-            this.$emit('jump', data.moduleUrl);
-            this.lastModuleUrl = data.moduleUrl;
-        } else {
-            LOG('Request.getPath fail:', item, data);
-        }
-        return data;
-    }).catch((e) => {
-        LOG('getPath Error:', item, e);
-    });
 };
 methods.toggleMode = function () {
     store.commit('toggleMode');

@@ -35,13 +35,7 @@ const computed = {};
 const created = function () {};
 const mounted = function () {
     this.$HACK_VUE_ROUTER_IE();
-    // Inject Entry variable
-    try {
-        window.top.Entry = this;
-        this.$win = window;
-    } catch(e) {
-        LOG('Entry mounted', e);
-    }
+
     Vue.$noticeWhenAnchorClick();
 };
 const beforeDestroy = function () {};
