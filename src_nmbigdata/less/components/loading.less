@@ -1,0 +1,63 @@
+@loading-img-path: "../../images";
+@loading-width-1:  94px;
+@loading-height-1:  17px;
+
+@loading-width-2:  164px;
+@loading-height-2:  18px;
+
+@loading-width-3:  322px;
+@loading-height-3:  18px;
+.loading-1,
+.loading-2,
+.loading-3 {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 100% 100%;
+    overflow: hidden;
+    &.loading-fixed {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 40000;
+    }
+    &.loading-inline {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+.loading-1 {
+    width: @loading-width-1;
+    height: @loading-height-1;
+    background-image: url("@{loading-img-path}/loading/1.gif");
+    border-radius: 3px;
+    &.loading-fixed {
+        margin-left: -(@loading-width-1 / 2);
+        margin-top: -(@loading-height-1 / 2);
+    }
+}
+.loading-2 {
+    width: @loading-width-2;
+    height: @loading-height-2;
+    background-image: url("@{loading-img-path}/loading/2.gif");
+    &.loading-fixed {
+        margin-left: -(@loading-width-2 / 2);
+        margin-top: -(@loading-height-2 / 2);
+    }
+}
+.loading-3 {
+    width: @loading-width-3;
+    height: @loading-height-3;
+    background-image: url("@{loading-img-path}/loading/3.gif");
+    &.loading-fixed {
+        margin-left: -(@loading-width-3 / 3);
+        margin-top: -(@loading-height-3 / 3);
+    }
+}
+
+.button-loading-img {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-left: 5px;
+    vertical-align: -3px;
+}

@@ -1,0 +1,61 @@
+/**
+ * 横向布局
+ * <div class="m-row">
+ *     <div ></div>
+ *     <div ></div>
+ * </div>
+ */
+.m-row {
+    display: table;
+    width: 100%;
+    & > div,
+    & > label {
+        display: table-cell;
+        vertical-align: top;
+    }
+    & > div.v-mid,
+    & > label.v-mid {
+        vertical-align: middle;
+    }
+    & > div.v-top,
+    & > label.v-top {
+        vertical-align: top;
+    }
+}
+.m-row-mid {
+    .m-row;
+    & > div,
+    & > label {
+        vertical-align: middle;
+    }
+}
+.m-row-auto {
+    .m-row;
+    width: auto;
+}
+.m-row-mid-auto,
+.m-row-auto-mid {
+    .m-row-mid;
+    width: auto;
+}
+.d-row {
+    & > label,
+    & > div {
+        display: inline-block;
+        vertical-align: top;
+    }
+}
+html.html-100 {
+    height: 100%;
+    & > body {
+        height: 100%;
+    }
+}
+.flex-layout {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    .flex-main {
+        flex: 1;
+    }
+}
