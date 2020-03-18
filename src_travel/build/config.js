@@ -1,9 +1,9 @@
 var path = require('path');
 
 var JS_DIR = path.resolve(__dirname, '../js');
-var DIST_PATH = path.resolve(__dirname, '../dist');
+var DIST_PATH = path.resolve(__dirname, '../../travel/dist');
 var SERVER_PORT = 8899;
-var SERVER_DIR = path.resolve(__dirname, '../');
+var SERVER_DIR = path.resolve(__dirname, '../../travel');
 var productionPublicPath = './';
 
 var alias = {
