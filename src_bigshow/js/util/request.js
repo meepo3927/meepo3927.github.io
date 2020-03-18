@@ -57,14 +57,7 @@ let getJSON1 = (url, param) => {
 };
 const getJSON2 = (action, param = {}, mockSubfix = '') => {
     const path = mockSubfix ? (action + '_' + mockSubfix) : action;
-    if (mock) {
-        return getMockData(path);
-    } else if (local) {
-        return getMockData(path);
-    } else {
-        param.action = action + '.action';
-        return getJSON1(ajaxPath, param);
-    }
+    return getMockData(path);
 };
 const PinyinHash = {
     '阿': 'a',
@@ -113,46 +106,10 @@ exports.getCityRealtime2 = (id) => {
 };
 
 exports.getAttractionAnalysisCommon = (path, id, startDate, endDate) => {
-    if (mock) {
-        return getJSON1(ajaxPath + `/${path}.json`);
-    }
-    var action = analysisActionPrefix + `/${path}.action`;
-    var param = {
-        scenery_id: id
-    };
-    if (startDate && !endDate) {
-        param.deal_date = adaptDateParam(startDate);
-    } else if (startDate && endDate) {
-        param.start_date = adaptDateParam(startDate);
-        param.end_date = adaptDateParam(endDate);
-    }
-
-    if (local) {
-        return getJSON1(config.root + action, param);
-    }
-    param.action = action;
-    return getJSON1(ajaxPath, param);
+    return getMockData(path);
 };
 exports.getCityAnalysisCommon = (path, id, startDate, endDate) => {
-    if (mock) {
-        return getJSON1(ajaxPath + `/${path}.json`);
-    }
-    var action = analysisActionPrefix + `/${path}.action`;
-    var param = {
-        scenery_city: id
-    };
-    // 单日期和区间
-    if (startDate && !endDate) {
-        param.deal_date = adaptDateParam(startDate);
-    } else {
-        param.start_date = adaptDateParam(startDate);
-        param.end_date = adaptDateParam(endDate);
-    }
-    if (local) {
-        return getJSON1(config.root + action, param);
-    }
-    param.action = action;
-    return getJSON1(ajaxPath, param);
+    return getMockData(path);
 };
 // 地市 - 逗留时间
 exports.getCityAnalysisStayTime = (...args) => {
