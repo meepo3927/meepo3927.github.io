@@ -14,7 +14,6 @@ if (URL.query().local === 'rlocal') {
 }
 let ajaxPath = config.ajaxPath;
 let chartDataActionPrefix = '/flowmonitor';
-let analysisActionPrefix = '/flowanalysis';
 
 if (mock) {
     ajaxPath = './mock';
@@ -71,84 +70,20 @@ const PinyinHash = {
     '锡': 'xi',
     '兴': 'xing'
 };
-let adaptDateParam = (str) => {
-    if (!str) {
-        return str;
-    }
-    return str.replace(/\-/g, '');
-};
 var exports = {};
 exports.getPinyin = function (word) {
     return PinyinHash[word.charAt(0)] || '';
 };
-exports.getAttractionRealtime1 = (id) => {
-    return getJSON2(chartDataActionPrefix + '/scenUserCurrerntDay', {
-        scenery_id: id
-    });
-};
-exports.getAttractionRealtime2 = (id) => {
-    return getJSON2(chartDataActionPrefix + '/sceneryInAndOut', {
-        scenery_id: id
-    });
-};
-exports.getCityRealtime1 = (id) => {
-    return getJSON2(chartDataActionPrefix + '/scenAreaUserCurrentDay', {
-        scenery_city: id
-    });
-};
-exports.getCityRealtime2 = (id) => {
-
-    return exports.getCityFirstAttraction(id).then((attraction) => {
-        return getJSON2(chartDataActionPrefix + '/sceneryInAndOut', {
-            scenery_id: attraction.placeID
-        });
-    });
-};
-
 exports.getAttractionAnalysisCommon = (path, id, startDate, endDate) => {
     return getMockData(path);
 };
 exports.getCityAnalysisCommon = (path, id, startDate, endDate) => {
     return getMockData(path);
 };
-// 地市 - 逗留时间
-exports.getCityAnalysisStayTime = (...args) => {
-    return exports.getCityAnalysisCommon('scenAreaPeopleStayDate', ...args);
-};
-// 地市 - 全年人流量
-exports.getCityAnalysisUserCommon = (...args) => {
-    return exports.getCityAnalysisCommon('scenAreaUserCommon', ...args);
-};
-// 地市 - 终端品牌
-exports.getCityAnalysisUserBrandType = (...args) => {
-    return exports.getCityAnalysisCommon('scenAreaUserBrandType', ...args);
-};
-// 地市 - 消费
-exports.getCityAnalysisUserArpuType = (...args) => {
-    return exports.getCityAnalysisCommon('scenAreaUserArpuType', ...args);
-};
-// 地市 - 年龄
-exports.getCityAnalysisUserAgeType = (...args) => {
-    return exports.getCityAnalysisCommon('scenAreaUserAgeType', ...args);
-};
-// 地市 - 综合分析
-exports.getCityAnalysisUserAllType = (...args) => {
-    return exports.getCityAnalysisCommon('scenAreaUserAllType', ...args);
-};
 
-// 景区 - 逗留时间统计
-exports.getAttractionAnalysisStaytime = (...args) => {
-    return exports.getAttractionAnalysisCommon(
-        'sceneryPeopleStayDate', ...args
-    );
-};
-// 景区 - 综合分析
-exports.getAttractionCountAllType = (...args) => {
-    return exports.getAttractionAnalysisCommon('sceneryCountAllType', ...args);
-};
-// 景区 - 驻留
-exports.getAttractionPeopleVisitDate = (...args) => {
-    return exports.getAttractionAnalysisCommon('sceneryPeopleVisitDate', ...args);
+// 地市 - 综合分析
+exports.getCityAnalysisUserAllType = () => {
+    return getMockData('scenAreaUserAllType');
 };
 // 景区 - 品牌
 exports.getAttractionCountPhoneBrand = (...args) => {
@@ -191,20 +126,6 @@ exports.getCitiesMap = () => {
         });
 
         return Promise.resolve(hash);
-    });
-};
-exports.getAllAttractionsTop3 = () => {
-    return exports.getCities().then(function (result) {
-        var list = [];
-        result.forEach((city) => {
-            if (!city.places) {
-                return;
-            }
-            // 取前3
-            list = list.concat(city.places.slice(0, 3));
-        });
-
-        return Promise.resolve(list);
     });
 };
 exports.getAttractionsOfCity = (cityId) => {
@@ -280,36 +201,31 @@ exports.getGlobe = (id) => {
     });
 };
 exports.getGlobe2 = () => {
-    return $.getJSON(ajaxPath + '/data-1491909692146-S1NH24cTe.json');
+    return getMockData('data-S1NH24cTe')
 };
 
 exports.getBigShowInOut = (id) => {
-    return exports.getAttractionRealtime2(id);
+    return getJSON2(chartDataActionPrefix + '/sceneryInAndOut');
 };
 
 exports.getBigShowRealtimeUser = (id) => {
-    return exports.getAttractionRealtime1(id);
+    return getJSON2(chartDataActionPrefix + '/scenUserCurrerntDay');
 };
 
 exports.getBigShowPie1 = (...args) => {
-    // return getJSON1(mockAjaxPath + '/scenAreaUserBrandType.json');
     return exports.getAttractionCountPhoneBrand(...args);
 };
 exports.getBigShowPie2 = (...args) => {
-    // return getJSON1(mockAjaxPath + '/scenAreaUserArpuType.json');
     return exports.getAttractionCountArpuType(...args);
 };
 exports.getBigShowPie3 = (...args) => {
-    // return getJSON1(mockAjaxPath + '/scenAreaUserAgeType.json');
     return exports.getAttractionCountAgeType(...args);
 };
 let mockAjaxPath = './mock';
 exports.getBigShowStayTime = (...args) => {
-    return getJSON1(mockAjaxPath + `/scenAreaPeopleStayDate.json`);
-    // return exports.getCityAnalysisStayTime(...args);
+    return getMockData(`scenAreaPeopleStayDate`);
 };
 exports.gitBigShowAllType = (...args) => {
-    // return getJSON1(mockAjaxPath + `/scenAreaUserAllType.json`);
     return exports.getAttractionCountAllType(...args);
 };
 exports.gitBigShowAllType1 = () => {
