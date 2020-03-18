@@ -1,8 +1,10 @@
-import {$} from 'common';
+
 import Promise from 'Promise';
 import config from 'global/config';
 import Fetch from 'util/fetch.js';
 import URL from 'util/url.js';
+import MockData from 'util/mock.js';
+
 let global = window.global || {};
 let mock = true;
 
@@ -27,6 +29,14 @@ let getMockSuccess = () => {
     let j = {success: true};
     return Promise.resolve(j);
 };
+const getMockData = (path) => {
+    if (MockData[path]) {
+        const result = MockData[path].data || MockData[path];
+        return Promise.resolve(result);
+    }
+    console.log('getMockData:' + path);
+    return Promise.reject();
+};
 let getJSON1 = (url, param) => {
     return Fetch.getJSON(url, param).then(function (result) {
         if (!result) {
@@ -46,14 +56,11 @@ let getJSON1 = (url, param) => {
     });
 };
 const getJSON2 = (action, param = {}, mockSubfix = '') => {
+    const path = mockSubfix ? (action + '_' + mockSubfix) : action;
     if (mock) {
-        let mockAction = action;
-        if (mockSubfix) {
-            mockAction += '_' + mockSubfix;
-        }
-        return getJSON1(ajaxPath + `${mockAction}.json`, param);
+        return getMockData(path);
     } else if (local) {
-        return getJSON1(ajaxPath + `${action}.action`, param);
+        return getMockData(path);
     } else {
         param.action = action + '.action';
         return getJSON1(ajaxPath, param);

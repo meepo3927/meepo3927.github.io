@@ -1,6 +1,5 @@
 <template>
 <div class="v-globe">
-	
 </div>
 </template>
 
