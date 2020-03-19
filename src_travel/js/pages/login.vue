@@ -234,7 +234,7 @@ const dataFunc = function () {
         userName: '',
         password: '',
         checkCode: '',
-        captchaSrc: '/images/checkCode.jpg'
+        captchaSrc: './images/checkCode.jpg'
     };
     return o;
 };
