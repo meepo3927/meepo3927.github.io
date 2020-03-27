@@ -1,9 +1,0 @@
-{
-    "success": true,
-    "data": [
-        {"name": "1KM以内", "value": 1233},
-        {"name": "1-5KM", "value": 1230},
-        {"name": "5-10KM", "value": 1230},
-        {"name": "10KM以上", "value": 99}
-    ]
-}

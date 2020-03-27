@@ -2,8 +2,7 @@
 <div class="page-index" :class="rootClass">
     <div class="only-home-view" v-show="isHomeView">
         <h1 >
-            <img :src="getImageUrl('/white_logo.png')" />
-            内蒙古移动大数据平台
+            <img :src="getImageUrl('/white_logo.png')" /> 内蒙古东方万里大数据平台
         </h1>
 
         <!-- 总人数 -->
