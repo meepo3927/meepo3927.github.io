@@ -10,7 +10,7 @@
             @enter="onChildrenEnter"
             @item-click="onSubItemClick" />
         <!-- 菜单项 -->
-        <a href="javascript:;" @click="onItemClick(item)"
+        <a :href="getHref(item)" @click="onItemClick(item)"
             @mouseenter="onMouseEnter(item)"
             @mouseleave="onMouseLeave(item)">
             <i class="fa icon-1" :class="getICONClass(item, index)"></i>
@@ -27,6 +27,15 @@ const DELAY_TIME = 700;
 const ICONS = ['fa-desktop', 'fa-cog', 'fa-camera', 'fa-dot-circle-o'];
 
 const methods = {};
+methods.getHref = function (item) {
+    if (item.children && item.children.length) {
+        return 'javascript:;';
+    }
+    if (!item.moduleUrl || (item.moduleUrl === 'about:blank')) {
+        return undefined;
+    }
+    return 'javascript:;';
+};
 methods.onItemClick = function (item) {
     if (item.children && item.children.length) {
         // do nothing
