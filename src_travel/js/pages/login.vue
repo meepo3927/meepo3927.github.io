@@ -60,6 +60,12 @@ methods.onSubmitClick = function () {
     if (!this.checkCode) {
         return mlayer.msg('请输入验证码');
     }
+    if (this.checkCode !== '9962') {
+        return mlayer.msg('验证码错误');
+    }
+    if (this.password !== 'demo1234') {
+        return mlayer.msg('密码错误！');
+    }
     this.submit();
 };
 methods.onUserNameKeyUp = function (e) {
@@ -210,7 +216,7 @@ computed.encodedPassword = function () {
     }
 };
 computed.fmAction = function () {
-    return '/index.html';
+    return './index.html';
 };
 computed.loginTip = function () {
     if (Q.msg) {
