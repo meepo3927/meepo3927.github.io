@@ -287,7 +287,7 @@ h2.font-bold {
 .captcha-img {
     float: right;
     height: 34px;
-    margin-top: 28px;
+    margin-top: 20px;
     margin-right: 2px;
 }
 .form-group > label {
