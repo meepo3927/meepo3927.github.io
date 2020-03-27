@@ -1,8 +1,8 @@
 var path = require('path');
 
 var JS_DIR = path.resolve(__dirname, '../js');
-var DIST_PATH = path.resolve(__dirname, '../../iop/dist');
-var SERVER_DIR = path.resolve(__dirname, '../../iop/');
+var DIST_PATH = path.resolve(__dirname, '../dist');
+var SERVER_DIR = path.resolve(__dirname, '../');
 var productionPublicPath = './dist/';
 var SERVER_PORT = 8900;
 var alias = {
