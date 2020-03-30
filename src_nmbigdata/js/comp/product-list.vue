@@ -6,14 +6,15 @@
             <div class="v-title ">
                 <!-- 不需要登录 -->
                 <template v-if="!v.needlogin">
-                    <a :href="v.url" class="v-link" v-show="v.url" target="_blank">立即体验</a>
+                    <a href="javascript:;" class="v-link" v-show="v.url" 
+                        @click="onLoginClick">立即体验</a>
                     <a href="javascript:;" class="v-link disabled" v-show="!v.url">即将开放</a>
                 </template>
 
                 <!-- 需要登录 -->
                 <template v-if="v.needlogin">
-                    <a :href="v.url" class="v-link-1" target="_blank" 
-                        title="使用账号密码进行登录">立即登录</a>
+                    <a href="javascript:;" class="v-link-1" 
+                        @click="onLoginClick">立即登录</a>
                     <a :href="getPageUrl('/apply')" class="v-link-2" target="_blank" 
                         title="该产品需要申请账号才能体验">申请账号</a>
                 </template>
@@ -34,6 +35,9 @@
 let methods = {};
 methods.play = function (item) {
     this.$emit('play', item);
+};
+methods.onLoginClick = function () {
+    this.$msg('页面跳转');
 };
 let computed = {};
 let watch = {};
