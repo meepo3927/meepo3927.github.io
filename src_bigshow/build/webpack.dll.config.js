@@ -7,8 +7,10 @@ process.env.NODE_ENV = 'production';
 const vendors = [
     'jquery',
     'vue',
+    'polyfill',
     'echarts',
     'lib/echarts-gl.min.js'
+    // 'lodash'
 ];
 const DIST_PATH = config.DIST_PATH + '/../bundle';
 const plugins = [

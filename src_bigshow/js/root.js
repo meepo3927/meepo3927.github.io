@@ -1,60 +1,24 @@
+import 'polyfill';
+import '../less/entry.scss';
 // 基础库
-import 'lib/ie8';
-import config from 'global/config';
-import Vue from 'vue';
-import $ from 'jquery';
-// vue 扩展
-import 'extend/vue.marquee.js';
-
-// Reg Vue Component
-
-Vue.use(require('extend/vue.eventhandler.js'));
-let global = window.global || {};
-let basePath = global.basePath || '';
-let staticPath = global.staticPath || (basePath);
-let imgPath = staticPath + '/images';
-let urlExt = config.dev ? 'html' : 'jsp';
-let methods = {};
-methods.getStaticUrl = function (path, param = '') {
-    let url = this.staticPath + '/views' + path + '.' + urlExt;
-    if (param) {
-        url += '?' + param;
-    }
-    return url;
-};
-Vue.mixin({
-    methods,
-    computed: {
-        vImgPath: function () {
-            return imgPath;
-        },
-        basePath: function () {
-            return basePath;
-        },
-        staticPath: function () {
-            return staticPath;
+window.LOG = function () {
+    if (window.console && window.console.log) {
+        var len = arguments.length;
+        for (var i = 0; i < len; i++) {
+            window.console.log(arguments[i]);
         }
     }
-});
-// Hack For mlayer
-window.xPath = staticPath + '/';
-var mlayer = require('lib/mlayer');
-// Global Injection
-window.$ = $;
-if (config.dev) {
-    __webpack_public_path__ = './dist/';
-}
-// Hack IE
-let IE = window.getIEVersion();
-// Hack Echarts
-if (IE === 10 || IE === 11) {
-    window.Float32Array = undefined;
-}
-import request from 'util/request';
-export {
-    Vue,
-    config,
-    $,
-    mlayer,
-    request
 };
+window.LOGJ = (a) => {
+    LOG(JSON.parse(JSON.stringify(a)));
+};
+// Vue库
+import Vuex from 'vuex';
+import VueCommon from 'extend/vue.common.js';
+Vue.use(Vuex);
+Vue.use(VueCommon);
+// 组件
+
+export default {
+    Vuex
+}

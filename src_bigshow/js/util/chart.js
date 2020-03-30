@@ -1,13 +1,11 @@
-
-var tool = require('util/tool');
-var Promise = require('lib/promise');
-var echarts = require('echarts');
-var config = require('global/config');
-var EchartUtil = require('util/echart.js');
-import 'lib/echarts_theme/vintage';
+import promise from 'promise';
+import echarts from 'echarts';
+import EchartUtil from 'util/echart.js';
+import 'lib/echarts_theme/vintage.js';
 import 'lib/echarts_theme/roma.js';
 import 'lib/echarts_theme/bigshow.js';
 import themeInstance from 'lib/echarts_theme/shine.js';
+
 let theme = 'shine';// config.chart.theme;
 let themeBackgroundColor = '#f2f2f2';
 let minMaxMarkPoint = {
@@ -325,7 +323,7 @@ let getTimeInterval = function (dayCount) {
 };
 
 const getTimeItem = (item, vKey = 'userNum', dateKey = 'calDate') => {
-    var date = tool.convertDate(item[dateKey]);
+    var date = Tool.convertDate(item[dateKey]);
     return {
         name: date,
         value: [date, item[vKey] || 0]
@@ -368,7 +366,7 @@ exports.getHumanTrafficOption = (options = {}) => {
         if (modeCategory) {
             return exports.bigScreenModify(item.userNum);
         }
-        var TMP_DATE = tool.convertDate(item['calDate']);
+        var TMP_DATE = Tool.convertDate(item['calDate']);
         return {
             name: TMP_DATE,
             value: [TMP_DATE, exports.bigScreenModify(item['userNum'])]
@@ -416,7 +414,7 @@ exports.getAttractionInOutOption = (options = {}) => {
             if (modeCategory) {
                 return item[key];
             }
-            var TMP_DATE = tool.convertDate(item['calDate']);
+            var TMP_DATE = Tool.convertDate(item['calDate']);
             return {
                 name: TMP_DATE,
                 value: [TMP_DATE, item[key]]
@@ -504,7 +502,7 @@ exports.getAttractionUserRealtime = (data) => {
             }
             // 填充0，防止塌陷
             if (!hasX) {
-                let newItem = tool.extend({}, list[0]);
+                let newItem = Tool.extend({}, list[0]);
                 newItem.calDate = x;
                 newItem.userNum = 0;
                 list.push(newItem);
@@ -947,7 +945,7 @@ exports.getAttractionSource2Option = (options = {}) => {
 exports.getAttractionSource1Option = (options) => {
     let titleOption = {
         text: '景区客流来源排行',
-        subtext: "内蒙古移动提供大数据支持",
+        subtext: "内蒙古提供大数据支持",
         left: 10,
         top: 10,
         subtextStyle: {
@@ -1210,14 +1208,14 @@ exports.getTitleOption2 = getTitleOption2;
 exports.getLoadingChart = function (elem, options = {}, pTheme = theme) {
     var chart = echarts.init(elem, pTheme);
     if (options.title) {
-        options.title = tool.extend({}, getTitleOption(), options.title);
+        options.title = Tool.extend({}, getTitleOption(), options.title);
     }
     chart.setOption(options);
     chart.showLoading();
     return chart;
 };
 const bigScreenModify = (value, factor) => {
-    factor = factor || config.factor;
+    factor = factor || Config.factor;
     return Math.ceil(value / factor);
 };
 exports.bigScreenModify = bigScreenModify;
@@ -1311,7 +1309,7 @@ exports.getBigShowMapOption = (data, data2) => {
             axisLabel
         }
     ];
-    o = tool.extend(o, {
+    o = Tool.extend(o, {
         title: null,
         toolbox: false,
         legend: null,
@@ -1372,7 +1370,7 @@ exports.getBigShowMapOption = (data, data2) => {
 };
 exports.getBigShowInOut = (data) => {
     let o = exports.getAttractionInOutOption({data});
-    return tool.extend(o, {
+    return Tool.extend(o, {
         legend: null,
         grid: EchartUtil.grid(10),
         dataZoom: false
@@ -1380,7 +1378,7 @@ exports.getBigShowInOut = (data) => {
 };
 exports.getBigShowStayTime = (data) => {
     let o = exports.getCityStayTimeOption({data});
-    return tool.extend(o, {
+    return Tool.extend(o, {
         legend: false,
         toolbox: false,
         grid: EchartUtil.grid(10)
@@ -1388,7 +1386,7 @@ exports.getBigShowStayTime = (data) => {
 };
 exports.getBigShowAllType = (data) => {
     let o = exports.getCityAnalysisUserAllType({data});
-    return tool.extend(o, {
+    return Tool.extend(o, {
         toolbox: false,
         legend: false,
         brush: null,
@@ -1401,7 +1399,7 @@ exports.getBigShowAllType1 = (data) => {
         o.series[0]
     ];
     o.series = series;
-    return tool.extend(o, {
+    return Tool.extend(o, {
         toolbox: false,
         legend: false,
         brush: null,
@@ -1414,7 +1412,7 @@ exports.getBigShowAllType2 = (data) => {
         o.series[1]
     ];
     o.series = series;
-    return tool.extend(o, {
+    return Tool.extend(o, {
         toolbox: false,
         legend: false,
         brush: null,
@@ -1428,7 +1426,7 @@ exports.getBigShowAllType2 = (data) => {
     });
 };
 exports.getBigShowPieChartOption = (o) => {
-    o = tool.extend(o, {
+    o = Tool.extend(o, {
         toolbox: false,
         backgroundColor: 'tranparent',
         series: [{

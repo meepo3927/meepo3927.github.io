@@ -1,6 +1,5 @@
 
-import Promise from 'Promise';
-import config from 'global/config';
+import Promise from 'promise';
 import Fetch from 'util/fetch.js';
 import URL from 'util/url.js';
 import MockData from 'util/mock.js';
@@ -12,13 +11,14 @@ let local = false;
 if (URL.query().local === 'rlocal') {
     local = true;
 }
-let ajaxPath = config.ajaxPath;
+//  /TD-nmtravel-web
+let ajaxPath = '/InnerGate';
 let chartDataActionPrefix = '/flowmonitor';
 
 if (mock) {
     ajaxPath = './mock';
 } else if (local) {
-    ajaxPath = config.root;
+    ajaxPath = '';
 }
 
 let randtime = () => {

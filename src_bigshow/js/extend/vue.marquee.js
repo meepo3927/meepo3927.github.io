@@ -1,26 +1,12 @@
-
-var Vue = require('vue');
-
 const WIDTH_DIFF_MIN = 5;
-
 const FAKE_GAP = 10;
 
-var vendors = ['ms', 'moz', 'webkit', 'o'];
-for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
-    var vp = vendors[i];
-    window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
-    window.cancelAnimationFrame = (
-        window[vp + 'CancelAnimationFrame']
-        ||
-        window[vp + 'CancelRequestAnimationFrame']
-    );
-}
-
-function Marquee(el) {
+function Marquee(el, options) {
     if (!el) {
         return;
     }
     this.el = el;
+    this.options = options || {};
 
     let parent = el.parentNode || el.parentElement;
 
@@ -76,26 +62,28 @@ proto.loop = function () {
         return false;
     }
     let left = this.getElemOffset();
+    let gap = this.options.gap || FAKE_GAP;
     this.setOffset(left - 1);
 
     // 内容已显示完全，加入fakeElem
     if (Math.abs(left) === this.widthDiff) {
         this.appendFakeElem();
     }
-    if (Math.abs(left) === FAKE_GAP + this.elemWidth) {
+    if (Math.abs(left) === gap + this.elemWidth) {
         this.removeFakeElem();
         return this.reset();
     }
-    this.timer = requestAnimationFrame(() => {
+    this.timer = setTimeout(() => {
         this.loop();
-    });
+    }, this.options.interval || 20);
 };
 proto.appendFakeElem = function () {
     if (this.fakeElem) {
         return false;
     }
     var elem = this.el.cloneNode(true);
-    elem.style.marginLeft = FAKE_GAP + 'px';
+    var gap = this.options.gap || FAKE_GAP;
+    elem.style.marginLeft = gap + 'px';
     this.parent.appendChild(elem);
 
     this.fakeElem = elem;
@@ -108,7 +96,7 @@ proto.removeFakeElem = function () {
 };
 proto.dispose = function () {
     if (this.timer) {
-        cancelAnimationFrame(this.timer);
+        clearTimeout(this.timer);
         this.timer = null;
     }
     this.stoped = true;
@@ -119,14 +107,14 @@ proto.dispose = function () {
 const bind = function () {};
 const inserted = function (el, binding) {
     if (!el.MarqueeInstance) {
-        el.MarqueeInstance = new Marquee(el);
+        el.MarqueeInstance = new Marquee(el, binding.value);
     }
     el.MarqueeInstance.init();
 };
 
 const updated = function (el, binding) {
     if (!el.MarqueeInstance) {
-        el.MarqueeInstance = new Marquee(el);
+        el.MarqueeInstance = new Marquee(el, binding.value);
     }
     el.MarqueeInstance.update();
 };

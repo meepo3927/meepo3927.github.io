@@ -3,7 +3,7 @@
  */
 
 define([], function () {
-    var zIndex = 3000;
+    var zIndex = 2;
     var opacity = 0.6;
     function Cover(options = {}) {
         var elem = document.createElement('div');
@@ -11,7 +11,7 @@ define([], function () {
         elem.style.display = 'none';
         elem.style.width = '100%';
         elem.style.height = '100%';
-        elem.style.backgroundColor = '#000';
+        elem.style.backgroundColor = options.backgroundColor || '#000';
         elem.style.position = 'fixed';
         elem.style.top = '0';
         elem.style.left = '0';
@@ -33,6 +33,10 @@ define([], function () {
         // 默认显示
         if (this.options.show !== false) {
             this.show();
+        }
+        // 点击事件
+        if (this.options.onClick) {
+            this.elem.addEventListener('click', this.options.onClick, true);
         }
     };
     proto.show = function () {

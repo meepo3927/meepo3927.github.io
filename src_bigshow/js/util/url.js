@@ -39,7 +39,7 @@
         for (var i = 0; i < arr.length; i++) {
             var kv = arr[i].split('=');
             if (kv[0]) {
-                ret[kv[0]] = kv[1] || '';
+                ret[kv[0]] = decodeURIComponent(kv[1] || '');
             }
         }
         return ret;
@@ -84,6 +84,24 @@
             return q;
         };
     })();
+
+    exports.addParam = (originUrl, params = {}) => {
+        if (!params || !originUrl || !originUrl.split) {
+            return originUrl;
+        }
+        let hashArr = originUrl.split('#');
+        let url = hashArr[0];
+        // 数组
+        let str = exports.buildQuery(params);
+        if (url.indexOf('?') >= 0) {
+            url += '&' + str;
+        } else {
+            url += '?' + str;
+        }
+        hashArr[0] = url;
+        // 对象
+        return hashArr.join('#');
+    };
 
     return exports;
 }));

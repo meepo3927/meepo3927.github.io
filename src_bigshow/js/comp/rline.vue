@@ -1,7 +1,5 @@
 <template>
-<div class="r-line">
-	
-</div>
+<div class="r-line"></div>
 </template>
 
 <script>
@@ -12,25 +10,21 @@ var watch = {};
 var mounted = function () {};
 let beforeDestroy = function () {};
 let dataFunc = function () {
-	var o = {};
-	return o;
+    var o = {};
+    return o;
 };
 export default {
-	data: dataFunc,
-	watch,
-	mixins: [],
-	methods,
-	computed,
-	props: [],
-	mounted,
-	beforeDestroy,
-	components: {}
+    data: dataFunc,
+    watch,
+    mixins: [],
+    methods,
+    computed,
+    props: [],
+    mounted,
+    beforeDestroy,
+    components: {}
 };
 </script>
 
 <style scoped lang="less">
-.r-line img {
-	width: 25px;
-	height: 772px;
-}
 </style>

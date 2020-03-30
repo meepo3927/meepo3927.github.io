@@ -1,10 +1,10 @@
 var path = require('path');
 
 var JS_DIR = path.resolve(__dirname, '../js');
-// var DIST_PATH = path.resolve(__dirname, '../dist');
-// var SERVER_DIR = path.resolve(__dirname, '..');
-var DIST_PATH = path.resolve(__dirname, '../../bigshow/dist');
-var SERVER_DIR = path.resolve(__dirname, '../../bigshow/');
+var DIST_PATH = path.resolve(__dirname, '../dist');
+var SERVER_DIR = path.resolve(__dirname, '..');
+// var DIST_PATH = path.resolve(__dirname, '../../webapp/bigdata/dist');
+// var SERVER_DIR = path.resolve(__dirname, '../../webapp/bigdata/');
 var productionPublicPath = './dist/';
 var SERVER_PORT = 8024;
 var alias = {
@@ -22,10 +22,10 @@ var alias = {
     vuex$: 'lib/vuex-2.3.1.js',
     vuerouter$: 'lib/vue-router.js',
     lodash$: 'lib/lodash.min.js',
-    common$: JS_DIR + '/root.js',
     // 工具,插件
     promise$: 'lib/promise.js',
-    echarts$: 'lib/echarts.min.js',
+    // echarts$: 'lib/echarts-3.5.3.min.js',
+    echarts$: 'lib/echarts-4.0.2.min.js',
     // 通用
     polyfill$: JS_DIR + '/global/polyfill',
     request$: JS_DIR + '/util/request.js',
