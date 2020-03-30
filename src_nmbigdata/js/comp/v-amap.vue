@@ -28,7 +28,12 @@ const loadJS = function () {
     var script = document.createElement('script');
     var key = '54fc25c73b5aa3a4d5fef63d7095f19e';
     script.type = "text/javascript";
-    script.src = "http://webapi.amap.com/maps?v=1.3&key=" + key + "&callback=amapCallback";
+    if (!location.host) {
+        var protocal = 'http://';
+    } else {
+        protocal = '//';
+    }
+    script.src = protocal + "webapi.amap.com/maps?v=1.3&key=" + key + "&callback=amapCallback";
     script.onerror = () => {
         ebus.fire('error');
         ebus._Error = true;

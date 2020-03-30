@@ -51,7 +51,7 @@ const fetch3 = (path, param) => {
         return r.data;
     };
     let p = (param.func) ? ('_' + param.func) : '';
-    return Fetch.getJSON(ajaxUrlBase + `${path}${p}.json`, param).then((r) => {
+    return Fetch.getJSON(`./mock${path}${p}.json`, param).then((r) => {
         return handle(r);
     });
 };
