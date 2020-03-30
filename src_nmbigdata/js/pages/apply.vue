@@ -1,7 +1,7 @@
 <template>
 <div class="page-apply">
     <div class="v-title">
-        <h1>内蒙古移动大数据平台</h1>
+        <h1>内蒙古东方万里大数据平台</h1>
         <h1>体验账号申请</h1>
     </div>
     <div class="mform v-label-right form-layer">

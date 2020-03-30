@@ -1,7 +1,7 @@
 <template>
 <div class="page-copyright">
     <div class="copyright-text">
-        内蒙古移动 &copy; 版权所有
+        内蒙古东方万里 &copy; 版权所有
         <a :href="getPageUrl('/login')" class="ml10">管理后台</a>
     </div>
 </div>

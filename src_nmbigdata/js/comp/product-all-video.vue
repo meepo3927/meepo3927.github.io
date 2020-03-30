@@ -19,10 +19,8 @@
 let methods = {};
 let computed = {};
 computed.src = function () {
-    if (this.vConfig.mock) {
-        return 'http://' + location.hostname + '/videos/bigshow_music.mp4';
-    }
-    return this.vConfig.staticSourceUrlPrefix + '/staticSourceApp/videos/bigshow_music.mp4';
+    return './videos/report.mp4'
+    // return this.vConfig.staticSourceUrlPrefix + '/staticSourceApp/videos/bigshow_music.mp4';
 };
 let watch = {};
 const created = function () {};

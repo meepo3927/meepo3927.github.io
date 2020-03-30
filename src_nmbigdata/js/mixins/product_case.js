@@ -111,7 +111,7 @@ computed.products = function () {
             name: '解码',
             img: 'netlog.png',
             videoUrl: 'publico.mp4',
-            desc: '移动用户上网日志进行实时解析与分析，借助大数据流处理技术满足对海量日志的解析率与实时性要求'
+            desc: '用户上网日志进行实时解析与分析，借助大数据流处理技术满足对海量日志的解析率与实时性要求'
         },
         {
             id: 'report',

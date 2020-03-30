@@ -1,6 +1,6 @@
 <template>
 <div class="page-audit-account">
-    <h1>内蒙古移动大数据平台 - 体验账号管理</h1>
+    <h1>东方万里大数据平台 - 体验账号管理</h1>
 
     <div class="main-wrapper mt25">
         <div class="condition-box">

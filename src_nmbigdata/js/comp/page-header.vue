@@ -3,7 +3,7 @@
     <div class="inner-main">
         <div class="part-left">
             <img :src="logo" class="v-logo" />
-            <h1>内蒙古移动大数据门户</h1>
+            <h1>东方万里大数据门户</h1>
         </div>
         
 

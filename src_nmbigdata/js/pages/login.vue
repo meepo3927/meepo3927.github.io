@@ -2,7 +2,7 @@
 <div class="page-login">
 
     <div class="v-title">
-        <h1>内蒙古移动大数据平台</h1>
+        <h1>东方万里大数据平台</h1>
         <h1>管理后台</h1>
     </div>
 
