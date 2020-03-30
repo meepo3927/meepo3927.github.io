@@ -6,17 +6,11 @@ var localEnv = !(location.host);
 Plugin.install = function (Vue, options) {
     let methods = {};
     methods.getPageUrl = function (path, param = '') {
-        if (localEnv) {
-            if (path.charAt(0) === '/') {
-                return '.' + path + '.html' + param;
-            } else {
-                return './' + path + '.html' + param;
-            }
+        if (path.charAt(0) === '/') {
+            return '.' + path + '.html' + param;
+        } else {
+            return './' + path + '.html' + param;
         }
-        if (config.isProduction) {
-            return config.viewPath + path + '.jsp' + param;
-        }
-        return config.viewPath + path + '.html' + param;
     };
     methods.getImageUrl = function (path) {
         return this.vImgPath + path;
@@ -30,13 +24,7 @@ Plugin.install = function (Vue, options) {
     };
     let computed = {};
     computed.vImgPath = function () {
-        if (localEnv) {
-            return './images';
-        }
-        if (config.isProduction) {
-            return config.basePath + '/images';
-        }
-        return '/images';
+        return './images';
     };
     computed.vConfig = function () {
         return config;
