@@ -1,8 +1,8 @@
 var path = require('path');
 
 var JS_DIR = path.resolve(__dirname, '../js');
-var DIST_PATH = path.resolve(__dirname, '../../nmbigdata/dist');
-var SERVER_DIR = path.resolve(__dirname, '../../nmbigdata/');
+var DIST_PATH = path.resolve(__dirname, '../dist');
+var SERVER_DIR = path.resolve(__dirname, '../');
 var productionPublicPath = './dist/';
 var SERVER_PORT = 8011;
 var alias = {

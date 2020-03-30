@@ -34,7 +34,7 @@ methods.getProductVideoPoster = function (proName) {
 methods.getProductVideoSrc = function (proName) {
     let item = this.productNameMap[proName];
     if (item && item.videoUrl) {
-        return this.vConfig.basePath + '/videos/' + item.videoUrl;
+        return './videos/' + item.videoUrl;
     }
 };
 
@@ -88,14 +88,14 @@ computed.products = function () {
             id: 'dangjian',
             name: '党建',
             img: 'dangjian.jpg',
-            videoUrl: 'dangjian.mp4',
+            videoUrl: 'monitor.mp4',
             desc: '党员大数据平台，对辖区内党员进行实时区域分布分析、外出情况分析、舆情监控与互联网偏好分析'
         },
         {
             id: 'tianwang',
             name: '天网',
             img: 'tianwang.jpg',
-            videoUrl: 'tianwang.mp4',
+            videoUrl: 'travel.mp4',
             //url: 'abc',
             desc: '流动人口大数据平台，提供流动人口监控与登记情况分析，流动人口来源、驻留时长等分析'
         },
@@ -103,14 +103,14 @@ computed.products = function () {
             id: 'zhengxin',
             name: '征信',
             img: 'zhengxin.jpg',
-            videoUrl: 'zhengxin.mp4',
+            videoUrl: 'report.mp4',
             desc: '个人金融征信业务服务平台  借款人向金融机构提交借贷申请，并授权进行信用验真查询'
         },
         {
             id: 'netlog',
             name: '解码',
             img: 'netlog.png',
-            videoUrl: 'netlog.mp4',
+            videoUrl: 'publico.mp4',
             desc: '移动用户上网日志进行实时解析与分析，借助大数据流处理技术满足对海量日志的解析率与实时性要求'
         },
         {
