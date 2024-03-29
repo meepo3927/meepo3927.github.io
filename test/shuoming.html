@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>功能说明</title>
+    <style>
+        textarea {
+            width: 600px;
+            height: 400px;
+        }
+        .row-1 {
+            display: flex;
+        }
+        .output pre {
+            margin: 20px 0 30px 50px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="row-1">
+            <label for="">Excel 功能过程和子描述：</label>
+            <div class="col-input">
+                <textarea v-model="excel"></textarea>
+            </div>
+            <div class="col-btn">
+                <button @click="doRun">执行</button>
+            </div>
+        </div>
+        <div class="output">
+            <pre v-text="result"></pre>
+        </div>
+    </div>
+</body>
+</html>
+<script src="/js/vue.min.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        methods: {
+            doRun: function () {
+                var lines = this.excel.split('\n')
+                var pointNum = 1;
+                var subNum = 1;
+                const result = []
+                const processSub = (sub) => {
+                    subNum++
+                    result.push(`(${subNum}) 支持${sub}。`)
+                }
+                let funcName = ''
+                let modules = []
+                const getDesc = (title) => {
+                    if (title.indexOf('创建') >= 0) {
+                        funcName = title.replace('创建', '')
+                        modules.push('创建')
+                        return `创建并录入${funcName}信息，保存至数据库中。`
+                    } else if (title.indexOf('修改') >= 0) {
+                        funcName = title.replace('修改', '')
+                        modules.push('修改')
+                        return `对${funcName}信息进行修改，并保存至数据库。`
+                    } else if (title.indexOf('删除') >= 0) {
+                        funcName = title.replace('删除', '')
+                        modules.push('删除')
+                        return `将${funcName}信息从数据库中删除。`
+                    } else if (title.indexOf('上传') >= 0) {
+                        funcName = title.replace('上传', '')
+                        modules.push('上传')
+                        return `将${funcName}信息以文件形式上传，解析内容并保存至数据库。`
+                    } else if (title.indexOf('展示') >= 0) {
+                        funcName = title.replace('展示', '')
+                        modules.push('展示')
+                        return `查询并展示${funcName}信息。`
+                    } else if (title.indexOf('查询') >= 0) {
+                        modules.push('查询')
+                        return `查询并展示${funcName}信息。`
+                    } else if (title.indexOf('导入') >= 0) {
+                        modules.push('导入')
+                        return `将${funcName}信息按字段导入至数据库表。`
+                    } else if (title.indexOf('导出') >= 0) {
+                        modules.push('导出')
+                        return `导出${funcName}文件至本地。`
+                    } else if (title.indexOf('启用') >= 0) {
+                        modules.push('启用')
+                        return `对${funcName}进行启用，启用后内容将正式生效。`
+                    } else if (title.indexOf('发布') >= 0) {
+                        modules.push('发布')
+                        return `对${funcName}}进行发布，发布后内容将正式启用。`
+                    } else if (title.indexOf('审批') >= 0) {
+                        modules.push('审批')
+                        return `对${funcName}内容进行审批，审批通过后内容将正式启用。`
+                    } else if (title.indexOf('下发') >= 0) {
+                        modules.push('下发')
+                        return `下发${title.replace('下发', '')}内容至其他平台，供其使用。`
+                    } else if (title.indexOf('下载') >= 0) {
+                        modules.push('下载')
+                        return `将${title.replace('下载', '')}内容以文件形式下载至本地。`
+                    } else if (title.indexOf('评估') >= 0) {
+                        modules.push('评估')
+                        funcName = title.replace('评估', '')
+                        return `展示${funcName}效果数据以实现评估。`
+                    }
+                    return 'XXXXX'
+                }
+                const processMain = (main) => {
+                    const a = main.split('\t')
+                    result.push(`${pointNum}. ${a[0]}`)
+                    pointNum++
+                    result.push('功能描述：')
+                    result.push(getDesc(a[0]))
+                    result.push('功能说明：')
+                    result.push(`(1) 支持${a[1]}。`)
+                    subNum = 1
+                }
+                lines.forEach(line => {
+                    if (!line) {
+                        return
+                    }
+                    if (line[0] === '\t') {
+                        processSub(line.substr(1))
+                    } else {
+                        processMain(line)
+                    }
+                })
+                result.unshift(
+                    `{XXX管理}实现${funcName}${modules.join('、')}等功能。具体如下：`
+                )
+                this.result = result.join('\r\n')
+            }
+        },
+        computed: {
+        },
+        data: function () {
+            return {
+                excel: '',
+                result: ''
+            }
+        }
+    })
+</script>
