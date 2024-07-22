@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字体工具</title>
+    <style>
+        body {
+        }
+        .table-fonts {
+            font-size: 20px;
+            border-collapse: collapse;
+        }
+        .table-fonts tr > td {
+            border: 1px solid #eee;
+            padding: 4px 12px;
+        }
+        /*
+        sans-serif */
+        p > input {
+            width: 460px;
+            border: 1px solid #ccc;
+            padding: 5px 12px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <p>
+            <input type="text" placeholder="文字内容" v-model="text" />
+        </p>
+        <table class="table-fonts">
+            <thead>
+            </thead>
+            <tbody>
+                <tr v-for="(row, i) in list" :key="i"
+                    :style="getStyle(row)">
+                    <td >{{row.fontName}}</td>
+                    <td >{{text}}</td>
+                    <td>{{row.support ? '' : '未安装'}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</body>
+</html>
+<script src="../js/vue.min.js"></script>
+<script src="../js/font_support_check.js"></script>
+<script>
+    var vm = new Vue({
+        el: '#main',
+        data: function () {
+            return {
+                text: '能力汇聚-1234567890.ABCDEFGhijklmnOPQRSTuvwzxy'
+            }
+        },
+        methods: {
+            getStyle: function (row) {
+                return {
+                    fontFamily: row.fontName,
+                }
+            },
+        },
+        computed: {
+            list() {
+                return [
+                    'Arial',
+                    'Microsoft Yahei',
+                    'PingFangSC-Regular',
+                    'Helvetica Neue',
+                    'SF Pro Text', 'Source Han',
+                    '宋体', '黑体',
+                    'STHeiti',
+                    'Hiragino Sans GB',
+                ].map(function (fontName) {
+                    return {
+                        fontName: fontName,
+                        support: checkSupportFont(fontName),
+                    }
+                })
+            }
+        },
+        mounted: function () {
+        }
+    })
+</script>
