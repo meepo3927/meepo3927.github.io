@@ -16,9 +16,15 @@
             border: 1px solid #eee;
             padding: 4px 12px;
         }
-        /*
-        sans-serif */
-        p > input {
+        .table-fonts .col-test-text {
+            width: 46vw;
+            word-wrap: break-word;
+            word-break: break-all;
+        }
+        .row-input {
+            display: flex;
+        }
+        .row-input > input {
             width: 460px;
             border: 1px solid #ccc;
             padding: 5px 12px;
@@ -27,18 +33,33 @@
 </head>
 <body>
     <div id="main">
-        <p>
-            <input type="text" placeholder="文字内容" v-model="text" />
+        <p class="row-input">
+            <input type="text" placeholder="文字内容" v-model="testtext" />
+            <button type="button" @click="getSysFonts">查看系统字体</button>
         </p>
         <table class="table-fonts">
-            <thead>
-            </thead>
             <tbody>
                 <tr v-for="(row, i) in list" :key="i"
                     :style="getStyle(row)">
                     <td >{{row.fontName}}</td>
-                    <td >{{text}}</td>
+                    <td >{{testtext}}</td>
                     <td>{{row.support ? '' : '未安装'}}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <table class="table-fonts">
+            <tbody v-if="sysFonts">
+                <tr>
+                    <th colspan="10">系统字体：</th>
+                </tr>
+                <tr v-for="(f, i) in sysFonts" :key="i"
+                    :style="getStyle(f)">
+                    <td>{{f.family}}</td>
+                    <td>{{f.fullName}}</td>
+                    <td>{{f.postscriptName}}</td>
+                    <!--<td>{{f.style}}</td>-->
+                    <td class="col-test-text">{{testtext}}</td>
                 </tr>
             </tbody>
         </table>
@@ -54,20 +75,40 @@
         el: '#main',
         data: function () {
             return {
-                text: '能力汇聚-1234567890.ABCDEFGhijklmnOPQRSTuvwzxy'
+                testtext: '能力汇聚-1234567890.ABCDEFGhijklmnOPQRSTuvwzxy',
+                sysFonts: null,
             }
         },
         methods: {
             getStyle: function (row) {
-                return {
-                    fontFamily: row.fontName,
+                var s = {}
+                if (row.fontName) {
+                    s.fontFamily = row.fontName
+                } else if (row.family) {
+                    s.fontFamily = row.family
                 }
+                return s
+            },
+            getSysFonts: function () {
+                window.queryLocalFonts().then(data => {
+                    const map = {}
+                    this.sysFonts = data.filter(row => {
+                        if (!map[row.family]) {
+                            map[row.family] = row
+                            return true
+                        }
+                        if (row.style !== 'Regular') {
+                            return false
+                        }
+                        return true
+                    })
+                })
             },
         },
         computed: {
             list() {
                 return [
-                    'Arial',
+                    'Arial', 'sans-serif',
                     'Microsoft Yahei',
                     'PingFangSC-Regular',
                     'Helvetica Neue',
@@ -84,6 +125,7 @@
             }
         },
         mounted: function () {
+            window.PageFonts = this
         }
     })
 </script>
